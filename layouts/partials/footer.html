@@ -1,9 +1,10 @@
+{{- $site := hugo.Data.site -}}
 <footer class="site-footer">
   <div class="shell site-footer__inner">
     <div class="site-footer__brand">
-      <p class="brand__name">{{ site.Params.brand | default site.Title }}</p>
-      <p class="site-footer__sub">{{ site.Params.company }}</p>
-      {{- with site.Params.cvr }}
+      <p class="brand__name">{{ $site.brand | default site.Title }}</p>
+      <p class="site-footer__sub">{{ $site.company }}</p>
+      {{- with $site.cvr }}
       <p class="site-footer__meta">{{ . }}</p>
       {{- end }}
     </div>
@@ -20,11 +21,11 @@
     <div class="site-footer__contact">
       <h2 class="footer-heading">{{ i18n "footer_contact" }}</h2>
       <address>
-        <a href="tel:{{ site.Params.phone_href }}">{{ site.Params.phone }}</a><br>
-        <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a><br>
-        {{ site.Params.street }}<br>{{ site.Params.postal }}
+        <a href="tel:{{ $site.phone_href }}">{{ $site.phone }}</a><br>
+        <a href="mailto:{{ $site.email }}">{{ $site.email }}</a><br>
+        {{ $site.street }}<br>{{ $site.postal }}
       </address>
-      <a class="site-footer__ig" href="https://www.instagram.com/{{ site.Params.instagram }}/" target="_blank" rel="me noopener">Instagram · @{{ site.Params.instagram }}</a>
+      <a class="site-footer__ig" href="https://www.instagram.com/{{ $site.instagram }}/" target="_blank" rel="me noopener">Instagram · @{{ $site.instagram }}</a>
     </div>
   </div>
 

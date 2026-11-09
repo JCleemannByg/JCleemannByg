@@ -10,10 +10,14 @@ om_billede: "images/om/portraet.jpg"
 om_overskrift: "Et værksted, ikke et samlebånd"
 om_tekst: "Arbejdet bliver udført af den samme håndværker hele vejen – fra første opmåling til sidste liste. Det giver kortere vej fra idé til resultat og en finish, der kan stå for en nærmere betragtning."
 fakta:
-  - "Siden 2023|Stiftet 3. marts 2023 i Nærum"
-  - "Nærum & omegn|Arbejder i Rudersdal og det nordlige København"
-  - "Indbygning & møbler|Radiatorskjulere, bogreoler og skabe til mål"
-  - "Udvendigt & renovering|Skure, konstruktioner, tag og isolering"
+  - navn: "Siden 2023"
+    tekst: "Stiftet 3. marts 2023 i Nærum"
+  - navn: "Nærum & omegn"
+    tekst: "Arbejder i Rudersdal og det nordlige København"
+  - navn: "Indbygning & møbler"
+    tekst: "Radiatorskjulere, bogreoler og skabe til mål"
+  - navn: "Udvendigt & renovering"
+    tekst: "Skure, konstruktioner, tag og isolering"
 ---
 
 J Cleemann Byg er et lille værksted med store krav til finish. Her er der plads til at

@@ -12,7 +12,7 @@
 
   Renders <picture> with WebP + JPEG srcsets and explicit width/height.
 */ -}}
-{{- $src := .src -}}
+{{- $src := strings.TrimPrefix "/" .src -}}
 {{- $alt := .alt | default "" -}}
 {{- $sizes := .sizes | default "100vw" -}}
 {{- $class := .class | default "" -}}

@@ -1,8 +1,34 @@
 {{- /* Head: meta, SEO, hreflang, stylesheet. One font-free, zero-JS page head. */ -}}
+{{- $site := hugo.Data.site -}}
+{{- $p := hugo.Data.design.palette | default dict -}}
+{{- $ty := hugo.Data.design.typography | default dict -}}
+{{- $l := hugo.Data.design.layout | default dict -}}
+{{- $palette := dict
+  "paper" (index $p "paper" | default "#f6f1e7")
+  "paper2" (index $p "paper2" | default "#ece4d5")
+  "card" (index $p "card" | default "#fffdf8")
+  "ink" (index $p "ink" | default "#24231e")
+  "inkSoft" (index $p "inkSoft" | default "#54514a")
+  "muted" (index $p "muted" | default "#7c7768")
+  "oak" (index $p "oak" | default "#a9703f")
+  "oakDark" (index $p "oakDark" | default "#7d4c26")
+  "line" (index $p "line" | default "#dcd2c1")
+-}}
+{{- $typography := dict
+  "serif" (index $ty "serif" | default `"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif`)
+  "sans" (index $ty "sans" | default `-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif`)
+-}}
+{{- $layout := dict
+  "shell" (index $l "shell" | default "1160px")
+  "gutter" (index $l "gutter" | default "clamp(1.25rem, 4.5vw, 3rem)")
+  "radius" (index $l "radius" | default "2px")
+  "shadow" (index $l "shadow" | default "0 22px 44px -30px rgba(42, 32, 20, 0.5)")
+-}}
+{{- $design := dict "palette" $palette "typography" $typography "layout" $layout -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ .Params.titel | default site.Title }}{{ else }}{{ .Params.titel | default .Title }} · {{ site.Title }}{{ end }}</title>
-<meta name="description" content="{{ .Params.beskrivelse | default site.Params.description | plainify }}">
+<meta name="description" content="{{ .Params.beskrivelse | default (index $site.description site.Language.Lang) | plainify }}">
 <link rel="canonical" href="{{ .Permalink }}">
 {{ partial "hreflang.html" . }}
 {{- if .IsHome }}
@@ -11,7 +37,7 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:site_name" content="{{ site.Title }}">
 <meta property="og:title" content="{{ .Params.titel | default .Title }}">
-<meta property="og:description" content="{{ .Params.beskrivelse | default site.Params.description | plainify }}">
+<meta property="og:description" content="{{ .Params.beskrivelse | default (index $site.description site.Language.Lang) | plainify }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:locale" content="{{ site.Language.Locale }}">
 {{- range .AllTranslations }}
@@ -19,13 +45,15 @@
 <meta property="og:locale:alternate" content="{{ .Language.Locale }}">
 {{- end }}
 {{- end }}
-{{- with site.Params.og_image }}
-{{- with resources.Get . }}
+{{- with $site.og_image }}
+{{- with resources.Get (strings.TrimPrefix "/" .) }}
 <meta property="og:image" content="{{ .Permalink }}">
 {{- end }}
 {{- end }}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#24231e">
 <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+{{- $tokens := resources.Get "css/tokens.css" | resources.ExecuteAsTemplate "css/tokens.css" $design | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $tokens.RelPermalink }}" integrity="{{ $tokens.Data.Integrity }}">
 {{- $css := resources.Get "css/main.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">

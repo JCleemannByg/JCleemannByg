@@ -53,6 +53,11 @@ HUGO=/sti/til/hugo ./scripts/dev.sh
 Alt indhold ligger i markdown-filer. **Hver side findes to gange** — én på dansk og én på
 engelsk — med samme filnavn i `content/da/` og `content/en/`.
 
+Indholdet kan redigeres direkte i filerne **eller** via [Pages CMS](https://pagescms.org),
+som giver en dansk formular på telefonen og committer ændringerne til repoet. Opsætning,
+hvad der kan redigeres (inkl. farver og typografi) og hvad der bevidst ikke kan:
+[docs/pages-cms.md](docs/pages-cms.md).
+
 | Fil | Side |
 |---|---|
 | `content/da/_index.md` | Forsiden (hero, fakta, om-blok, Instagram) |
@@ -124,6 +129,10 @@ forsiden.
 
 Designet er bevidst enkelt: varm papirfarve, eg som accent, serif-overskrifter. Der er
 ingen JavaScript; mobilmenuen er almindelig HTML/CSS.
+
+**Design-tokens** (farver, typografi, bredde, hjørner, skygge) ligger i `data/design.yaml`
+og bliver ved hvert build til CSS-variabler i `assets/css/tokens.css`. Strukturen i
+`main.css` og `layouts/` er kode og ændres ikke via CMS'et.
 
 ---
 

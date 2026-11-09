@@ -4,22 +4,7 @@
    Palette: warm paper, oak accent, workshop charcoal.
    ========================================================================== */
 
-:root {
-  --paper: #f6f1e7;
-  --paper-2: #ece4d5;
-  --card: #fffdf8;
-  --ink: #24231e;
-  --ink-soft: #54514a;
-  --muted: #7c7768;
-  --oak: #a9703f;
-  --oak-dark: #7d4c26;
-  --line: #dcd2c1;
-  --shadow: 0 22px 44px -30px rgba(42, 32, 20, 0.5);
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
-  --shell: 1160px;
-  --gutter: clamp(1.25rem, 4.5vw, 3rem);
-}
+/* Design-tokens are generated from data/design.yaml into css/tokens.css. */
 
 /* ---------- Reset & base ---------- */
 
@@ -98,7 +83,7 @@ a { color: inherit; }
   gap: 0.5rem;
   padding: 0.85rem 1.35rem;
   border: 1px solid var(--oak);
-  border-radius: 2px;
+  border-radius: var(--radius);
   background: var(--oak);
   color: #fff;
   font-size: 0.78rem;

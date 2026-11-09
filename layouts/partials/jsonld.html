@@ -1,38 +1,39 @@
 {{- /* Structured data for local search: business identity, address, phone and
        sameAs links (Instagram + the public directory listing). */ -}}
-{{- $postal := split site.Params.postal " " -}}
+{{- $site := hugo.Data.site -}}
+{{- $postal := split $site.postal " " -}}
 {{- $postcode := index $postal 0 -}}
 {{- $locality := delimit (after 1 $postal) " " -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
-  "name": {{ site.Params.brand | default site.Title | jsonify | safeJS }},
-  "alternateName": {{ site.Params.company | jsonify | safeJS }},
+  "name": {{ $site.brand | default site.Title | jsonify | safeJS }},
+  "alternateName": {{ $site.company | jsonify | safeJS }},
   "url": {{ site.Home.Permalink | jsonify | safeJS }},
-  "telephone": {{ site.Params.phone_href | jsonify | safeJS }},
-  "email": {{ site.Params.email | jsonify | safeJS }},
-  {{- with site.Params.og_image }}
-  {{- with resources.Get . }}
+  "telephone": {{ $site.phone_href | jsonify | safeJS }},
+  "email": {{ $site.email | jsonify | safeJS }},
+  {{- with $site.og_image }}
+  {{- with resources.Get (strings.TrimPrefix "/" .) }}
   "image": {{ .Permalink | jsonify | safeJS }},
   {{- end }}
   {{- end }}
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": {{ site.Params.street | jsonify | safeJS }},
+    "streetAddress": {{ $site.street | jsonify | safeJS }},
     "postalCode": {{ $postcode | jsonify | safeJS }},
     "addressLocality": {{ $locality | jsonify | safeJS }},
     "addressCountry": "DK"
   },
   "areaServed": "Rudersdal, Nordsjælland",
-  {{- with site.Params.founded }}
+  {{- with $site.founded }}
   "foundingDate": {{ . | jsonify | safeJS }},
   {{- end }}
-  {{- with site.Params.cvr }}
+  {{- with $site.cvr }}
   "vatID": {{ (replace (replace . "CVR " "") " " "") | jsonify | safeJS }},
   {{- end }}
   "sameAs": [
-    "https://www.instagram.com/{{ site.Params.instagram }}/",
+    "https://www.instagram.com/{{ $site.instagram }}/",
     "https://www.krak.dk/j+cleemann+byg+v%252fjohann+cleemann+n%c3%a6rum/171060879/firma",
     "https://xn--hndvrkerregistret-8qbw.dk/j-cleemann-byg-v-johann-cleemann/"
   ]

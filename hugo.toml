@@ -12,22 +12,9 @@ defaultContentLanguageInSubdir = false
 disableKinds = ['taxonomy', 'term', 'rss']
 
 [params]
-  brand = 'J Cleemann Byg'
-  company = 'J Cleemann Byg v/ Johann Cleemann'
-  street = 'Nærum Hovedgade 15'
-  postal = '2850 Nærum'
-  # Verified against Håndværkerregistret (CVR 43 89 14 99) on 2026-11-09.
-  phone = '+45 42 58 11 01'
-  phone_href = '+4542581101'
-  email = 'kontakt@jcleemannbyg.dk'
-  cvr = 'CVR 43 89 14 99'
-  founded = '2023-03-03'
-  instagram = 'jcleemann_byg'
-  maps_url = 'https://www.google.com/maps/search/?api=1&query=N%C3%A6rum+Hovedgade+15%2C+2850+N%C3%A6rum'
-  og_image = 'images/hero.jpg'
-  # Optional live Instagram feed: paste the widget embed code from the provider
-  # (SnapWidget/LightWidget). Empty string = the curated gallery from
-  # data/instagram.yaml is used instead. See docs/instagram.md.
+  # Optional live Instagram feed (developer setting, not exposed in Pages CMS).
+  # Paste the widget embed code from SnapWidget/LightWidget here. Empty = the
+  # posts from data/instagram_posts.json (or data/instagram.yaml) are shown.
   instagram_widget = ""
 
 [imaging]
@@ -46,8 +33,6 @@ disableKinds = ['taxonomy', 'term', 'rss']
     locale = 'da-DK'
     weight = 1
     title = 'J Cleemann Byg — tømrer og snedker i Nærum'
-    [languages.da.params]
-      description = 'Snedker- og tømrerarbejde i Nærum og omegn: indbygningsmøbler, udvendige konstruktioner og renovering med sans for materialet.'
     [[languages.da.menu.main]]
       name = 'Projekter'
       pageRef = '/projekter'
@@ -71,8 +56,6 @@ disableKinds = ['taxonomy', 'term', 'rss']
     locale = 'en'
     weight = 2
     title = 'J Cleemann Byg — carpenter and joiner in Nærum, Denmark'
-    [languages.en.params]
-      description = 'Joinery and carpentry in Nærum and around: built-in furniture, outdoor structures and renovation, made with care for the material.'
     [[languages.en.menu.main]]
       name = 'Projects'
       pageRef = '/projekter'

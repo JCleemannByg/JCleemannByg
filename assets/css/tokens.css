@@ -1,0 +1,23 @@
+/*
+ * Design-tokens — genereret ud fra data/design.yaml ved hvert build.
+ * Rediger data/design.yaml (eller brug Pages CMS → Design); ikke denne fil.
+ */
+:root {
+  --paper: {{ .palette.paper }};
+  --paper-2: {{ .palette.paper2 }};
+  --card: {{ .palette.card }};
+  --ink: {{ .palette.ink }};
+  --ink-soft: {{ .palette.inkSoft }};
+  --muted: {{ .palette.muted }};
+  --oak: {{ .palette.oak }};
+  --oak-dark: {{ .palette.oakDark }};
+  --line: {{ .palette.line }};
+
+  --serif: {{ .typography.serif }};
+  --sans: {{ .typography.sans }};
+
+  --shell: {{ .layout.shell }};
+  --gutter: {{ .layout.gutter }};
+  --radius: {{ .layout.radius }};
+  --shadow: {{ .layout.shadow }};
+}

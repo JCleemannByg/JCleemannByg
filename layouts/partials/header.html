@@ -1,7 +1,8 @@
+{{- $site := hugo.Data.site -}}
 <header class="site-header">
   <div class="shell site-header__inner">
     <a class="brand" href="{{ site.Home.RelPermalink }}">
-      <span class="brand__name">{{ site.Params.brand | default site.Title }}</span>
+      <span class="brand__name">{{ $site.brand | default site.Title }}</span>
       <span class="brand__sub">{{ i18n "brand_sub" }}</span>
     </a>
 
@@ -15,7 +16,7 @@
 
     <div class="site-header__actions">
       {{ partial "lang-switch.html" . }}
-      <a class="button button--small site-header__phone" href="tel:{{ site.Params.phone_href }}">{{ i18n "call" }} {{ site.Params.phone }}</a>
+      <a class="button button--small site-header__phone" href="tel:{{ $site.phone_href }}">{{ i18n "call" }} {{ $site.phone }}</a>
     </div>
   </div>
 </header>

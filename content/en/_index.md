@@ -10,10 +10,14 @@ om_billede: "images/om/portraet.jpg"
 om_overskrift: "A workshop, not an assembly line"
 om_tekst: "The work is carried out by the same craftsman from the first measurement to the last piece of trim. That means a shorter way from idea to result – and a finish that holds up to a closer look."
 fakta:
-  - "Since 2023|Established in Nærum on 3 March 2023"
-  - "Nærum & surroundings|Working in Rudersdal and northern Copenhagen"
-  - "Built-ins & furniture|Radiator covers, bookcases and made-to-measure cupboards"
-  - "Outdoor & renovation|Sheds, structures, roofing and insulation"
+  - navn: "Since 2023"
+    tekst: "Established in Nærum on 3 March 2023"
+  - navn: "Nærum & surroundings"
+    tekst: "Working in Rudersdal and northern Copenhagen"
+  - navn: "Built-ins & furniture"
+    tekst: "Radiator covers, bookcases and made-to-measure cupboards"
+  - navn: "Outdoor & renovation"
+    tekst: "Sheds, structures, roofing and insulation"
 ---
 
 J Cleemann Byg is a small workshop with high standards for the finish. There is room to

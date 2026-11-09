@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{- $site := hugo.Data.site -}}
 {{- $hero := .Params.hero_billede -}}
 
 <section class="hero">
@@ -12,7 +13,7 @@
     {{ with .Params.hero_tekst }}<p class="hero__text">{{ . }}</p>{{ end }}
     <div class="hero__actions">
       {{ with site.GetPage "/projekter" }}<a class="button" href="{{ .RelPermalink }}">{{ i18n "see_projects" }}</a>{{ end }}
-      <a class="button button--ghost" href="tel:{{ site.Params.phone_href }}">{{ i18n "call" }} {{ site.Params.phone }}</a>
+      <a class="button button--ghost" href="tel:{{ $site.phone_href }}">{{ i18n "call" }} {{ $site.phone }}</a>
     </div>
   </div>
 </section>
@@ -22,10 +23,10 @@
     {{ with .Content }}<div class="intro__body prose prose--lead">{{ . }}</div>{{ end }}
     {{ with .Params.fakta }}
     <dl class="facts">
-      {{- range . }}{{ $parts := split . "|" }}
+      {{- range . }}
       <div class="fact">
-        <dt>{{ index $parts 0 }}</dt>
-        <dd>{{ index $parts 1 }}</dd>
+        <dt>{{ .navn }}</dt>
+        <dd>{{ .tekst }}</dd>
       </div>
       {{- end }}
     </dl>
@@ -101,13 +102,13 @@
 {{- end -}}
 {{- $profileURL := .profile_url -}}
 <section class="ig">
-  {{- $hasWidget := site.Params.instagram_widget -}}
+  {{- $hasWidget := $site.instagram_widget -}}
   <div class="shell ig__inner{{ if $hasWidget }} ig__inner--widget{{ end }}">
     <div class="ig__text">
       <p class="eyebrow eyebrow--light">{{ i18n "instagram_label" }}</p>
       <h2 class="ig__title">{{ i18n "instagram_heading" }}</h2>
       <p class="ig__desc">{{ i18n "instagram_text" }}</p>
-      <a class="button button--light" href="{{ $profileURL }}" target="_blank" rel="me noopener">{{ i18n "follow" }} @{{ site.Params.instagram }}</a>
+      <a class="button button--light" href="{{ $profileURL }}" target="_blank" rel="me noopener">{{ i18n "follow" }} @{{ $site.instagram }}</a>
     </div>
     {{- if $hasWidget }}
     <div class="ig__widget">{{ $hasWidget | safeHTML }}</div>

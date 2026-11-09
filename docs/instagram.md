@@ -51,6 +51,36 @@ men så lander besøgende på en SnapWidget-side ved klik.
 Den kuraterede sektion bevares som **fallback**: Hvis widgetten ikke kan indlæses, viser
 siden stadig de udvalgte billeder fra `data/instagram.yaml`. Det er også det, der sker nu.
 
+## Valgt løsning: en fil med links (ingen login)
+
+Siden bruger Instagrams **officielle embeds pr. opslag**, styret af en liste i
+`data/instagram.yaml`:
+
+```yaml
+posts:
+  - url: "https://www.instagram.com/p/ABC123/"
+    image: "images/instagram/01.jpg"   # valgfrit forhåndsbillede (anbefales)
+    caption:
+      da: "Køkken i massiv eg"
+      en: "Kitchen in solid oak"
+```
+
+- Hvert opslag vises som et felt med (valgfrit) forhåndsbillede og teksten "Vis opslag".
+- **Først når besøgende klikker, indlæses Instagrams `embed.js`** og opslaget vises —
+  ingen tredjeparts-cookies eller scripts ved sideindlæsning. Er `posts` tom, er der
+  stadig 0 bytes JavaScript på siden.
+- "Åbn på Instagram" og luk-knap hører til panelet; Escape lukker det.
+- Er `posts` tom, vises det kuraterede galleri (`items`) i stedet — det er den nuværende
+  tilstand, indtil de første links er lagt ind.
+
+**Testet 2026-11-09** med offentlige opslag: embeddet renderer uden login, og panelet
+indlæses korrekt i sidens design (se `docs/preview/ig-tiles.png` og
+`docs/preview/ig-embed.png`).
+
+**Begrænsning, som er værd at sige højt:** listen opdaterer sig ikke af sig selv. Nye
+opslag kræver, at der lægges et link ind — 30 sekunders arbejde pr. opslag, ingen login,
+ingen tokens, intet der kan udløbe. Det er byttet for at slippe for API-vedligehold.
+
 ## Uden Instagram-login? — efterprøvet 2026-11-09
 
 Kort svar: **Nej, ikke for en automatisk feed.** Instagram kræver, at ejeren af kontoen

@@ -1,16 +1,29 @@
 # Instagram-indhold til forsiden.
 #
-# Siden henter IKKE live data fra Instagram. Billederne er kopieret ind i
-# assets/images/instagram/ og vises lokalt — det er hurtigst, kræver ingen
-# tokens og ingen tredjeparts-cookies.
+# To måder at vise Instagram — vælg med `posts` og `items`:
 #
-# For hvert opslag:
-#   image    lokal billedfil under assets/
-#   url      link til opslaget på Instagram (brug profil-URL indtil der er
-#            konkrete opslag at linke til)
+#   posts  → en liste af LINKS til konkrete opslag. Hvert opslag vises som et
+#            klikbart felt; først når besøgende klikker, indlæses Instagrams
+#            officielle embed. Kræver ingen login, ingen token og sætter ingen
+#            cookies før klikket.
+#
+#   items  → kuraterede lokale billeder (fallback når `posts` er tom).
+#
+# Hvert post:
+#   url      link til opslaget, fx https://www.instagram.com/p/ABC123/
+#   image    valgfrit lokalt forhåndsbillede i assets/ (anbefales — så ser
+#            sektionen færdig ud, før nogen klikker)
 #   caption  billedtekst på dansk og engelsk
 #
-# Vil du vise et andet udvalg, så skift rækkefølgen eller tilføj flere elementer.
+# Eksempel:
+#   posts:
+#     - url: "https://www.instagram.com/p/ABC123/"
+#       image: "images/instagram/01.jpg"
+#       caption:
+#         da: "Køkken i massiv eg"
+#         en: "Kitchen in solid oak"
+posts: []
+
 profile_url: "https://www.instagram.com/jcleemann_byg/"
 items:
   - image: "images/instagram/01.jpg"

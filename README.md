@@ -126,17 +126,18 @@ ingen JavaScript; mobilmenuen er almindelig HTML/CSS.
 
 ## Instagram
 
-Siden viser et **kurateret udvalg** af Instagram-billeder (gemt lokalt) med links til
-opslagene og en "følg"-knap — ingen live-data, ingen tredjeparts-scripts, ingen cookies.
+Der er to måder at vise Instagram på, begge i `data/instagram.yaml`:
 
-- Billeder: læg dem i `assets/images/instagram/`
-- Udvalg, links og billedtekster: `data/instagram.yaml`
-- Baggrund for valget og de øvrige muligheder (officiel embed, Graph API, widget):
-  [docs/instagram.md](docs/instagram.md)
+- **`posts`** (anbefalet): en liste af **links til konkrete opslag**. Hvert opslag vises
+  som et felt; først ved klik indlæses Instagrams officielle embed — ingen login, ingen
+  token, ingen cookies før klikket. Kræver et link pr. opslag, som lægges ind manuelt.
+- **`items`**: kuraterede lokale billeder. Bruges automatisk som fallback når `posts` er
+  tom (det er den nuværende tilstand).
 
-Vil man have en **live feed** i stedet, sættes widget-koden i `instagram_widget` i
-`hugo.toml` (se `docs/instagram.md`); den får automatisk fuld bredde i sektionen. Er feltet tomt, vises det kuraterede galleri — og
-hvis widgetten fejler, er galleriet stadig der som fallback.
+Nye opslag tilføjes ved at kopiere linket fra Instagram-appen ("⋯ → Kopiér link") og
+indsætte det i listen sammen med et valgfrit forhåndsbillede og en dansk/engelsk tekst.
+Baggrund, testresultater og de øvrige muligheder (LightWidget, SnapWidget, API):
+[docs/instagram.md](docs/instagram.md).
 
 Siden har også struktureret data (`sameAs` til Instagram og Krak), så Google kan knytte
 profilen til virksomheden.

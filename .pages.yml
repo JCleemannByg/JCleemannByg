@@ -175,6 +175,9 @@ content:
       - name: call
         label: "call"
         type: string
+      - name: write
+        label: "write"
+        type: string
       - name: instagram_open_post
         label: "instagram_open_post"
         type: string

@@ -208,7 +208,8 @@ branches and tags**.
 
 | Workflow | Gør |
 |---|---|
-| `deploy.yml` | Ved push til `main` **eller `develop`**, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer billeder, bygger produktion fra `main` + preview fra `develop`, verificerer og publicerer |
+| `deploy.yml` | Ved push til `main`, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer billeder, bygger produktion fra `main` + preview fra `develop`, verificerer og publicerer |
+| `preview-sync.yml` | Ved push til `develop`: beder om et `main`-deploy, så preview-URL'en opdateres |
 | `check.yml` | Ved push til `develop` og PR mod `main`: ekstra byg+verifikation af branchen |
 | `cms-action.yml` | Triggeres af knappen "Genbyg og publicér" i Pages CMS og kører `deploy.yml` på `main` |
 
@@ -240,18 +241,20 @@ Der er altså en rigtig preview-URL:
 - **Produktion:** <https://jcleemannbyg.github.io/JCleemannByg/>
 - **Preview (develop):** <https://jcleemannbyg.github.io/JCleemannByg/preview/>
 
-Sådan virker det: `deploy.yml` kører ved push til **begge** branches. Produktionen bygges
-altid fra `main`, og derefter bygges `develop` ind i samme artifact under `/preview/` med
-`--environment preview` (giver `noindex` og en tydelig preview-bar). Preview-buildet er
-best effort: fejler `develop`, deployer produktionen stadig.
+Sådan virker det: push til `main` deployer direkte. Push til `develop` starter
+`preview-sync.yml`, som **beder `deploy.yml` om at køre på `main`** — det er nødvendigt,
+fordi GitHub Pages behandler deployment fra en ikke-standard-branch som en separat
+preview-deployment, der ikke opdaterer den publicerede side. Deployet bygger derfor
+produktion fra `main` og `develop` ind i samme artifact under `/preview/` med
+`--environment preview` (giver `noindex` og en synlig preview-bar). Fejler `develop`,
+deployer produktionen stadig.
 
 I Pages CMS skifter du branch øverst i UI'et. Rediger på `develop`, se resultatet på
 preview-URL'en, og flet derefter `develop` → `main`, når det skal live. Bemærk at
 **"Genbyg og publicér"-knappen altid deployer `main`** (produktion).
 
-GitHub Pages kræver, at begge branches er tilladt i environmentet: **Settings →
-Environments → github-pages → Deployment branches and tags** skal indeholde `main` **og**
-`develop`.
+Environmentet **github-pages** skal kun tillade `main` (deploy sker altid på `main`).
+`develop` deployes aldrig direkte.
 
 ## Pages CMS-knapper (actions)
 

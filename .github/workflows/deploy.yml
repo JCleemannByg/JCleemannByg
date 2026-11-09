@@ -12,7 +12,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   schedule:
     # Daily at 04:17 UTC (05:17/06:17 Danish time depending on DST).
     - cron: "17 4 * * *"
@@ -33,10 +33,6 @@ jobs:
     steps:
       - name: Checkout production source (main)
         uses: actions/checkout@v4
-        with:
-          # Always build production from main, even when this run was triggered
-          # by a develop push (which is how the preview stays fresh).
-          ref: main
 
       - name: Checkout develop for the preview build
         id: preview_src

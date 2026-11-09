@@ -98,7 +98,7 @@ Pages CMS har en branch-vælger, fordi den læser repoets branches. Opsætningen
 | Branch | Rolle | Hvad sker der ved push |
 |---|---|---|
 | `main` | Produktion | `deploy.yml` bygger og publicerer på `/` |
-| `develop` | Udkast/eksperimenter | `deploy.yml` bygger preview på `/preview/` (noindex); `check.yml` verificerer ekstra |
+| `develop` | Udkast/eksperimenter | `preview-sync.yml` beder om et `main`-deploy, som bygger preview på `/preview/` (noindex) |
 
 Sådan bruges det: vælg `develop` i Pages CMS, rediger frit, og se resultatet på
 **<https://jcleemannbyg.github.io/JCleemannByg/preview/>** (eller lokalt med
@@ -106,8 +106,10 @@ Sådan bruges det: vælg `develop` i Pages CMS, rediger frit, og se resultatet p
 (gerne via pull request), og ændringerne går live.
 
 Preview-siden bygges fra `develop` ind i samme deployment som produktionen, får
-`noindex` og en synlig preview-bar. GitHub Pages kræver at begge branches er tilladt under
-**Settings → Environments → github-pages → Deployment branches and tags**.
+`noindex` og en synlig preview-bar. GitHub Pages behandler deployment fra andre branches
+som separate previews, der ikke opdaterer den publicerede side — derfor dispatcher
+`preview-sync.yml` et almindeligt `main`-deploy i stedet. Environmentet skal kun tillade
+`main`.
 
 ## Knapper i Pages CMS (actions)
 

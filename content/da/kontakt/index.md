@@ -3,10 +3,13 @@ title: "Kontakt"
 titel: "Kontakt J Cleemann Byg – tømrer i Nærum"
 beskrivelse: "Ring eller skriv til J Cleemann Byg om din opgave i Nærum og omegn."
 undertitel: "Kom i gang"
+lead: "Ring eller skriv – så taler vi om opgaven, målene og hvad der giver mening."
+billede: "images/projekter/bogreol/01.jpg"
+omraade: "Nærum · Rudersdal · nord for København"
+billedtekst: "Indbygget bogreol i Nærum"
 ---
 
-Den nemmeste vej er et opkald – så kan vi hurtigt tale om opgaven, målene og hvad der
-giver mening. Har du billeder eller tegninger, kan de sendes på mail.
+Har du billeder eller tegninger, må du gerne sende dem på mail. Så er der et bedre
+udgangspunkt for at tale materialer og finish.
 
-Vi aftaler et besøg, hvor vi ser på opgaven sammen og taler materialer og finish igennem,
-inden der bliver lagt en plan. <!-- TODO(johann): bekræft svarformer, svartider og opgaveområde. -->
+Vi aftaler et besøg, hvor vi ser på opgaven sammen, inden der bliver lagt en plan.

@@ -479,6 +479,18 @@ content:
           - name: undertitel
             label: "Lille tekst over overskriften"
             type: string
+          - name: lead
+            label: "Kort intro under overskriften"
+            type: text
+          - name: billede
+            label: "Billede til siden (stående)"
+            type: image
+          - name: omraade
+            label: "Område"
+            type: string
+          - name: billedtekst
+            label: "Billedtekst"
+            type: string
           - name: body
             label: "Brødtekst"
             type: rich-text

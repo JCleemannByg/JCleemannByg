@@ -30,7 +30,8 @@ Category inconsistency worth knowing: **Krak/Degulesider class it as "Snedker"**
 branchekode 433200 (tømrerarbejde)** — and his own posts show both framing/insulation and
 built-in furniture. The site therefore says "Tømrer & snedker", which is defensible; the
 owner should still confirm the preferred headline. Note: Håndværkerregistret also shows
-both "Reklamebeskyttelse: Ja" and "Nej" in two blocks — contradictory, do not rely on it.
+both "Reklamebeskyttelse: Ja" and "Nej" in two blocks — contradictory, so treat it as
+unreliable. It does not affect the site: publication of the business e-mail is confirmed.
 
 ## 2. Contact data
 
@@ -40,7 +41,7 @@ both "Reklamebeskyttelse: Ja" and "Nej" in two blocks — contradictory, do not 
 | Coordinates | 55.818616, 12.530606 (OSM matches the Krak map pin 55.8186188, 12.5306101) | FACT (krak, OSM Nominatim) |
 | Phone | **42 58 11 01** (full number; Krak truncates it behind "Vis nummer", registry shows it) | FACT (Håndværkerregistret) |
 | Phone type | 42-series is a Danish mobile range → likely a mobile, consistent with a one-man firm | INFERENCE |
-| Email | **kontakt@jcleemannbyg.dk** (Cloudflare-obfuscated on the registry page; decodes to this address, matching the Titan mail setup on the domain) | FACT (Håndværkerregistret, decoded) |
+| Email | **kontakt@jcleemannbyg.dk** (Cloudflare-obfuscated on the registry page; decodes to this address, matching the Titan mail setup on the domain). **Approved for publication on the site** by the site owner, 2026-11-09 | FACT (Håndværkerregistret, decoded) |
 | Website | `jcleemannbyg.dk` listed by the registry, but nothing was ever served there | FACT (registry + DNS/TLS probes) |
 | Service area | not stated by any reliable source | UNKNOWN |
 | Opening hours | "Man-Fre 07:00-16:30" appears **only** on the templated portals | UNVERIFIED — assume boilerplate |

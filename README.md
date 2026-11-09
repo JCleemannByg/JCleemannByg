@@ -135,7 +135,7 @@ opslagene og en "følg"-knap — ingen live-data, ingen tredjeparts-scripts, ing
   [docs/instagram.md](docs/instagram.md)
 
 Vil man have en **live feed** i stedet, sættes widget-koden i `instagram_widget` i
-`hugo.toml` (se `docs/instagram.md`). Er feltet tomt, vises det kuraterede galleri — og
+`hugo.toml` (se `docs/instagram.md`); den får automatisk fuld bredde i sektionen. Er feltet tomt, vises det kuraterede galleri — og
 hvis widgetten fejler, er galleriet stadig der som fallback.
 
 Siden har også struktureret data (`sameAs` til Instagram og Krak), så Google kan knytte

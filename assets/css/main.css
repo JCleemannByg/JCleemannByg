@@ -589,6 +589,12 @@ a { color: inherit; }
   color: #c9c1b1;
 }
 
+.ig__inner--widget { grid-template-columns: 1fr; }
+
+.ig__inner--widget .ig__text { max-width: 46ch; }
+
+.ig__inner--widget .ig__widget { width: 100%; }
+
 .ig__widget iframe,
 .ig__widget img,
 .ig__widget > * { max-width: 100%; }

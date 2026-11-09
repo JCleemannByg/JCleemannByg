@@ -96,7 +96,8 @@
 
 {{- with hugo.Data.instagram }}
 <section class="ig">
-  <div class="shell ig__inner">
+  {{- $hasWidget := site.Params.instagram_widget -}}
+  <div class="shell ig__inner{{ if $hasWidget }} ig__inner--widget{{ end }}">
     <div class="ig__text">
       <p class="eyebrow eyebrow--light">{{ i18n "instagram_label" }}</p>
       <h2 class="ig__title">{{ i18n "instagram_heading" }}</h2>

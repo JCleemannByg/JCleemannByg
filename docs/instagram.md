@@ -51,6 +51,29 @@ men så lander besøgende på en SnapWidget-side ved klik.
 Den kuraterede sektion bevares som **fallback**: Hvis widgetten ikke kan indlæses, viser
 siden stadig de udvalgte billeder fra `data/instagram.yaml`. Det er også det, der sker nu.
 
+## Testet lokalt (2026-11-09)
+
+En offentlig LightWidget-demo (masonry) blev sat i `instagram_widget` og bygget lokalt:
+
+- **Widgetten virker:** den indlæses via iframe, viser et levende grid med links til
+  Instagram og har hverken logo eller reklamer.
+- **Den arver ikke sidens typografi.** Farver, kolonner, captions, mellemrum og
+  billedformat justeres i LightWidgets widget-creator. Sættes den i `instagram_widget`,
+  får den automatisk fuld bredde under teksten (`.ig__inner--widget`), hvilket ser langt
+  bedre ud end den smalle højrekolonne.
+- **Testet over både HTTP og HTTPS** (selvsigneret certifikat lokalt): demowidgetten vises
+  i begge. Det beviser mekanismen — men **ikke** gratisniveauet, fordi demo-widgets på
+  lightwidget.com er opgraderede.
+- **Gratisniveauet kan ikke testes uden at forbinde en Instagram-konto.** LightWidgets
+  egen side siger eksplicit *"Works on HTTPS websites: No"* for Free, mens Upgraded
+  tilføjer HTTPS, 30-minutters opdatering, CDN, redigerbare indstillinger og mails ved
+  udløbet token. GitHub Pages er altid HTTPS → gratisniveauet er ikke brugbart i
+  produktion.
+- **14 dages gratis prøve** på upgrade (uden kort) gør det muligt at teste den rigtige
+  opsætning med Johanns konto, før de 15 $ betales.
+- SnapWidgets gratisplan oplyser 15-minutters opdatering og nævner ingen
+  HTTPS-begrænsning; det er det gratis alternativ, der bør testes på samme måde.
+
 ## Sådan sætter du en widget ind
 
 1. Opret widgetten hos udbyderen, og forbind Johanns Instagram-konto (han skal logge ind

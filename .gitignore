@@ -11,3 +11,6 @@ _spikes/
 
 # Review screenshots (not part of the site)
 docs/preview/
+
+# Local pinned Hugo binary (downloaded, not committed)
+bin/

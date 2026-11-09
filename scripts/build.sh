@@ -8,7 +8,14 @@
 # Then: python3 scripts/verify.py --public public --base /   (or the matching base path)
 set -euo pipefail
 cd "$(dirname "$0")/.."
-HUGO_BIN="${HUGO:-hugo}"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+if [ -n "${HUGO:-}" ]; then
+  HUGO_BIN="$HUGO"
+elif [ -x "$ROOT/bin/hugo" ]; then
+  HUGO_BIN="$ROOT/bin/hugo"
+else
+  HUGO_BIN="hugo"
+fi
 BASE_URL="${BASE_URL:-http://localhost:8080/}"
 BASE_PATH="$(printf '%s' "$BASE_URL" | sed -E 's#^[a-z]+://[^/]+##')"
 [ -n "$BASE_PATH" ] || BASE_PATH="/"

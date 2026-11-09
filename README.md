@@ -17,11 +17,14 @@ og billeder. Alt indhold er tekstfiler, som kan redigeres uden at røre koden.
 Kræver **Hugo extended 0.169** eller nyere.
 
 ```sh
-brew install hugo          # macOS
+brew install hugo          # macOS — kun nødvendigt hvis repoet ikke har bin/hugo
 hugo version               # skal sige v0.169.x eller nyere
 
 ./scripts/dev.sh           # lokal server på http://localhost:1313/
 ```
+
+Scriptene bruger automatisk `bin/hugo` (en fastlåst 0.169.0), hvis den findes i
+repoet — ellers `hugo` fra PATH. `bin/` er ikke committet.
 
 Engelsk version: <http://localhost:1313/en/>
 
@@ -70,7 +73,7 @@ titel: "Køkken i massiv eg i Nærum"  # browserfanen / Google
 beskrivelse: "Kort tekst til Google" # meta description
 kategori: "Køkken"                   # vises over titlen
 aar: 2025                            # årstal
-vaegt: 10                            # rækkefølge (lav = først)
+weight: 10                           # rækkefølge (lav = først)
 cover: "images/projekter/koekken-eg/01.jpg"
 galleri:
   - "images/projekter/koekken-eg/02.jpg"
@@ -90,7 +93,7 @@ Brødteksten er almindelig markdown og vises under cover-billedet.
 4. `./scripts/build.sh` og `python3 scripts/verify.py --public public --base /`.
 5. Committ og push — siden bygges automatisk, når GitHub Pages er sat op.
 
-Rækkefølgen styres af `vaegt`: de tre laveste vægte vises som "Udvalgte projekter" på
+Rækkefølgen styres af `weight`: de tre laveste vægte vises som "Udvalgte projekter" på
 forsiden.
 
 ---

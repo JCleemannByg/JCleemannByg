@@ -58,7 +58,7 @@ jobs:
 
       - name: Build
         env:
-          BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+          BASE_URL: https://${{ lower(github.repository_owner) }}.github.io/${{ github.event.repository.name }}/
         run: pixi run build
 
       - name: Verify (language, links, image dimensions, base path)

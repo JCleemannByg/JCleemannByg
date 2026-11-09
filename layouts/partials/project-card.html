@@ -2,7 +2,11 @@
 {{- $p := .page -}}
 <a class="card" href="{{ $p.RelPermalink }}">
   <span class="card__media">
-    {{ partial "responsive-img.html" (dict "src" $p.Params.cover "alt" $p.Title "sizes" "(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw" "class" "card__img" "widths" (slice 480 720 960)) }}
+    {{- with $p.Params.cover }}
+    {{ partial "responsive-img.html" (dict "src" . "alt" $p.Title "sizes" "(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw" "class" "card__img" "widths" (slice 480 720 960)) }}
+    {{- else }}
+    <span class="card__placeholder" aria-hidden="true">{{ i18n "project" }}</span>
+    {{- end }}
   </span>
   <span class="card__body">
     <span class="card__meta">{{ $p.Params.kategori }}{{ with $p.Params.aar }} · {{ . }}{{ end }}</span>

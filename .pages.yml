@@ -350,6 +350,7 @@ content:
         type: collection
         path: content/da/projekter
         format: yaml-frontmatter
+        filename: "{primary}.md"
         exclude: ["_index.md"]
         view:
           primary: title

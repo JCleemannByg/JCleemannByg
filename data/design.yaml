@@ -9,7 +9,7 @@ palette:
   card: "#fffdf8"       # kort/paneler
   ink: "#24231e"        # overskrifter og tekst
   inkSoft: "#54514a"    # brødtekst
-  muted: "#7c7768"      # dæmpet tekst
+  muted: "#6a6558"      # dæmpet tekst (opdateret for kontrast)
   oak: "#a9703f"        # accent (knapper, links)
   oakDark: "#7d4c26"    # accent, hover
   line: "#dcd2c1"       # streger og kanter

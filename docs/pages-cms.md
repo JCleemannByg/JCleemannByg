@@ -22,10 +22,11 @@ bare filerne direkte.
 2. Gå til [app.pagescms.org](https://app.pagescms.org) og log ind med GitHub.
 3. Installér GitHub-app'en på det pågældende repo (kun det repo).
 4. Vælg repoet. Menuen kommer fra `.pages.yml`.
-5. **Settings → Actions → General → Workflow permissions → "Read and write permissions"**
-   (så Instagram-workflowet må committe sin opdaterede liste).
-6. Giv Johann adgang: enten som **collaborator** på repoet, eller via Pages CMS'
+5. Giv Johann adgang: enten som **collaborator** på repoet, eller via Pages CMS'
    collaborator-funktion. Han skal have en gratis GitHub-konto.
+
+> Der kræves **ingen** "Read and write permissions" i Actions-indstillingerne: deploy
+> henter Instagram-snapshot og optimerer billeder i build-runneren i stedet for at committe.
 
 ## Hvad kan redigeres
 
@@ -86,17 +87,17 @@ automatisk, når sproget dukker op:
 - **Layout og skabeloner** (`layouts/`) — struktur, sektionsrækkefølge, HTML.
 - **CSS-strukturen** (`assets/css/main.css`) — kun tokens er redigerbare.
 - **Menupunkterne** — de ligger i `hugo.toml`.
-- **Instagram-listerne** (`data/instagram_posts.json`, `data/instagram.yaml`) — de
-  opdateres automatisk af `.github/workflows/instagram.yml`.
+- **Instagram-listerne** (`data/instagram_posts.json`, `data/instagram.yaml`) — de hentes
+  automatisk ved deploy og redigeres derfor ikke i CMS'et.
 - **Workflows, scripts og konfiguration** — udvikleransvar.
 
 ## Forbehold
 
 - **Ingen live-forhåndsvisning** i den gratis hosted version: gem → commit → genbyg.
 - **Ingen granulære rettigheder endnu**: alle med adgang til repoet kan redigere alt.
-- **Billeder lægges i repoet**, men behøver ikke at være optimeret på forhånd:
-  `.github/workflows/images.yml` nedskalerer automatisk alt over 2000 px og rekomprimerer
-  ved næste push. Lokalt: `pixi run images`.
+- **Billeder lægges i repoet**, men behøver ikke at være optimeret på forhånd: deploy
+  nedskalerer automatisk alt over 2000 px og rekomprimerer **i build-runneren**. Det gør
+  den publicerede side let, men ændrer ikke originalen i repoet. Lokalt: `pixi run images`.
 - **TOML-filerne med knaptekster** bliver skrevet af CMS'et ved gem; kommentarer i dem
   kan forsvinde.
 - **Pages CMS er et lille projekt** (MIT). Skulle det forsvinde, er alt indhold stadig

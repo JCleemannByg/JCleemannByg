@@ -101,9 +101,9 @@ forsiden.
 - **Placering:** `assets/images/…`. Billeder refereres i frontmatter, aldrig i markdown —
   så bliver de automatisk skaleret og leveret som WebP i flere størrelser.
 - **Alt-tekst** dannes ud fra projektets titel og billednummer.
-- **Store uploads håndteres automatisk:** workflowet `.github/workflows/images.yml`
-  nedskalerer alt over 2000 px og rekomprimerer, når der pushes billeder. Lokalt kan samme
-  script køres med `pixi run images`.
+- **Store uploads håndteres automatisk:** ved hvert deploy nedskalerer `deploy` alt over
+  2000 px og rekomprimerer, før siden bygges. Lokalt kan samme script køres med
+  `pixi run images`.
 - Hugo laver selv `srcset` og `width`/`height`, så der ikke sker layoutskift.
 
 ---
@@ -141,10 +141,9 @@ Der er to måder at vise Instagram på, begge i `data/instagram.yaml`:
 - **`items`**: kuraterede lokale billeder. Bruges automatisk som fallback når `posts` er
   tom (det er den nuværende tilstand).
 
-**Opdatering sker automatisk:** `.github/workflows/instagram.yml` kører dagligt,
-henter de nyeste opslag via `scripts/fetch_instagram.py`, gemmer nye forhåndsbilleder og
-committer `data/instagram_posts.json` (kun hvis noget er ændret). Siden genbygges derefter
-af deploy-workflowet. Fejler hentningen, bliver den forrige snapshot bare liggende.
+**Opdatering sker automatisk ved deploy:** `deploy` kører dagligt (og ved hvert push)
+`scripts/fetch_instagram.py`, henter de nyeste opslag og bruger dem i buildet — uden at
+committe. Fejler hentningen, bruges den committede `data/instagram_posts.json`.
 
 Nye eller ældre opslag kan stadig tilføjes manuelt i `data/instagram.yaml` — kopiér linket
 fra Instagram-appen ("⋯ → Kopiér link") og indsæt det sammen med et valgfrit
@@ -198,16 +197,16 @@ findes og Pages er aktiveret.
    `https://<brugernavn>.github.io/JCleemannByg/`.
 4. Workflowet bygger med `baseURL` ud fra repoets navn og kører `verify.py` før deploy.
 
-### Workflows
+### Workflow
 
 | Workflow | Gør |
 |---|---|
-| `deploy.yml` | Bygger med pixi og publicerer til Pages; kører `verify.py` før upload |
-| `instagram.yml` | Dagligt: opdaterer Instagram-liste + forhåndsbilleder og committer |
-| `images.yml` | Ved billedpushes: nedskalerer store fotos og committer |
+| `deploy.yml` | Ved push, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer store billeder, bygger med pixi, verificerer og publicerer |
 
-De to sidste committer med `GITHUB_TOKEN`, og derfor lytter `deploy.yml` også på
-`workflow_run`, så siden genbygges bagefter.
+Alt sker **i build-runneren** — der laves ingen bot-commits. Derfor kræver workflowet kun
+læseadgang til repoet, og det virker også hvis "Workflow permissions" er låst til read-only.
+Prisen er, at `data/instagram_posts.json` og eventuelle store originalbilleder i repoet ikke
+bliver opdateret automatisk; det er kun den publicerede side, der altid er frisk.
 
 ### Eget domæne senere
 

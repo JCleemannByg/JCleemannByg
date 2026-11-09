@@ -109,20 +109,21 @@ Ja — det er relativt enkelt, og det er bygget. To filer:
 | Fil | Gør |
 |---|---|
 | `scripts/fetch_instagram.py` | Henter det offentlige embed-endpoint, udtrækker de nyeste opslag, downloader manglende forhåndsbilleder (900 px) og skriver `data/instagram_posts.json`. Oversættelser og rækkefølge bevares. |
-| `.github/workflows/instagram.yml` | Kører scriptet **dagligt kl. 03:17 UTC** (og manuelt), committer kun hvis noget ændrede sig, og lader deploy-workflowet genbygge siden. |
+| `.github/workflows/deploy.yml` | Kører scriptet **ved hvert deploy** (push, dagligt kl. 04:17 UTC og manuelt) i build-runneren — uden at committe, så workflowet kun kræver læseadgang. |
 
 Sådan hænger det sammen:
 
 - Siden læser **kun** `data/instagram_posts.json` + de lokale billeder. Instagram kaldes
   aldrig fra browseren.
 - Workflowet fejler ikke siden: kan endpointet ikke nås, eller ændrer Instagram sin
-  embed-side, bliver den forrige snapshot bare liggende (scriptet afslutter med fejl, men
-  jobbet fortsætter, og intet committes).
+  embed-side, bruges den committede snapshot, og buildet fortsætter (scriptet afslutter med
+  fejl, men steppet er "continue-on-error").
 - Billeder hentes kun, hvis de mangler — så et dagligt kør ikke skaber støjende diffs.
-- Engangsopsætning i repoet: **Settings → Actions → General → Workflow permissions →
-  "Read and write permissions"**, ellers må jobbet ikke committe.
-- Fordi commits lavet med det indbyggede `GITHUB_TOKEN` ikke udløser andre workflows, har
-  `deploy.yml` også et `workflow_run`-trigger, så siden genbygges efter hver opdatering.
+- Der kræves **ingen** skriveadgang: alt sker i build-runneren, og den committede snapshot
+  bruges kun som fallback for lokale builds.
+- Fordi alt sker i build-runneren, er der ingen bot-commits og intet behov for skriveadgang
+  til repoet. Den committede `data/instagram_posts.json` fungerer som fallback for lokale
+  builds.
 
 **Forbehold:** endpointet er offentligt og kræver ingen login, men det er ikke en officiel
 API. Det kan rate-limite, ændre struktur eller blive lukket. Derfor er kadencen daglig

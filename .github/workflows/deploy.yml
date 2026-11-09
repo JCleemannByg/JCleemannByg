@@ -1,16 +1,21 @@
 name: Deploy to GitHub Pages
 
-# Not active until this folder is a GitHub repository with Pages enabled
-# (Settings → Pages → Build and deployment → Source: GitHub Actions).
+# Builds the site and publishes it. Deliberately needs NO write permission:
+# the Instagram snapshot and image optimisation happen at build time in the
+# runner, not as bot commits. That means this workflow works even when the
+# repository's "Workflow permissions" setting is locked to read-only.
+#
+# Triggers:
+#   * every push to main (content changes, Pages CMS edits)
+#   * daily schedule, so the Instagram section refreshes by itself
+#   * manual runs from the Actions tab
 
 on:
   push:
     branches: [main]
-  # Commits made by the built-in GITHUB_TOKEN do not trigger `push` workflows,
-  # so the Instagram refresh workflow tells deploy to rebuild when it finishes.
-  workflow_run:
-    workflows: ["Refresh Instagram posts"]
-    types: [completed]
+  schedule:
+    # Daily at 04:17 UTC (05:17/06:17 Danish time depending on DST).
+    - cron: "17 4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -34,6 +39,16 @@ jobs:
         with:
           cache: true
 
+      - name: Refresh Instagram snapshot (best effort, build only)
+        # Reads the public profile embed; if Instagram is unreachable or changes
+        # its markup, the committed snapshot is used and the build continues.
+        continue-on-error: true
+        run: pixi run instagram
+
+      - name: Downscale oversized uploads (build only)
+        continue-on-error: true
+        run: pixi run images
+
       - name: Cache Hugo image/resources cache
         uses: actions/cache@v4
         with:
@@ -46,7 +61,7 @@ jobs:
           BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
         run: pixi run build
 
-      - name: Verify (languages, links, image dimensions, base path)
+      - name: Verify (language, links, image dimensions, base path)
         env:
           VERIFY_BASE: /${{ github.event.repository.name }}/
         run: pixi run verify

@@ -1,0 +1,33 @@
+<footer class="site-footer">
+  <div class="shell site-footer__inner">
+    <div class="site-footer__brand">
+      <p class="brand__name">{{ site.Params.brand | default site.Title }}</p>
+      <p class="site-footer__sub">{{ site.Params.company }}</p>
+      <p class="site-footer__meta">{{ site.Params.cvr }}</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="{{ i18n "footer_nav" }}">
+      <h2 class="footer-heading">{{ i18n "footer_nav" }}</h2>
+      <ul>
+        {{- range site.Menus.main }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
+    </nav>
+
+    <div class="site-footer__contact">
+      <h2 class="footer-heading">{{ i18n "footer_contact" }}</h2>
+      <address>
+        <a href="tel:{{ site.Params.phone_href }}">{{ site.Params.phone }}</a><br>
+        <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a><br>
+        {{ site.Params.street }}<br>{{ site.Params.postal }}
+      </address>
+      <a class="site-footer__ig" href="https://www.instagram.com/{{ site.Params.instagram }}/" target="_blank" rel="me noopener">Instagram · @{{ site.Params.instagram }}</a>
+    </div>
+  </div>
+
+  <div class="shell site-footer__bottom">
+    <span>© {{ now.Format "2006" }} {{ site.Title }}</span>
+    <span>{{ i18n "rights" }}</span>
+  </div>
+</footer>

@@ -1,0 +1,31 @@
+{{ define "main" }}
+<div class="shell page-head">
+  {{ with .Params.undertitel }}<p class="eyebrow">{{ . }}</p>{{ end }}
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ with .Params.beskrivelse }}<p class="page-lead">{{ . }}</p>{{ end }}
+</div>
+
+<div class="shell page-body contact">
+  <div class="contact__card">
+    <dl class="contact__list">
+      <div>
+        <dt>{{ i18n "phone" }}</dt>
+        <dd><a href="tel:{{ site.Params.phone_href }}">{{ site.Params.phone }}</a></dd>
+      </div>
+      <div>
+        <dt>{{ i18n "email" }}</dt>
+        <dd><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></dd>
+      </div>
+      <div>
+        <dt>{{ i18n "address" }}</dt>
+        <dd>{{ site.Params.street }}<br>{{ site.Params.postal }}<br><a href="{{ site.Params.maps_url }}" target="_blank" rel="noopener">{{ i18n "open_map" }}<span aria-hidden="true"> →</span></a></dd>
+      </div>
+    </dl>
+    <div class="contact__actions">
+      <a class="button" href="tel:{{ site.Params.phone_href }}">{{ i18n "call" }} {{ site.Params.phone }}</a>
+      <a class="button button--outline" href="https://www.instagram.com/{{ site.Params.instagram }}/" target="_blank" rel="me noopener">Instagram</a>
+    </div>
+  </div>
+  {{ with .Content }}<div class="prose contact__body">{{ . }}</div>{{ end }}
+</div>
+{{ end }}

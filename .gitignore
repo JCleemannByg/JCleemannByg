@@ -1,0 +1,13 @@
+# Hugo build output and caches
+public/
+resources/
+.hugo_build.lock
+
+# Scratch prototypes (never part of the site)
+_spikes/
+
+# OS junk
+.DS_Store
+
+# Review screenshots (not part of the site)
+docs/preview/

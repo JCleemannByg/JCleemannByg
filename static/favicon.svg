@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="J Cleemann Byg">
+  <rect width="64" height="64" rx="10" fill="#2c2a24"/>
+  <path d="M14 44V20h4v24h-4zm8 0V20h4v9h8v-9h4v24h-4V33h-8v11h-4z" fill="#f2ece1" opacity="0"/>
+  <text x="32" y="43" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#f2ece1">JC</text>
+</svg>

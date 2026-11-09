@@ -1,0 +1,12 @@
+{{- /* Project card. Params: page */ -}}
+{{- $p := .page -}}
+<a class="card" href="{{ $p.RelPermalink }}">
+  <span class="card__media">
+    {{ partial "responsive-img.html" (dict "src" $p.Params.cover "alt" $p.Title "sizes" "(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw" "class" "card__img" "widths" (slice 480 720 960)) }}
+  </span>
+  <span class="card__body">
+    <span class="card__meta">{{ $p.Params.kategori }}{{ with $p.Params.aar }} · {{ . }}{{ end }}</span>
+    <span class="card__title">{{ $p.Title }}</span>
+    {{ with $p.Params.resume }}<span class="card__text">{{ . }}</span>{{ end }}
+  </span>
+</a>

@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="brand" href="{{ site.Home.RelPermalink }}">
+      <span class="brand__name">{{ site.Params.brand | default site.Title }}</span>
+      <span class="brand__sub">{{ i18n "brand_sub" }}</span>
+    </a>
+
+    <nav class="nav" aria-label="{{ i18n "nav_label" }}">
+      <ul class="nav__list">
+        {{- range site.Menus.main }}
+        <li><a class="nav__link" href="{{ .URL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      {{ partial "lang-switch.html" . }}
+      <a class="button button--small site-header__phone" href="tel:{{ site.Params.phone_href }}">{{ i18n "call" }} {{ site.Params.phone }}</a>
+    </div>
+  </div>
+</header>

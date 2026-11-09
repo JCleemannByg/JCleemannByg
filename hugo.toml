@@ -1,0 +1,86 @@
+# J Cleemann Byg — Hugo configuration
+# Bilingual Danish (root) / English (/en/). See README.md for local commands.
+
+baseURL = 'https://USERNAME.github.io/JCleemannByg/'
+title = 'J Cleemann Byg'
+enableRobotsTXT = true
+timeZone = 'Europe/Copenhagen'
+defaultContentLanguage = 'da'
+defaultContentLanguageInSubdir = false
+
+# A brochure site: no tag/taxonomy listing pages.
+disableKinds = ['taxonomy', 'term', 'rss']
+
+[params]
+  brand = 'J Cleemann Byg'
+  company = 'J Cleemann Byg v/ Johann Cleemann'
+  street = 'Nærum Hovedgade 15, 3. sal. tv-d'
+  postal = '2850 Nærum'
+  # TODO(johann): replace the three placeholders below with the real values.
+  phone = '+45 42 58 11 00'
+  phone_href = '+4542581100'
+  email = 'kontakt@jcleemannbyg.dk'
+  cvr = 'CVR 00 00 00 00'
+  instagram = 'jcleemann_byg'
+  maps_url = 'https://www.google.com/maps/search/?api=1&query=N%C3%A6rum+Hovedgade+15%2C+2850+N%C3%A6rum'
+  og_image = 'images/hero.jpg'
+
+[imaging]
+  [imaging.jpeg]
+    quality = 82
+  [imaging.webp]
+    quality = 78
+
+[markup.goldmark.renderer]
+  unsafe = false
+
+[languages]
+  [languages.da]
+    contentDir = 'content/da'
+    label = 'Dansk'
+    locale = 'da-DK'
+    weight = 1
+    title = 'J Cleemann Byg — tømrer og snedker i Nærum'
+    [languages.da.params]
+      description = 'Snedker- og tømrerarbejde i Nærum og omegn: køkkener, indbygningsløsninger og renovering med sans for detaljen.'
+    [[languages.da.menu.main]]
+      name = 'Projekter'
+      pageRef = '/projekter'
+      weight = 10
+    [[languages.da.menu.main]]
+      name = 'Ydelser'
+      pageRef = '/ydelser'
+      weight = 20
+    [[languages.da.menu.main]]
+      name = 'Om'
+      pageRef = '/om'
+      weight = 30
+    [[languages.da.menu.main]]
+      name = 'Kontakt'
+      pageRef = '/kontakt'
+      weight = 40
+
+  [languages.en]
+    contentDir = 'content/en'
+    label = 'English'
+    locale = 'en'
+    weight = 2
+    title = 'J Cleemann Byg — carpenter and joiner in Nærum, Denmark'
+    [languages.en.params]
+      description = 'Joinery and carpentry in Nærum and the surrounding area: kitchens, built-in furniture and renovation, made with care for the material.'
+    [[languages.en.menu.main]]
+      name = 'Projects'
+      pageRef = '/projekter'
+      weight = 10
+    [[languages.en.menu.main]]
+      name = 'Services'
+      pageRef = '/ydelser'
+      weight = 20
+    [[languages.en.menu.main]]
+      name = 'About'
+      pageRef = '/om'
+      weight = 30
+    [[languages.en.menu.main]]
+      name = 'Contact'
+      pageRef = '/kontakt'
+      weight = 40

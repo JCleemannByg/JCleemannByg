@@ -1,0 +1,32 @@
+{{ define "main" }}
+{{- $p := . -}}
+<div class="shell page-head">
+  <p class="eyebrow">{{ .Params.kategori }}{{ with .Params.aar }} · {{ . }}{{ end }}</p>
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ with .Params.resume }}<p class="page-lead">{{ . }}</p>{{ end }}
+</div>
+
+{{- with .Params.cover }}
+<figure class="project-cover">
+  {{ partial "responsive-img.html" (dict "src" . "alt" $p.Title "sizes" "100vw" "loading" "eager" "widths" (slice 960 1440 1920)) }}
+</figure>
+{{- end }}
+
+<div class="shell project-body">
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+  {{- with .Params.galleri }}
+  <div class="gallery">
+    {{- range $i, $img := . }}
+    <figure class="gallery__item">
+      {{ partial "responsive-img.html" (dict "src" $img "alt" (printf "%s – billede %d" $p.Title (add $i 1)) "sizes" "(min-width: 900px) 50vw, 100vw" "widths" (slice 480 720 1080)) }}
+    </figure>
+    {{- end }}
+  </div>
+  {{- end }}
+
+  {{- with site.GetPage "/projekter" }}
+  <p class="back"><a class="section-link" href="{{ .RelPermalink }}"><span aria-hidden="true">←</span> {{ i18n "back_to_projects" }}</a></p>
+  {{- end }}
+</div>
+{{ end }}

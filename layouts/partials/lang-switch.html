@@ -1,0 +1,14 @@
+{{- /* Language switcher. Preserves the current page when a translation exists,
+       otherwise falls back to that language's home page. */ -}}
+{{- $page := . -}}
+<nav class="lang" aria-label="{{ i18n "language" }}">
+  {{- range hugo.Sites }}
+  {{- $s := . }}
+  {{- $target := $s.Home }}
+  {{- range $page.AllTranslations }}
+    {{- if eq .Language.Lang $s.Language.Lang }}{{ $target = . }}{{ end }}
+  {{- end }}
+  {{- $active := eq $s.Language.Lang $page.Language.Lang }}
+  <a class="lang__link{{ if $active }} is-active{{ end }}" href="{{ $target.RelPermalink }}" lang="{{ $s.Language.Locale }}" hreflang="{{ $s.Language.Locale }}"{{ if $active }} aria-current="true"{{ end }}>{{ $s.Language.Label }}</a>
+  {{- end }}
+</nav>

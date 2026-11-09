@@ -1,0 +1,47 @@
+{{- /*
+  Responsive image from assets/, e.g. assets/images/projekter/x/01.jpg.
+
+  Params:
+    src        assets-relative path (required)
+    alt        alternative text (default "")
+    sizes      sizes attribute (default "100vw")
+    class      class on <picture>
+    loading    "lazy" (default) or "eager"
+    fetchpriority  optional "high"
+    widths     slice of widths to generate (default 640 960 1280)
+
+  Renders <picture> with WebP + JPEG srcsets and explicit width/height.
+*/ -}}
+{{- $src := .src -}}
+{{- $alt := .alt | default "" -}}
+{{- $sizes := .sizes | default "100vw" -}}
+{{- $class := .class | default "" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $fetchpriority := .fetchpriority | default "" -}}
+{{- $widths := .widths | default (slice 640 960 1280) -}}
+{{- $res := resources.Get $src -}}
+{{- if not $res -}}
+  {{- errorf "responsive-img: %q not found under assets/" $src -}}
+{{- else -}}
+  {{- $srcW := $res.Width -}}
+  {{- $use := slice -}}
+  {{- range $widths -}}
+    {{- if le . $srcW -}}{{- $use = $use | append . -}}{{- end -}}
+  {{- end -}}
+  {{- if eq (len $use) 0 -}}{{- $use = slice $srcW -}}{{- end -}}
+  {{- $last := index $use (sub (len $use) 1) -}}
+  {{- $largest := $res.Resize (printf "%dx" $last) -}}
+  {{- $webp := slice -}}
+  {{- $jpeg := slice -}}
+  {{- range $use -}}
+    {{- $w := . -}}
+    {{- $jw := $res.Resize (printf "%dx jpeg" $w) -}}
+    {{- $pw := $res.Resize (printf "%dx webp" $w) -}}
+    {{- $jpeg = $jpeg | append (printf "%s %dw" $jw.RelPermalink $w) -}}
+    {{- $webp = $webp | append (printf "%s %dw" $pw.RelPermalink $w) -}}
+  {{- end -}}
+<picture{{ with $class }} class="{{ . }}"{{ end }}>
+  <source type="image/webp" srcset="{{ delimit $webp ", " }}" sizes="{{ $sizes }}">
+  <img src="{{ $largest.RelPermalink }}" srcset="{{ delimit $jpeg ", " }}" sizes="{{ $sizes }}" width="{{ $largest.Width }}" height="{{ $largest.Height }}" alt="{{ $alt }}" loading="{{ $loading }}" decoding="async"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }}>
+</picture>
+{{- end -}}

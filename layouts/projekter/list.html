@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="shell page-head">
+  <p class="eyebrow">{{ i18n "all_projects" }}</p>
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ with .Params.beskrivelse }}<p class="page-lead">{{ . }}</p>{{ end }}
+</div>
+
+<div class="shell page-body">
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  <div class="cards">
+    {{- range .Pages.ByWeight }}
+    {{ partial "project-card.html" (dict "page" .) }}
+    {{- end }}
+  </div>
+</div>
+{{ end }}

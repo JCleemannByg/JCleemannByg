@@ -25,9 +25,16 @@
     "addressCountry": "DK"
   },
   "areaServed": "Rudersdal, Nordsjælland",
+  {{- with site.Params.founded }}
+  "foundingDate": {{ . | jsonify | safeJS }},
+  {{- end }}
+  {{- with site.Params.cvr }}
+  "vatID": {{ (replace (replace . "CVR " "") " " "") | jsonify | safeJS }},
+  {{- end }}
   "sameAs": [
     "https://www.instagram.com/{{ site.Params.instagram }}/",
-    "https://www.krak.dk/j+cleemann+byg+v%252fjohann+cleemann+n%c3%a6rum/171060879/firma"
+    "https://www.krak.dk/j+cleemann+byg+v%252fjohann+cleemann+n%c3%a6rum/171060879/firma",
+    "https://xn--hndvrkerregistret-8qbw.dk/j-cleemann-byg-v-johann-cleemann/"
   ]
 }
 </script>

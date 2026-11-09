@@ -167,12 +167,12 @@ profilen til virksomheden.
 
 ## Placeholders — skal erstattes
 
-- **Telefon:** `+45 42 58 11 00` (kun forstavelsen 42 58 11 er bekræftet offentligt).
-- **E-mail:** `kontakt@jcleemannbyg.dk` (ikke bekræftet).
-- **CVR:** `00 00 00 00`.
+- **Telefon, e-mail og CVR er verificeret** mod Håndværkerregistret: `+45 42 58 11 01`,
+  `kontakt@jcleemannbyg.dk`, CVR 43 89 14 99, stiftet 3. marts 2023.
+- **Adresse:** Nærum Hovedgade 15, 2850 Nærum (etage/dør er udeladt på siden).
 - **Instagram:** `jcleemann_byg` (bekræftet via Krak).
-- **Billeder:** alle er genererede teksturer i `assets/images/` — skal erstattes af rigtige
-  projektfotos.
+- **Billeder:** nu Johanns egne opslag (bekræftet til brug). De er Instagram-opløsning —
+  originalerne vil gøre hero og projektsider skarpere.
 - **Projekter og tekster:** eksempler; de tre projekter er ikke rigtige opgaver.
 - **Om-siden og kontakt-siden** indeholder `TODO(johann)`-noter i markdown.
 

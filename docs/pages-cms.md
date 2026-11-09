@@ -91,6 +91,36 @@ automatisk, når sproget dukker op:
   automatisk ved deploy og redigeres derfor ikke i CMS'et.
 - **Workflows, scripts og konfiguration** — udvikleransvar.
 
+## Branches (main og develop)
+
+Pages CMS har en branch-vælger, fordi den læser repoets branches. Opsætningen er:
+
+| Branch | Rolle | Hvad sker der ved push |
+|---|---|---|
+| `main` | Produktion | `deploy.yml` bygger og publicerer |
+| `develop` | Udkast/eksperimenter | `check.yml` bygger og verificerer, men publicerer ikke |
+
+Sådan bruges det: vælg `develop` i Pages CMS, rediger frit, og se resultatet lokalt med
+`git checkout develop && pixi run dev`. Når du er tilfreds, flettes `develop` ind i `main`
+(gerne via pull request), og ændringerne går live.
+
+**Vigtigt:** GitHub Pages har kun én publiceret side pr. repo og understøtter ikke
+branch-previews som Netlify/Vercel. En delt preview-URL kræver derfor enten en ekstra
+preview-sti i samme deployment eller en ekstra udbyder — læs mere i README.
+
+## Knapper i Pages CMS (actions)
+
+`actions` i `.pages.yml` tilføjer knapper, der dispatcher GitHub-workflows med et
+`payload`-input. I dette projekt:
+
+- **"Genbyg og publicér"** → `cms-action.yml` → `deploy.yml` på `main`.
+  Knappen er nyttig, når man vil tvinge et genbyg (fx efter manuelt at have ændret noget
+  uden for CMS'et).
+
+Workflowet, der trigges, skal have `workflow_dispatch` med et `payload`-input; det er derfor
+`cms-action.yml` findes som en lille mellemstation i stedet for at pege direkte på
+`deploy.yml`.
+
 ## Forbehold
 
 - **Ingen live-forhåndsvisning** i den gratis hosted version: gem → commit → genbyg.

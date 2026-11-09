@@ -490,3 +490,16 @@ content:
           - name: body
             label: "Brødtekst"
             type: rich-text
+
+# Knapper i Pages CMS. "actions" dispatcher et GitHub-workflow; vores knap
+# trigger cms-action.yml, som igen kører deploy.yml på main.
+actions:
+  - name: rebuild
+    label: "Genbyg og publicér"
+    workflow: cms-action.yml
+    ref: main
+    cancelable: false
+    confirm:
+      title: "Genbyg siden?"
+      message: "Bygger og publicerer den nuværende main-branch. Tager 1-2 minutter."
+      button: "Genbyg"

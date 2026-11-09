@@ -1,0 +1,38 @@
+name: Pages CMS action — rebuild and publish
+
+# Triggered by the "Genbyg og publicér" button in Pages CMS.
+# Pages CMS dispatches workflows with a `payload` input (JSON), so this workflow
+# accepts it, then asks the deploy workflow to run on main.
+#
+# A workflow started with the built-in GITHUB_TOKEN normally cannot start another
+# workflow — but `workflow_dispatch` is one of the two documented exceptions, which
+# is what makes this pattern work without any PAT or write permissions on contents.
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS payload as JSON
+        required: true
+        type: string
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show who triggered it
+        env:
+          PAYLOAD: ${{ inputs.payload }}
+        run: |
+          echo "$PAYLOAD" | jq -r '"Triggered by " + (.triggeredBy.githubUsername // "unknown") + " from branch " + (.repository.ref // "unknown")'
+
+      - name: Dispatch the deploy workflow on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run deploy.yml --ref main
+          echo "Deploy workflow dispatched on main."

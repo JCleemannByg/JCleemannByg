@@ -1,0 +1,34 @@
+name: Check branch
+
+# Validates draft branches without publishing anything.
+# `main` is production and deploys through deploy.yml; `develop` is for trying
+# changes out in Pages CMS. This workflow makes sure a develop commit still
+# builds and verifies, so you don't discover breakage only when merging.
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pixi environment
+        uses: prefix-dev/setup-pixi@v0.11.3
+        with:
+          cache: true
+
+      - name: Build and verify
+        run: pixi run check

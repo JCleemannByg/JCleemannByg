@@ -208,7 +208,9 @@ branches and tags**.
 
 | Workflow | Gør |
 |---|---|
-| `deploy.yml` | Ved push, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer store billeder, bygger med pixi, verificerer og publicerer |
+| `deploy.yml` | Ved push til `main`, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer store billeder, bygger, verificerer og publicerer |
+| `check.yml` | Ved push til `develop` og PR mod `main`: bygger og verificerer **uden** at publicere |
+| `cms-action.yml` | Triggeres af knappen "Genbyg og publicér" i Pages CMS og kører `deploy.yml` på `main` |
 
 Alt sker **i build-runneren** — der laves ingen bot-commits. Derfor kræver workflowet kun
 læseadgang til repoet, og det virker også hvis "Workflow permissions" er låst til read-only.
@@ -225,6 +227,28 @@ bliver opdateret automatisk; det er kun den publicerede side, der altid er frisk
 3. Settings → Pages → Custom domain + Enforce HTTPS.
 
 ---
+
+## Branches og forhåndsvisning
+
+- **`main`** er produktion. Push hertil publicerer via `deploy.yml`.
+- **`develop`** er til udkast. Pages CMS kan skifte branch øverst i UI'et; ændringer på
+  `develop` publiceres ikke, men valideres af `check.yml`.
+- Flet `develop` → `main` (fx via pull request), når du vil have ændringerne live.
+
+GitHub Pages publicerer **én** side pr. repo og har ikke indbyggede branch-previews. Vil
+man se `develop` i en browser, er mulighederne:
+
+1. **Lokalt:** `git checkout develop && pixi run dev` (nul opsætning).
+2. **Fælles preview-sti** på samme side, fx `/preview/`, hvor deploy bygger både `main` og
+   `develop` ind i samme artifact. Kræver et par ekstra workflow-trin.
+3. **Cloudflare Pages/Netlify** koblet til repoet giver automatiske branch-previews gratis,
+   men er en ekstra udbyder ved siden af GitHub Pages.
+
+## Pages CMS-knapper (actions)
+
+`.pages.yml` har en `actions`-sektion, der viser knapper i Pages CMS. Knappen
+**"Genbyg og publicér"** trigger `cms-action.yml`, som dispatcher `deploy.yml` på `main` —
+praktisk når man vil tvinge et genbyg uden at ændre indhold.
 
 ## Vedligehold
 

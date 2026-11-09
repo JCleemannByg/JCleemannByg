@@ -58,8 +58,12 @@ jobs:
 
       - name: Build
         env:
-          BASE_URL: https://${{ lower(github.repository_owner) }}.github.io/${{ github.event.repository.name }}/
-        run: pixi run build
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          BASE_URL="https://$(echo "$REPO_OWNER" | tr '[:upper:]' '[:lower:]').github.io/${REPO_NAME}/"
+          echo "Building for ${BASE_URL}"
+          BASE_URL="$BASE_URL" pixi run build
 
       - name: Verify (language, links, image dimensions, base path)
         env:

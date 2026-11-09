@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Local development server. Danish site at http://localhost:1313/, English at /en/.
+# Local development server. Danish site at http://localhost:1313/.
 # Override the port with PORT=1314 ./scripts/dev.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."

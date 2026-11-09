@@ -124,6 +124,21 @@ ingen JavaScript; mobilmenuen er almindelig HTML/CSS.
 
 ---
 
+## Instagram
+
+Siden viser et **kurateret udvalg** af Instagram-billeder (gemt lokalt) med links til
+opslagene og en "følg"-knap — ingen live-data, ingen tredjeparts-scripts, ingen cookies.
+
+- Billeder: læg dem i `assets/images/instagram/`
+- Udvalg, links og billedtekster: `data/instagram.yaml`
+- Baggrund for valget og de øvrige muligheder (officiel embed, Graph API, widget):
+  [docs/instagram.md](docs/instagram.md)
+
+Siden har også struktureret data (`sameAs` til Instagram og Krak), så Google kan knytte
+profilen til virksomheden.
+
+---
+
 ## Sprog
 
 - Dansk er standardsprog og ligger i `/`.

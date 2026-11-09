@@ -9,10 +9,6 @@ hero_tekst: "Kitchens, built-in furniture and renovation. Designed, built and fi
 om_billede: "images/om/portraet.jpg"
 om_overskrift: "A workshop, not an assembly line"
 om_tekst: "The work is carried out by the same craftsman from the first measurement to the last piece of trim. That means a shorter way from idea to result – and a finish that holds up to a closer look."
-instagram_billeder:
-  - "images/instagram/01.jpg"
-  - "images/instagram/02.jpg"
-  - "images/instagram/03.jpg"
 fakta:
   - "Nærum & surroundings|Working in Rudersdal and northern Copenhagen"
   - "Kitchens & built-ins|Cabinetmaking, fronts and fitting"

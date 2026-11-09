@@ -582,13 +582,38 @@ a { color: inherit; }
   gap: 0.6rem;
 }
 
-.ig__item img {
+.ig__grid { list-style: none; }
+
+.ig__item { margin: 0; }
+
+.ig__link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.ig__link img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   aspect-ratio: 1;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
+
+.ig__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 14, 9, 0);
+  transition: background 0.25s ease;
+}
+
+.ig__link:hover img,
+.ig__link:focus-visible img { transform: scale(1.045); }
+
+.ig__link:hover::after,
+.ig__link:focus-visible::after { background: rgba(18, 14, 9, 0.3); }
 
 /* ---------- Inner pages ---------- */
 
@@ -659,6 +684,7 @@ a { color: inherit; }
 .project-cover img {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }

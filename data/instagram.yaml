@@ -1,0 +1,30 @@
+# Instagram-indhold til forsiden.
+#
+# Siden henter IKKE live data fra Instagram. Billederne er kopieret ind i
+# assets/images/instagram/ og vises lokalt — det er hurtigst, kræver ingen
+# tokens og ingen tredjeparts-cookies.
+#
+# For hvert opslag:
+#   image    lokal billedfil under assets/
+#   url      link til opslaget på Instagram (brug profil-URL indtil der er
+#            konkrete opslag at linke til)
+#   caption  billedtekst på dansk og engelsk
+#
+# Vil du vise et andet udvalg, så skift rækkefølgen eller tilføj flere elementer.
+profile_url: "https://www.instagram.com/jcleemann_byg/"
+items:
+  - image: "images/instagram/01.jpg"
+    url: "https://www.instagram.com/jcleemann_byg/"
+    caption:
+      da: "Køkken i massiv eg"
+      en: "Kitchen in solid oak"
+  - image: "images/instagram/02.jpg"
+    url: "https://www.instagram.com/jcleemann_byg/"
+    caption:
+      da: "Indbyggede skabe"
+      en: "Built-in cupboards"
+  - image: "images/instagram/03.jpg"
+    url: "https://www.instagram.com/jcleemann_byg/"
+    caption:
+      da: "Renovering i Rudersdal"
+      en: "Renovation in Rudersdal"

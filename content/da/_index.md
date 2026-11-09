@@ -9,10 +9,6 @@ hero_tekst: "Køkkener, indbygningsløsninger og renovering. Tegnet, bygget og m
 om_billede: "images/om/portraet.jpg"
 om_overskrift: "Et værksted, ikke et samlebånd"
 om_tekst: "Arbejdet bliver udført af den samme håndværker hele vejen – fra første opmåling til sidste liste. Det giver kortere vej fra idé til resultat og en finish, der kan stå for en nærmere betragtning."
-instagram_billeder:
-  - "images/instagram/01.jpg"
-  - "images/instagram/02.jpg"
-  - "images/instagram/03.jpg"
 fakta:
   - "Nærum & omegn|Arbejder i Rudersdal og det nordlige København"
   - "Køkkener & indbygning|Møbelsnedkeri, fronter og montering"

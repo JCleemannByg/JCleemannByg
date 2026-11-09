@@ -5,6 +5,9 @@
 <meta name="description" content="{{ .Params.beskrivelse | default site.Params.description | plainify }}">
 <link rel="canonical" href="{{ .Permalink }}">
 {{ partial "hreflang.html" . }}
+{{- if .IsHome }}
+{{ partial "jsonld.html" . }}
+{{- end }}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:site_name" content="{{ site.Title }}">
 <meta property="og:title" content="{{ .Params.titel | default .Title }}">

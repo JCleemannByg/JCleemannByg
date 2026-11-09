@@ -94,23 +94,28 @@
 </section>
 {{- end }}
 
+{{- with hugo.Data.instagram }}
 <section class="ig">
   <div class="shell ig__inner">
     <div class="ig__text">
       <p class="eyebrow eyebrow--light">{{ i18n "instagram_label" }}</p>
       <h2 class="ig__title">{{ i18n "instagram_heading" }}</h2>
       <p class="ig__desc">{{ i18n "instagram_text" }}</p>
-      <a class="button button--light" href="https://www.instagram.com/{{ site.Params.instagram }}/" target="_blank" rel="me noopener">{{ i18n "follow" }} @{{ site.Params.instagram }}</a>
+      <a class="button button--light" href="{{ .profile_url }}" target="_blank" rel="me noopener">{{ i18n "follow" }} @{{ site.Params.instagram }}</a>
     </div>
-    {{ with .Params.instagram_billeder }}
-    <div class="ig__grid">
+    {{- with .items }}
+    <ul class="ig__grid">
       {{- range . }}
-      <span class="ig__item">
-        {{ partial "responsive-img.html" (dict "src" . "alt" "" "sizes" "(min-width: 900px) 18vw, 30vw" "widths" (slice 360 540 720)) }}
-      </span>
+      {{- $caption := index .caption site.Language.Lang | default (index .caption "da") }}
+      <li class="ig__item">
+        <a class="ig__link" href="{{ .url }}" target="_blank" rel="noopener" aria-label="{{ $caption }} (Instagram)">
+          {{ partial "responsive-img.html" (dict "src" .image "alt" $caption "sizes" "(min-width: 900px) 18vw, 30vw" "widths" (slice 360 540 720)) }}
+        </a>
+      </li>
       {{- end }}
-    </div>
-    {{ end }}
+    </ul>
+    {{- end }}
   </div>
 </section>
+{{- end }}
 {{ end }}

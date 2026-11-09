@@ -3,18 +3,19 @@
 {{- $hero := .Params.hero_billede -}}
 
 <section class="hero">
-  <div class="hero__media">
-    {{ partial "responsive-img.html" (dict "src" $hero "alt" "" "sizes" "100vw" "class" "hero__img" "loading" "eager" "fetchpriority" "high" "widths" (slice 960 1440 1920)) }}
-  </div>
-  <div class="hero__scrim" aria-hidden="true"></div>
-  <div class="shell hero__content">
-    {{ with .Params.hero_eyebrow }}<p class="eyebrow eyebrow--light">{{ . }}</p>{{ end }}
-    <h1 class="hero__title">{{ .Params.hero_overskrift | default .Title }}</h1>
-    {{ with .Params.hero_tekst }}<p class="hero__text">{{ . }}</p>{{ end }}
-    <div class="hero__actions">
-      {{ with site.GetPage "/projekter" }}<a class="button" href="{{ .RelPermalink }}">{{ i18n "see_projects" }}</a>{{ end }}
-      <a class="button button--ghost" href="tel:{{ $site.phone_href }}">{{ i18n "call" }} {{ $site.phone }}</a>
+  <div class="shell hero__grid">
+    <div class="hero__text">
+      {{ with .Params.hero_eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+      <h1 class="hero__title">{{ .Params.hero_overskrift | default .Title }}</h1>
+      {{ with .Params.hero_tekst }}<p class="hero__lead">{{ . }}</p>{{ end }}
+      <div class="hero__actions">
+        {{ with site.GetPage "/projekter" }}<a class="button" href="{{ .RelPermalink }}">{{ i18n "see_projects" }}</a>{{ end }}
+        <a class="button button--outline" href="tel:{{ $site.phone_href }}">{{ i18n "call" }} {{ $site.phone }}</a>
+      </div>
     </div>
+    <figure class="hero__media">
+      {{ partial "responsive-img.html" (dict "src" .Params.hero_billede "alt" "" "sizes" "(min-width: 960px) 46vw, 100vw" "class" "hero__img" "loading" "eager" "fetchpriority" "high" "widths" (slice 480 720 1000)) }}
+    </figure>
   </div>
 </section>
 

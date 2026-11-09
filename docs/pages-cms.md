@@ -22,8 +22,9 @@ bare filerne direkte.
 2. Gå til [app.pagescms.org](https://app.pagescms.org) og log ind med GitHub.
 3. Installér GitHub-app'en på det pågældende repo (kun det repo).
 4. Vælg repoet. Menuen kommer fra `.pages.yml`.
-5. Giv Johann adgang: enten som **collaborator** på repoet, eller via Pages CMS'
-   collaborator-funktion. Han skal have en gratis GitHub-konto.
+5. Giv Johann adgang: brug **Pages CMS' collaborator-funktion** og invitér ham med
+   e-mail — han behøver **ikke** en GitHub-konto. (Alternativt kan han tilføjes som
+   collaborator på selve repoet, men det kræver en GitHub-konto.)
 
 > Der kræves **ingen** "Read and write permissions" i Actions-indstillingerne: deploy
 > henter Instagram-snapshot og optimerer billeder i build-runneren i stedet for at committe.
@@ -123,6 +124,30 @@ som separate previews, der ikke opdaterer den publicerede side — derfor dispat
 Workflowet, der trigges, skal have `workflow_dispatch` med et `payload`-input; det er derfor
 `cms-action.yml` findes som en lille mellemstation i stedet for at pege direkte på
 `deploy.yml`.
+
+## Indstillinger (`settings`)
+
+`.pages.yml` bruger også Pages CMS' indbyggede `settings`:
+
+- **`content.merge: true`** — bevarer felter/keys, der ikke står i skemaet, når der gemmes.
+  Ellers skrives filen kun ud fra skemaet, og ukendte keys forsvinder.
+- **`commit.identity: user`** — sætter den redigerendes navn/e-mail på commitet, også for
+  e-mail-collaborators.
+- **`commit.templates`** — danske commit-beskeder, fx
+  `Indhold: opdater content/da/_index.md (via Pages CMS)`. Gør historikken læsbar.
+
+Bemærk stadig, at YAML-filen skrives af CMS'et: **kommentarer i redigerede filer forsvinder**
+ved gem (værdierne bevares).
+
+## Hvad Pages CMS ikke har natively
+
+- **Ingen live preview / preview-panel** — derfor branch + `/preview/`-workflow.
+- **Ingen editorial workflow** (kladde → review → publicér) og ingen planlagt publicering.
+- **Ingen versionshistorik i UI'et** — brug git/PR på GitHub.
+
+Vil man have de ting "natively", er det en anden CMS-type (fx Decap CMS' editorial workflow,
+TinaCMS' live preview, Sanity/Storyblok med visual editing) eller hosting med branch-previews
+(Netlify/Cloudflare Pages). Det bytter simple, gratis GitHub Pages for mere infrastruktur.
 
 ## Forbehold
 

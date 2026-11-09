@@ -503,3 +503,18 @@ actions:
       title: "Genbyg siden?"
       message: "Bygger og publicerer den nuværende main-branch. Tager 1-2 minutter."
       button: "Genbyg"
+
+# Native Pages CMS-indstillinger.
+settings:
+  content:
+    # Bevar felter/keys, som ikke er beskrevet i skemaet, når der gemmes
+    # (fx hvis vi senere tilføjer nye frontmatter-felter uden at opdatere CMS'et).
+    merge: true
+  commit:
+    # Sæt navn/e-mail på den, der redigerer — også for e-mail-collaborators.
+    identity: user
+    templates:
+      create: "Indhold: opret {path} (via Pages CMS)"
+      update: "Indhold: opdater {path} (via Pages CMS)"
+      delete: "Indhold: slet {path} (via Pages CMS)"
+      rename: "Indhold: omdøb {oldPath} til {newPath} (via Pages CMS)"

@@ -1,14 +1,16 @@
 # J Cleemann Byg — hjemmeside
 
 Statisk hjemmeside for **J Cleemann Byg v/ Johann Cleemann** (tømrer og snedker, Nærum).
-Bygget med [Hugo](https://gohugo.io), **kun på dansk**, klar til GitHub Pages når den skal ud.
+Bygget med [Hugo](https://gohugo.io), **kun på dansk**, og publiceret på
+**<https://jcleemannbyg.github.io/JCleemannByg/>**.
 
 Der er **ingen JavaScript, ingen web fonts og ingen database** — kun HTML, CSS, markdown
 og billeder. Alt indhold er tekstfiler, som kan redigeres uden at røre koden.
 
-> **Status:** lokal prototype, klar til gennemsyn. Kontaktoplysninger og CVR er verificeret
-> mod Håndværkerregistret, og porteføljen er bygget på Johanns egne Instagram-opslag.
-> Resterende punkter står under "Placeholders".
+> **Status:** live på <https://jcleemannbyg.github.io/JCleemannByg/> (repo
+> `JCleemannByg/JCleemannByg`, branch `main`, deploy via GitHub Actions). Kontaktoplysninger
+> og CVR er verificeret mod Håndværkerregistret, og porteføljen er bygget på Johanns egne
+> Instagram-opslag. Resterende punkter står under "Placeholders".
 
 ---
 
@@ -186,10 +188,15 @@ Når teksterne er godkendt, kan `TODO(johann)`-kommentarerne i `content/` slette
 
 ---
 
-## Publicering på GitHub Pages (ikke sat op endnu)
+## Publicering på GitHub Pages
 
-Workflowet ligger klar i `.github/workflows/deploy.yml` og gør ingenting, før repoet
-findes og Pages er aktiveret.
+Siden er sat op: repo `JCleemannByg/JCleemannByg`, branch `main`, Pages-kilde
+*GitHub Actions*, og `.github/workflows/deploy.yml` bygger og publicerer ved push, dagligt
+og manuelt. Pages CMS er installeret på repoet og committer til `main`.
+
+Hvis GitHub afviser et deploy med *"Branch *** is not allowed to deploy to github-pages"*,
+skal branch-navnet tilføjes under **Settings → Environments → github-pages → Deployment
+branches and tags**.
 
 1. Opret repo på GitHub (fx `JCleemannByg`) og push koden.
 2. **Settings → Pages → Build and deployment → Source: GitHub Actions**.

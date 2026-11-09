@@ -715,6 +715,104 @@ a { color: inherit; }
 
 .page-body { padding-bottom: clamp(3rem, 6vw, 5rem); }
 
+.about-page {
+  display: grid;
+  gap: clamp(2.2rem, 5vw, 4rem);
+}
+
+.about-page__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.about-page__media { margin: 0; }
+
+.about-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding-block: clamp(1.3rem, 2.5vw, 1.8rem);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.about-facts dt {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+}
+
+.about-facts dd {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.steps { display: grid; gap: 1.5rem; }
+
+.steps__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  margin: 0;
+  padding: 1.5rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.step__num {
+  color: var(--oak);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+}
+
+.step__name {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.2;
+}
+
+.step__text {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.about-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+}
+
+.about-cta p {
+  max-width: 30ch;
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.25;
+}
+
+.about-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .page-body--split {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
@@ -981,9 +1079,13 @@ a { color: inherit; }
   .contact,
   .ig__inner,
   .page-body--split,
+  .about-page__grid,
   .hero__grid {
     grid-template-columns: 1fr;
   }
+
+  .about-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps__list { grid-template-columns: 1fr; }
 
   .hero__text { max-width: 46rem; }
 

@@ -2,15 +2,53 @@
 <div class="shell page-head">
   {{ with .Params.undertitel }}<p class="eyebrow">{{ . }}</p>{{ end }}
   <h1 class="page-title">{{ .Title }}</h1>
-  {{ with .Params.beskrivelse }}<p class="page-lead">{{ . }}</p>{{ end }}
+  {{ with .Params.lead }}<p class="page-lead">{{ . }}</p>{{ end }}
 </div>
 
-<div class="shell page-body page-body--split">
-  <div class="prose">{{ .Content }}</div>
-  {{ with .Params.billede }}
-  <figure class="photo-matted page-media">
-    {{ partial "responsive-img.html" (dict "src" . "alt" (i18n "about_image_alt") "sizes" "(min-width: 900px) 42vw, 100vw" "widths" (slice 480 720 1080)) }}
-  </figure>
+<div class="shell page-body about-page">
+  <div class="about-page__grid">
+    <div class="prose">{{ .Content }}</div>
+    {{ with .Params.billede }}
+    <figure class="photo-matted about-page__media">
+      {{ partial "responsive-img.html" (dict "src" . "alt" (i18n "about_image_alt") "sizes" "(min-width: 900px) 38vw, 100vw" "widths" (slice 480 720 1080)) }}
+    </figure>
+    {{ end }}
+  </div>
+
+  {{ with .Params.fakta }}
+  <dl class="about-facts">
+    {{- range . }}
+    <div>
+      <dt>{{ .navn }}</dt>
+      <dd>{{ .tekst }}</dd>
+    </div>
+    {{- end }}
+  </dl>
   {{ end }}
+
+  {{ with .Params.trin }}
+  <section class="steps">
+    <h2 class="section-title">{{ i18n "how_it_works" }}</h2>
+    <ol class="steps__list">
+      {{- range $i, $t := . }}
+      <li class="step">
+        <span class="step__num">{{ printf "%02d" (add $i 1) }}</span>
+        <span>
+          <span class="step__name">{{ $t.navn }}</span>
+          <span class="step__text">{{ $t.tekst }}</span>
+        </span>
+      </li>
+      {{- end }}
+    </ol>
+  </section>
+  {{ end }}
+
+  <div class="about-cta">
+    <p>{{ i18n "about_cta" }}</p>
+    <div class="about-cta__actions">
+      {{ with site.GetPage "/kontakt" }}<a class="button" href="{{ .RelPermalink }}">{{ i18n "contact_heading" }}</a>{{ end }}
+      {{ with site.GetPage "/projekter" }}<a class="button button--outline" href="{{ .RelPermalink }}">{{ i18n "services_projects_link" }}</a>{{ end }}
+    </div>
+  </div>
 </div>
 {{ end }}

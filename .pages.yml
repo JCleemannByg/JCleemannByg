@@ -429,9 +429,34 @@ content:
           - name: undertitel
             label: "Lille tekst over overskriften"
             type: string
+          - name: lead
+            label: "Kort intro under overskriften"
+            type: text
           - name: billede
             label: "Billede til siden (stående)"
             type: image
+          - name: fakta
+            label: "Fakta-række"
+            type: object
+            list: true
+            fields:
+              - name: navn
+                label: "Overskrift"
+                type: string
+              - name: tekst
+                label: "Tekst"
+                type: text
+          - name: trin
+            label: "Sådan foregår det (3 trin)"
+            type: object
+            list: true
+            fields:
+              - name: navn
+                label: "Trin"
+                type: string
+              - name: tekst
+                label: "Beskrivelse"
+                type: text
           - name: body
             label: "Brødtekst"
             type: rich-text

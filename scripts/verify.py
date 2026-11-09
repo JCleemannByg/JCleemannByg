@@ -101,6 +101,7 @@ def main() -> int:
     ap.add_argument("--public", default="public")
     ap.add_argument("--base", default="/", help="base path, e.g. /JCleemannByg/")
     ap.add_argument("--i18n", default="i18n", help="folder with the per-language TOML label files")
+    ap.add_argument("--content", default="content", help="content root; languages are detected from its 2-letter subfolders")
     args = ap.parse_args()
 
     public = Path(args.public)
@@ -109,6 +110,15 @@ def main() -> int:
         return 1
 
     base = args.base if args.base.endswith("/") else args.base + "/"
+
+    # Languages come from content/<xx>/ folders. With one language (the current
+    # Danish-only setup) translation pairing is not checked.
+    content_root = Path(args.content)
+    languages = sorted(
+        d.name for d in content_root.iterdir()
+        if d.is_dir() and re.fullmatch(r"[a-z]{2}", d.name)
+    ) if content_root.is_dir() else []
+    multilingual = len(languages) > 1
     pages = [p for p in html_files(public) if p.relative_to(public).as_posix() != "da/index.html"]
     problems: list[str] = []
     checked_images = 0
@@ -127,11 +137,12 @@ def main() -> int:
         if not pp.html_lang or not LANG_RE.match(pp.html_lang):
             problems.append(f"{rel}: missing or malformed <html lang> ({pp.html_lang!r})")
 
-        # 1. translation counterpart
-        other = counterpart(rel)
-        other_page = public / other.lstrip("/") / "index.html"
-        if not other_page.is_file():
-            problems.append(f"{rel}: no translation at {other}")
+        # 1. translation counterpart (only when the site has more than one language)
+        if multilingual:
+            other = counterpart(rel)
+            other_page = public / other.lstrip("/") / "index.html"
+            if not other_page.is_file():
+                problems.append(f"{rel}: no translation at {other}")
 
         # 3. hreflang reciprocity
         for lang, href in pp.hreflang:
@@ -192,6 +203,7 @@ def main() -> int:
     print(f"internal refs:     {checked_refs}")
     print(f"hreflang pairs:    {sum(len(p.hreflang) for p in parsed.values())}")
     print(f"i18n languages:    {len(list(Path(args.i18n).glob('*.toml')))}")
+    print(f"content languages: {' '.join(languages) if languages else '?'} ({'multilingual' if multilingual else 'single language'})")
     if problems:
         print(f"\n{len(problems)} problem(s):")
         for p in problems:

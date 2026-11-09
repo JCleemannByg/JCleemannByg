@@ -15,7 +15,5 @@ instagram: "jcleemann_byg"
 maps_url: "https://www.google.com/maps/search/?api=1&query=N%C3%A6rum+Hovedgade+15%2C+2850+N%C3%A6rum"
 og_image: "images/hero.jpg"
 
-# Standard-beskrivelse pr. sprog (bruges hvis en side ikke har sin egen).
-description:
-  da: "Snedker- og tømrerarbejde i Nærum og omegn: indbygningsmøbler, udvendige konstruktioner og renovering med sans for materialet."
-  en: "Joinery and carpentry in Nærum and around: built-in furniture, outdoor structures and renovation, made with care for the material."
+# Standard-beskrivelse (bruges hvis en side ikke har sin egen).
+description: "Snedker- og tømrerarbejde i Nærum og omegn: indbygningsmøbler, udvendige konstruktioner og renovering med sans for materialet."

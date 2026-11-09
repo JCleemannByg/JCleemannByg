@@ -49,26 +49,3 @@ disableKinds = ['taxonomy', 'term', 'rss']
       name = 'Kontakt'
       pageRef = '/kontakt'
       weight = 40
-
-  [languages.en]
-    contentDir = 'content/en'
-    label = 'English'
-    locale = 'en'
-    weight = 2
-    title = 'J Cleemann Byg — carpenter and joiner in Nærum, Denmark'
-    [[languages.en.menu.main]]
-      name = 'Projects'
-      pageRef = '/projekter'
-      weight = 10
-    [[languages.en.menu.main]]
-      name = 'Services'
-      pageRef = '/ydelser'
-      weight = 20
-    [[languages.en.menu.main]]
-      name = 'About'
-      pageRef = '/om'
-      weight = 30
-    [[languages.en.menu.main]]
-      name = 'Contact'
-      pageRef = '/kontakt'
-      weight = 40

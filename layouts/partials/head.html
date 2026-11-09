@@ -28,16 +28,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ .Params.titel | default site.Title }}{{ else }}{{ .Params.titel | default .Title }} · {{ site.Title }}{{ end }}</title>
-<meta name="description" content="{{ .Params.beskrivelse | default (index $site.description site.Language.Lang) | plainify }}">
+<meta name="description" content="{{ .Params.beskrivelse | default $site.description | plainify }}">
 <link rel="canonical" href="{{ .Permalink }}">
-{{ partial "hreflang.html" . }}
 {{- if .IsHome }}
 {{ partial "jsonld.html" . }}
 {{- end }}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:site_name" content="{{ site.Title }}">
 <meta property="og:title" content="{{ .Params.titel | default .Title }}">
-<meta property="og:description" content="{{ .Params.beskrivelse | default (index $site.description site.Language.Lang) | plainify }}">
+<meta property="og:description" content="{{ .Params.beskrivelse | default $site.description | plainify }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:locale" content="{{ site.Language.Locale }}">
 {{- range .AllTranslations }}

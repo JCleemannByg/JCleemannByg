@@ -1,14 +1,14 @@
 # J Cleemann Byg — hjemmeside
 
 Statisk hjemmeside for **J Cleemann Byg v/ Johann Cleemann** (tømrer og snedker, Nærum).
-Bygget med [Hugo](https://gohugo.io), **dansk på `/` og engelsk på `/en/`**, klar til
-GitHub Pages når den skal ud.
+Bygget med [Hugo](https://gohugo.io), **kun på dansk**, klar til GitHub Pages når den skal ud.
 
 Der er **ingen JavaScript, ingen web fonts og ingen database** — kun HTML, CSS, markdown
 og billeder. Alt indhold er tekstfiler, som kan redigeres uden at røre koden.
 
-> **Status:** lokal prototype. Alle telefonnumre, e-mails, CVR-numre, projekttekster og
-> billeder er placeholder og skal erstattes med rigtige oplysninger (se "Placeholders").
+> **Status:** lokal prototype, klar til gennemsyn. Kontaktoplysninger og CVR er verificeret
+> mod Håndværkerregistret, og porteføljen er bygget på Johanns egne Instagram-opslag.
+> Resterende punkter står under "Placeholders".
 
 ---
 
@@ -19,7 +19,7 @@ conda-forge og låses i `pixi.lock`, så macOS, Linux og CI kører samme version
 
 ```sh
 pixi install          # opretter .pixi/ ud fra pixi.lock
-pixi run dev          # lokal server → http://localhost:1313/  (engelsk: /en/)
+pixi run dev          # lokal server → http://localhost:1313/
 pixi run check        # byg + verificér (det samme som CI gør)
 ```
 
@@ -41,8 +41,7 @@ Hugo er låst til **0.169.0** i `pixi.toml` og i deploy-workflowet — opgrader 
 
 ## Rediger indhold
 
-Alt indhold ligger i markdown-filer. **Hver side findes to gange** — én på dansk og én på
-engelsk — med samme filnavn i `content/da/` og `content/en/`.
+Alt indhold ligger i markdown-filer under `content/da/`.
 
 Indholdet kan redigeres direkte i filerne **eller** via [Pages CMS](https://pagescms.org),
 som giver en dansk formular på telefonen og committer ændringerne til repoet. Opsætning,
@@ -58,36 +57,33 @@ hvad der kan redigeres (inkl. farver og typografi) og hvad der bevidst ikke kan:
 | `content/da/om/index.md` | Om værkstedet |
 | `content/da/kontakt/index.md` | Kontakt |
 
-Engelsk: samme struktur under `content/en/`.
 
 ### Frontmatter på et projekt
 
 ```yaml
 ---
-title: "Køkken i massiv eg"          # overskrift på siden
-titel: "Køkken i massiv eg i Nærum"  # browserfanen / Google
-beskrivelse: "Kort tekst til Google" # meta description
-kategori: "Køkken"                   # vises over titlen
-aar: 2025                            # årstal
-weight: 10                           # rækkefølge (lav = først)
-cover: "images/projekter/koekken-eg/01.jpg"
+title: "Radiatorskjuler på mål"                  # overskrift på siden
+titel: "Radiatorskjuler på mål i Nærum"          # browserfanen / Google
+beskrivelse: "Kort tekst til Google"             # meta description
+kategori: "Indbygning"                           # vises over titlen
+aar: 2026                                        # årstal
+weight: 10                                       # rækkefølge (lav = først)
+cover: "images/projekter/radiatorskjuler/01.jpg"
 galleri:
-  - "images/projekter/koekken-eg/02.jpg"
-  - "images/projekter/koekken-eg/03.jpg"
+  - "images/projekter/radiatorskjuler/02.jpg"
+  - "images/projekter/radiatorskjuler/03.jpg"
 resume: "Én-to linjer til projektkortet."
 ---
 Brødteksten er almindelig markdown og vises under cover-billedet.
 ```
 
-### Nyt projekt — fem trin
+### Nyt projekt — fire trin
 
-1. Læg billederne i `assets/images/projekter/<slug>/` (f.eks. `koekken-holte/`).
+1. Læg billederne i `assets/images/projekter/<slug>/` (f.eks. `radiatorskjuler/`).
    Navngiv dem `01.jpg`, `02.jpg`, …
 2. Kopiér et projekt i `content/da/projekter/` til `<slug>.md` og ret frontmatter.
-3. Kopiér det samme til `content/en/projekter/<slug>.md` (samme filnavn, engelsk tekst,
-   samme `cover`/`galleri`-stier).
-4. `./scripts/build.sh` og `python3 scripts/verify.py --public public --base /`.
-5. Committ og push — siden bygges automatisk, når GitHub Pages er sat op.
+3. `pixi run check` (eller `./scripts/build.sh` + `python3 scripts/verify.py`).
+4. Committ og push — siden bygges automatisk, når GitHub Pages er sat op.
 
 Rækkefølgen styres af `weight`: de tre laveste vægte vises som "Udvalgte projekter" på
 forsiden.
@@ -146,7 +142,7 @@ af deploy-workflowet. Fejler hentningen, bliver den forrige snapshot bare liggen
 
 Nye eller ældre opslag kan stadig tilføjes manuelt i `data/instagram.yaml` — kopiér linket
 fra Instagram-appen ("⋯ → Kopiér link") og indsæt det sammen med et valgfrit
-forhåndsbillede og en dansk/engelsk tekst.
+forhåndsbillede og en dansk tekst.
 Baggrund, testresultater og de øvrige muligheder (LightWidget, SnapWidget, API):
 [docs/instagram.md](docs/instagram.md).
 
@@ -157,14 +153,13 @@ profilen til virksomheden.
 
 ## Sprog
 
-- Dansk er standardsprog og ligger i `/`.
-- Engelsk ligger i `/en/`.
-- UI-tekster (knapper, labels) står i `i18n/da.toml` og `i18n/en.toml`.
-- Sprogskifteren på hver side bevarer den side, du står på, hvis oversættelsen findes.
-- `hreflang` og `x-default` sættes automatisk (x-default peger altid på dansk).
-- Oversættelser parres af **filnavnet**: `content/da/projekter/x.md` ↔ `content/en/projekter/x.md`.
-  Mangler tvillingen, fejler `verify.py` og deploy stopper. Se
-  [docs/pages-cms.md#sprog--dansk-og-engelsk](docs/pages-cms.md) for CMS-arbejdsgangen.
+Siden er **kun på dansk** lige nu. Indholdet ligger i `content/da/`, knap- og
+arialabels i `i18n/da.toml`, og der er ingen sprogskifter i designet.
+
+Hvis engelsk skal tilbage, er det en genopretning fra git-historikken plus en ekstra
+sproggruppe i CMS'et — fremgangsmåden står i
+[docs/pages-cms.md](docs/pages-cms.md#sprog). `verify.py` registrerer automatisk, når der
+kommer et sprog mere, og kræver så oversættelser og matchende i18n-nøgler.
 
 ---
 
@@ -176,11 +171,13 @@ profilen til virksomheden.
 - **Instagram:** `jcleemann_byg` (bekræftet via Krak).
 - **Billeder:** nu Johanns egne opslag (bekræftet til brug). De er Instagram-opløsning —
   originalerne vil gøre hero og projektsider skarpere.
-- **Projekter og tekster:** eksempler; de tre projekter er ikke rigtige opgaver.
-- **Om-siden og kontakt-siden** indeholder `TODO(johann)`-noter i markdown.
+- **Projekter og tekster:** de tre projekter er bygget på Johanns Instagram-opslag
+  (radiatorskjuler med 7-billeders galleri, bogreol, skur). Teksterne er korte resuméer,
+  som Johann bør godkende.
+- **Om-siden** har `TODO(johann)`-noter i markdown (uddannelse, årstal, garanti).
+- **Instagram-listen** opdateres automatisk og viser de nyeste 6 opslag.
 
-Når de rigtige oplysninger er på plads, kan placeholder-linjerne i `hugo.toml` og
-`content/` slettes.
+Når teksterne er godkendt, kan `TODO(johann)`-kommentarerne i `content/` slettes.
 
 ---
 
@@ -220,12 +217,16 @@ findes og Pages er aktiveret.
 ## Struktur
 
 ```
-hugo.toml                 sprog, menu, kontaktoplysninger
-content/da|en/            alt indhold, to sprog
-assets/css/main.css       design
+pixi.toml / pixi.lock     værktøjer: Hugo 0.169, Python, Pillow + tasks
+hugo.toml                 sprog og menu
+content/da/               alt indhold (markdown + frontmatter)
+data/                     kontaktoplysninger, design-tokens, Instagram-lister
+assets/css/main.css       design (struktur)
+assets/css/tokens.css     design-tokens (genereret fra data/design.yaml)
 assets/images/            billeder (hero, projekter, om, Instagram)
 layouts/                  skabeloner
-i18n/                     UI-tekster
-scripts/                  dev, build, verify, placeholder-generator
+i18n/da.toml              knap- og aria-tekster
+scripts/                  dev, build, verify, Instagram- og placeholder-scripts
+.pages.yml                redigeringsfladen til Pages CMS
 docs/                     projektnotater (ikke en del af siden)
 ```

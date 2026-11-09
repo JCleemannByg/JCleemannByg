@@ -31,17 +31,17 @@ bare filerne direkte.
 
 | Område | Hvor |
 |---|---|
-| Forside: hero, fakta, om-blok, brødtekst | `content/da/_index.md` / `content/en/_index.md` |
-| Projekter: opret/slet, titel, kategori, år, rækkefølge, cover + galleri, tekst | `content/*/projekter/*.md` |
-| Projekter (oversigtstekst) | `content/*/projekter/_index.md` |
-| Ydelser: intro + liste af ydelser | `content/*/ydelser/index.md` |
-| Om-siden | `content/*/om/index.md` |
-| Kontakt-siden | `content/*/kontakt/index.md` |
+| Forside: hero, fakta, om-blok, brødtekst | `content/da/_index.md` |
+| Projekter: opret/slet, titel, kategori, år, rækkefølge, cover + galleri, tekst | `content/da/projekter/*.md` |
+| Projekter (oversigtstekst) | `content/da/projekter/_index.md` |
+| Ydelser: intro + liste af ydelser | `content/da/ydelser/index.md` |
+| Om-siden | `content/da/om/index.md` |
+| Kontakt-siden | `content/da/kontakt/index.md` |
 | Alle billeder (upload, udskift) | `assets/images/**` via mediebiblioteket |
 | SEO-titel og meta-beskrivelse pr. side | frontmatter (`titel`, `beskrivelse`) |
 | Telefon, e-mail, CVR, adresse, Instagram, delebillede | `data/site.yaml` |
 | Farver, typografi, mål og skygge (design-tokens) | `data/design.yaml` |
-| Knap- og aria-tekster (dansk/engelsk) | `i18n/da.toml`, `i18n/en.toml` |
+| Knap- og aria-tekster | `i18n/da.toml` |
 
 ### Design-tokens
 
@@ -57,58 +57,29 @@ Det er bevidst *tokens*, ikke layout: man kan gøre siden varmere, koldere, stra
 eller blødere — men ikke flytte sektioner eller ændre strukturen. Det holder designet
 sammenhængende.
 
-## Sprog — dansk og engelsk
+## Sprog
 
-Siden er tosproget med **to parallelle indholdstræer**, og det er også sådan Pages CMS
-ser den: menuen har gruppen **“Dansk indhold”** og **“Engelsk indhold”**, hver med
-Forside, Projekter, Ydelser, Om og Kontakt.
+Siden er **kun på dansk** lige nu: ét indholdstræ (`content/da/`), én i18n-fil
+(`i18n/da.toml`), én gruppe i Pages CMS (“Indhold”) og ingen sprogskifter i designet.
 
-### Hvordan koblingen virker
+Det betyder også, at `verify.py` selv registrerer, at der kun er ét sprog, og derfor
+**ikke** kræver oversættelser. I CMS'et er der ingen tomme engelske felter eller
+dublerede sider at vedligeholde.
 
-- Hugo parrer oversættelser ud fra **stien under sprogsmappen**:
-  `content/da/projekter/bogreol.md` ↔ `content/en/projekter/bogreol.md`.
-  Der er ingen database eller oversættelses-markør — **filnavnet er nøglen**.
-- Derfor skal dansk og engelsk bruge **samme filnavn/slug** (`bogreol`), også når der
-  oprettes nyt. Så bliver URL'erne `/projekter/bogreol/` og `/en/projekter/bogreol/`,
-  og sprogskifteren, `hreflang` og `x-default` bliver genereret automatisk.
-- **Pages CMS oversætter intet selv.** Der er ingen “oversæt denne side”-knap;
-  man redigerer de to filer hver for sig. Billeder deles (samme mediebibliotek).
+### Hvis engelsk skal tilbage senere
 
-### Hvad sker der, hvis en oversættelse mangler
+Alt er forberedt til det — indholdet ligger i git-historikken, og værktøjerne tjekker
+automatisk, når sproget dukker op:
 
-| Effekt | Konsekvens |
-|---|---|
-| Dansk side uden engelsk fil | Den engelske side findes slet ikke (404 på `/en/…`), og `hreflang` udelader engelsk |
-| Engelsk liste | Projektet mangler på `/en/projekter/` |
-| Sprogskifter | Falder tilbage til den anden sprogs forside, så man ikke lander på en 404 |
-| `verify.py` | **Fejler** med “no translation at …” |
-| Deploy | Workflowet stopper, fordi verify kører før upload — den gamle side bliver live |
-
-Så: en manglende oversættelse går ikke ubemærket hen. Den blokérer bevidst deploy, indtil
-begge filer findes.
-
-### Knap- og arialabels
-
-De ligger i `i18n/da.toml` og `i18n/en.toml` og redigeres som to separate filer i CMS'et
-(“Knap- og menutekster”). `verify.py` tjekker nu også, at **begge filer har samme nøgler**,
-så en glemt engelsk label bliver fanget før deploy.
-
-### Praktisk arbejdsgang ved et nyt projekt
-
-1. Åbn **Dansk indhold → Projekter → + Nyt**, udfyld felterne, upload billeder, gem.
-2. Åbn **Engelsk indhold → Projekter → + Nyt**, brug **samme filnavn/slug**, oversæt
-   titel, resume og brødtekst, vælg de samme billeder, gem.
-3. Begge filer arver samme `weight`, så rækkefølgen er ens på begge sprog.
-4. Efter det første gem kan deploy være rød, indtil den anden fil er gemt — det er
-   med vilje; gem den engelske lige efter.
-
-Ved omdøbning eller sletning: gør det i **begge** sprog, ellers fejler verify.
-
-### Undtagelsen: indhold der kun findes på ét sprog
-
-Lige nu er der ingen undtagelse — en bevidst dansk-only side ville også blive blokeret af
-verify. Skal det bruges (fx en dansk nyhed), kan vi tilføje en `oversaettelse: valgfri`
-markør, som verify respekterer. Det er ikke bygget, fordi brochuresiden ikke har behovet.
+1. Genopret `content/en/` (samme filnavne/slugs som `content/da/`) og `i18n/en.toml`
+   (samme nøgler).
+2. Tilføj `[languages.en]` i `hugo.toml` med `contentDir = 'content/en'` og engelske
+   menupunkter.
+3. Genskab `layouts/partials/lang-switch.html` og `hreflang.html` (de ligger i
+   git-historikken) og indsæt dem i header og head.
+4. Tilføj gruppen “Engelsk indhold” og `tekster_en` i `.pages.yml`.
+5. Kør `pixi run check` — `verify.py` tjekker nu automatisk, at hver dansk side har en
+   engelsk tvilling, og at begge i18n-filer har samme nøgler.
 
 ## Hvad kan **ikke** redigeres (med vilje)
 

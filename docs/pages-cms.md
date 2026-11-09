@@ -97,16 +97,17 @@ Pages CMS har en branch-vælger, fordi den læser repoets branches. Opsætningen
 
 | Branch | Rolle | Hvad sker der ved push |
 |---|---|---|
-| `main` | Produktion | `deploy.yml` bygger og publicerer |
-| `develop` | Udkast/eksperimenter | `check.yml` bygger og verificerer, men publicerer ikke |
+| `main` | Produktion | `deploy.yml` bygger og publicerer på `/` |
+| `develop` | Udkast/eksperimenter | `deploy.yml` bygger preview på `/preview/` (noindex); `check.yml` verificerer ekstra |
 
-Sådan bruges det: vælg `develop` i Pages CMS, rediger frit, og se resultatet lokalt med
-`git checkout develop && pixi run dev`. Når du er tilfreds, flettes `develop` ind i `main`
+Sådan bruges det: vælg `develop` i Pages CMS, rediger frit, og se resultatet på
+**<https://jcleemannbyg.github.io/JCleemannByg/preview/>** (eller lokalt med
+`git checkout develop && pixi run dev`). Når du er tilfreds, flettes `develop` ind i `main`
 (gerne via pull request), og ændringerne går live.
 
-**Vigtigt:** GitHub Pages har kun én publiceret side pr. repo og understøtter ikke
-branch-previews som Netlify/Vercel. En delt preview-URL kræver derfor enten en ekstra
-preview-sti i samme deployment eller en ekstra udbyder — læs mere i README.
+Preview-siden bygges fra `develop` ind i samme deployment som produktionen, får
+`noindex` og en synlig preview-bar. GitHub Pages kræver at begge branches er tilladt under
+**Settings → Environments → github-pages → Deployment branches and tags**.
 
 ## Knapper i Pages CMS (actions)
 

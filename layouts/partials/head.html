@@ -59,6 +59,9 @@
 <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
 <link rel="icon" type="image/png" sizes="192x192" href="{{ "icon-192.png" | relURL }}">
 <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
+{{- if eq hugo.Environment "preview" }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}
 {{- $tokens := resources.Get "css/tokens.css" | resources.ExecuteAsTemplate "css/tokens.css" $design | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $tokens.RelPermalink }}" integrity="{{ $tokens.Data.Integrity }}">
 {{- $css := resources.Get "css/main.css" | minify | fingerprint }}

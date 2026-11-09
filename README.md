@@ -208,8 +208,8 @@ branches and tags**.
 
 | Workflow | Gør |
 |---|---|
-| `deploy.yml` | Ved push til `main`, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer store billeder, bygger, verificerer og publicerer |
-| `check.yml` | Ved push til `develop` og PR mod `main`: bygger og verificerer **uden** at publicere |
+| `deploy.yml` | Ved push til `main` **eller `develop`**, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer billeder, bygger produktion fra `main` + preview fra `develop`, verificerer og publicerer |
+| `check.yml` | Ved push til `develop` og PR mod `main`: ekstra byg+verifikation af branchen |
 | `cms-action.yml` | Triggeres af knappen "Genbyg og publicér" i Pages CMS og kører `deploy.yml` på `main` |
 
 Alt sker **i build-runneren** — der laves ingen bot-commits. Derfor kræver workflowet kun
@@ -230,19 +230,28 @@ bliver opdateret automatisk; det er kun den publicerede side, der altid er frisk
 
 ## Branches og forhåndsvisning
 
-- **`main`** er produktion. Push hertil publicerer via `deploy.yml`.
-- **`develop`** er til udkast. Pages CMS kan skifte branch øverst i UI'et; ændringer på
-  `develop` publiceres ikke, men valideres af `check.yml`.
-- Flet `develop` → `main` (fx via pull request), når du vil have ændringerne live.
+| Branch | Rolle | Publiceres |
+|---|---|---|
+| **`main`** | Produktion | Ja — på `/` |
+| **`develop`** | Udkast/eksperimenter | Ja — som **preview** på `/preview/`, men `noindex` |
 
-GitHub Pages publicerer **én** side pr. repo og har ikke indbyggede branch-previews. Vil
-man se `develop` i en browser, er mulighederne:
+Der er altså en rigtig preview-URL:
 
-1. **Lokalt:** `git checkout develop && pixi run dev` (nul opsætning).
-2. **Fælles preview-sti** på samme side, fx `/preview/`, hvor deploy bygger både `main` og
-   `develop` ind i samme artifact. Kræver et par ekstra workflow-trin.
-3. **Cloudflare Pages/Netlify** koblet til repoet giver automatiske branch-previews gratis,
-   men er en ekstra udbyder ved siden af GitHub Pages.
+- **Produktion:** <https://jcleemannbyg.github.io/JCleemannByg/>
+- **Preview (develop):** <https://jcleemannbyg.github.io/JCleemannByg/preview/>
+
+Sådan virker det: `deploy.yml` kører ved push til **begge** branches. Produktionen bygges
+altid fra `main`, og derefter bygges `develop` ind i samme artifact under `/preview/` med
+`--environment preview` (giver `noindex` og en tydelig preview-bar). Preview-buildet er
+best effort: fejler `develop`, deployer produktionen stadig.
+
+I Pages CMS skifter du branch øverst i UI'et. Rediger på `develop`, se resultatet på
+preview-URL'en, og flet derefter `develop` → `main`, når det skal live. Bemærk at
+**"Genbyg og publicér"-knappen altid deployer `main`** (produktion).
+
+GitHub Pages kræver, at begge branches er tilladt i environmentet: **Settings →
+Environments → github-pages → Deployment branches and tags** skal indeholde `main` **og**
+`develop`.
 
 ## Pages CMS-knapper (actions)
 

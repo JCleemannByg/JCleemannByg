@@ -12,7 +12,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   schedule:
     # Daily at 04:17 UTC (05:17/06:17 Danish time depending on DST).
     - cron: "17 4 * * *"
@@ -31,8 +31,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout production source (main)
         uses: actions/checkout@v4
+        with:
+          # Always build production from main, even when this run was triggered
+          # by a develop push (which is how the preview stays fresh).
+          ref: main
+
+      - name: Checkout develop for the preview build
+        id: preview_src
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          path: preview-src
 
       - name: Setup pixi environment (Hugo, Python, Pillow from pixi.lock)
         uses: prefix-dev/setup-pixi@v0.11.3
@@ -65,10 +77,32 @@ jobs:
           echo "Building for ${BASE_URL}"
           BASE_URL="$BASE_URL" pixi run build
 
-      - name: Verify (language, links, image dimensions, base path)
+      - name: Verify production (language, links, image dimensions, base path)
         env:
           VERIFY_BASE: /${{ github.event.repository.name }}/
         run: pixi run verify
+
+      - name: Build preview from develop
+        if: steps.preview_src.outcome == 'success'
+        continue-on-error: true
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          HOST="https://$(echo "$REPO_OWNER" | tr '[:upper:]' '[:lower:]').github.io/${REPO_NAME}"
+          echo "Preview at ${HOST}/preview/"
+          pixi run hugo --environment preview \
+            --source preview-src \
+            --minify --cleanDestinationDir \
+            --baseURL "${HOST}/preview/" \
+            --destination "${PWD}/public/preview"
+
+      - name: Verify preview (best effort)
+        if: steps.preview_src.outcome == 'success'
+        continue-on-error: true
+        env:
+          VERIFY_BASE: /${{ github.event.repository.name }}/preview/
+        run: pixi run python3 scripts/verify.py --public public/preview
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

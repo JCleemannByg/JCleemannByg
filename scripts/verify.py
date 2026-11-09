@@ -16,6 +16,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 from html.parser import HTMLParser
@@ -99,7 +100,7 @@ def counterpart(url: str) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--public", default="public")
-    ap.add_argument("--base", default="/", help="base path, e.g. /JCleemannByg/")
+    ap.add_argument("--base", default=os.environ.get("VERIFY_BASE", "/"), help="base path, e.g. /JCleemannByg/")
     ap.add_argument("--i18n", default="i18n", help="folder with the per-language TOML label files")
     ap.add_argument("--content", default="content", help="content root; languages are detected from its 2-letter subfolders")
     args = ap.parse_args()

@@ -32,7 +32,7 @@ bare filerne direkte.
 | Område | Hvor |
 |---|---|
 | Forside: hero, fakta, om-blok, brødtekst | `content/da/_index.md` |
-| Projekter: opret/slet, titel, kategori, år, rækkefølge, cover + galleri, tekst | `content/da/projekter/*.md` |
+| Projekter: opret/slet, titel, kategori, år, rækkefølge, cover + galleri, før/efter-billeder, tekst | `content/da/projekter/*.md` |
 | Projekter (oversigtstekst) | `content/da/projekter/_index.md` |
 | Ydelser: intro + liste af ydelser | `content/da/ydelser/index.md` |
 | Om-siden | `content/da/om/index.md` |
@@ -94,8 +94,9 @@ automatisk, når sproget dukker op:
 
 - **Ingen live-forhåndsvisning** i den gratis hosted version: gem → commit → genbyg.
 - **Ingen granulære rettigheder endnu**: alle med adgang til repoet kan redigere alt.
-- **Billeder lægges i repoet** — hold dem under ca. 2000 px og JPEG ~q80, ellers vokser
-  repo og deploy-tid.
+- **Billeder lægges i repoet**, men behøver ikke at være optimeret på forhånd:
+  `.github/workflows/images.yml` nedskalerer automatisk alt over 2000 px og rekomprimerer
+  ved næste push. Lokalt: `pixi run images`.
 - **TOML-filerne med knaptekster** bliver skrevet af CMS'et ved gem; kommentarer i dem
   kan forsvinde.
 - **Pages CMS er et lille projekt** (MIT). Skulle det forsvinde, er alt indhold stadig

@@ -6,13 +6,14 @@ kategori: "Indbygning"
 aar: 2026
 weight: 10
 cover: "images/projekter/radiatorskjuler/01.jpg"
+foer: "images/projekter/radiatorskjuler/07.jpg"
+efter: "images/projekter/radiatorskjuler/01.jpg"
 galleri:
   - "images/projekter/radiatorskjuler/02.jpg"
   - "images/projekter/radiatorskjuler/03.jpg"
   - "images/projekter/radiatorskjuler/04.jpg"
   - "images/projekter/radiatorskjuler/05.jpg"
   - "images/projekter/radiatorskjuler/06.jpg"
-  - "images/projekter/radiatorskjuler/07.jpg"
 resume: "Bygget til mål, malet hvid og med åbne frontpaneler, så varmen stadig slipper ud."
 ---
 

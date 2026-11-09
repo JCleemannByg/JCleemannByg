@@ -1,0 +1,19 @@
+{{- /* Optional before/after comparison for a project (frontmatter: foer, efter). */ -}}
+{{- $before := .Params.foer -}}
+{{- $after := .Params.efter -}}
+{{- if or $before $after -}}
+<section class="beforeafter" aria-label="{{ i18n "before" }} / {{ i18n "after" }}">
+  {{- with $before }}
+  <figure class="beforeafter__item">
+    {{ partial "responsive-img.html" (dict "src" . "alt" (printf "%s – %s" $.Title (i18n "before")) "sizes" "(min-width: 760px) 50vw, 100vw" "widths" (slice 480 720 1080) "class" "beforeafter__img") }}
+    <figcaption>{{ i18n "before" }}</figcaption>
+  </figure>
+  {{- end }}
+  {{- with $after }}
+  <figure class="beforeafter__item">
+    {{ partial "responsive-img.html" (dict "src" . "alt" (printf "%s – %s" $.Title (i18n "after")) "sizes" "(min-width: 760px) 50vw, 100vw" "widths" (slice 480 720 1080) "class" "beforeafter__img") }}
+    <figcaption>{{ i18n "after" }}</figcaption>
+  </figure>
+  {{- end }}
+</section>
+{{- end -}}

@@ -44,14 +44,21 @@
 <meta property="og:locale:alternate" content="{{ .Language.Locale }}">
 {{- end }}
 {{- end }}
+<meta name="twitter:card" content="summary_large_image">
 {{- with $site.og_image }}
 {{- with resources.Get (strings.TrimPrefix "/" .) }}
 <meta property="og:image" content="{{ .Permalink }}">
+<meta property="og:image:width" content="{{ .Width }}">
+<meta property="og:image:height" content="{{ .Height }}">
+<meta property="og:image:alt" content="{{ $site.brand }}">
+<meta name="twitter:image" content="{{ .Permalink }}">
 {{- end }}
 {{- end }}
-<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#24231e">
 <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ "icon-192.png" | relURL }}">
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
 {{- $tokens := resources.Get "css/tokens.css" | resources.ExecuteAsTemplate "css/tokens.css" $design | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $tokens.RelPermalink }}" integrity="{{ $tokens.Data.Integrity }}">
 {{- $css := resources.Get "css/main.css" | minify | fingerprint }}

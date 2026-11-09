@@ -31,19 +31,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Setup pixi environment (Python + Pillow from pixi.lock)
+        uses: prefix-dev/setup-pixi@v0.11.3
         with:
-          python-version: "3.12"
-          cache: pip
-
-      - name: Install Pillow
-        run: pip install --no-cache-dir "pillow>=10"
+          cache: true
 
       - name: Fetch latest posts
         # Best effort: if Instagram is unavailable or changes its embed page, the
         # previous snapshot stays in place and the site keeps building.
-        run: python scripts/fetch_instagram.py --username jcleemann_byg --limit 6
+        run: pixi run instagram
         continue-on-error: true
 
       - name: Commit refreshed snapshot

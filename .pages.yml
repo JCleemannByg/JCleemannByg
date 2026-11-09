@@ -392,6 +392,14 @@ content:
             label: "Galleri"
             type: image
             list: true
+          - name: foer
+            label: "Før-billede (valgfrit)"
+            description: "Vises side om side med efter-billedet som en før/efter-sektion."
+            type: image
+          - name: efter
+            label: "Efter-billede (valgfrit)"
+            description: "Det færdige resultat — samme motiv som før-billedet, hvis muligt."
+            type: image
           - name: resume
             label: "Kort resume (til kortet og meta)"
             type: text

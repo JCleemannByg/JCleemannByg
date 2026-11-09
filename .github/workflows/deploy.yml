@@ -22,9 +22,6 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-env:
-  HUGO_VERSION: "0.169.0"
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,11 +29,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Hugo extended
-        uses: peaceiris/actions-hugo@v3
+      - name: Setup pixi environment (Hugo, Python, Pillow from pixi.lock)
+        uses: prefix-dev/setup-pixi@v0.11.3
         with:
-          hugo-version: ${{ env.HUGO_VERSION }}
-          extended: true
+          cache: true
 
       - name: Cache Hugo image/resources cache
         uses: actions/cache@v4
@@ -48,10 +44,12 @@ jobs:
       - name: Build
         env:
           BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
-        run: hugo --minify --cleanDestinationDir --baseURL "$BASE_URL"
+        run: pixi run build
 
-      - name: Verify (translations, links, image dimensions, base path)
-        run: python3 scripts/verify.py --public public --base "/${{ github.event.repository.name }}/"
+      - name: Verify (languages, links, image dimensions, base path)
+        env:
+          VERIFY_BASE: /${{ github.event.repository.name }}/
+        run: pixi run verify
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

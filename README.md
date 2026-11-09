@@ -30,6 +30,7 @@ Andre tasks (`se listen i pixi.toml`):
 | `pixi run build` | Bygger til `public/` (kan styres med `BASE_URL=…`) |
 | `pixi run verify` | Tjekker oversættelser, links, billeder og stier |
 | `pixi run instagram` | Opdaterer Instagram-liste + forhåndsbilleder |
+| `pixi run images` | Nedskalerer store billeder i `assets/images/` |
 | `pixi run placeholders` | Genererer placeholder-teksturer |
 
 **Uden pixi:** installér Hugo 0.169+ (`brew install hugo`) og kør `./scripts/dev.sh`.
@@ -69,6 +70,8 @@ kategori: "Indbygning"                           # vises over titlen
 aar: 2026                                        # årstal
 weight: 10                                       # rækkefølge (lav = først)
 cover: "images/projekter/radiatorskjuler/01.jpg"
+foer: "images/projekter/radiatorskjuler/07.jpg"    # valgfrit: før/efter-sektion
+efter: "images/projekter/radiatorskjuler/01.jpg"
 galleri:
   - "images/projekter/radiatorskjuler/02.jpg"
   - "images/projekter/radiatorskjuler/03.jpg"
@@ -82,6 +85,7 @@ Brødteksten er almindelig markdown og vises under cover-billedet.
 1. Læg billederne i `assets/images/projekter/<slug>/` (f.eks. `radiatorskjuler/`).
    Navngiv dem `01.jpg`, `02.jpg`, …
 2. Kopiér et projekt i `content/da/projekter/` til `<slug>.md` og ret frontmatter.
+   Vil du vise en før/efter-sammenligning, udfyld `foer` og `efter` med to billedstier.
 3. `pixi run check` (eller `./scripts/build.sh` + `python3 scripts/verify.py`).
 4. Committ og push — siden bygges automatisk, når GitHub Pages er sat op.
 
@@ -96,8 +100,10 @@ forsiden.
   Telefonbilleder skal skaleres ned først (fx i Fotos eller med `sips`).
 - **Placering:** `assets/images/…`. Billeder refereres i frontmatter, aldrig i markdown —
   så bliver de automatisk skaleret og leveret som WebP i flere størrelser.
-- **Alt-tekst** dannes ud fra projektets titel og billednummer; vil du have en bedre
-  beskrivelse, kan `alt` tilføjes til galleri-objekterne senere.
+- **Alt-tekst** dannes ud fra projektets titel og billednummer.
+- **Store uploads håndteres automatisk:** workflowet `.github/workflows/images.yml`
+  nedskalerer alt over 2000 px og rekomprimerer, når der pushes billeder. Lokalt kan samme
+  script køres med `pixi run images`.
 - Hugo laver selv `srcset` og `width`/`height`, så der ikke sker layoutskift.
 
 ---
@@ -192,6 +198,17 @@ findes og Pages er aktiveret.
    `https://<brugernavn>.github.io/JCleemannByg/`.
 4. Workflowet bygger med `baseURL` ud fra repoets navn og kører `verify.py` før deploy.
 
+### Workflows
+
+| Workflow | Gør |
+|---|---|
+| `deploy.yml` | Bygger med pixi og publicerer til Pages; kører `verify.py` før upload |
+| `instagram.yml` | Dagligt: opdaterer Instagram-liste + forhåndsbilleder og committer |
+| `images.yml` | Ved billedpushes: nedskalerer store fotos og committer |
+
+De to sidste committer med `GITHUB_TOKEN`, og derfor lytter `deploy.yml` også på
+`workflow_run`, så siden genbygges bagefter.
+
 ### Eget domæne senere
 
 `jcleemannbyg.dk` ejes allerede. Når den skal pege på siden:
@@ -207,8 +224,8 @@ findes og Pages er aktiveret.
 
 - **Hugo-versionen er låst** til `0.169.0` i `pixi.toml`, `pixi.lock` og deploy-workflowet.
   Opgrader bevidst — Hugo omdøber jævnligt config-nøgler.
-- **CI og lokalt kan gøres helt ens** ved at skifte workflowet til `prefix-dev/setup-pixi` +
-  `pixi run check`; det er ikke gjort endnu, da deploy-workflowet ikke er afprøvet på GitHub.
+- **CI og lokalt er nu ens**: workflowene bruger `prefix-dev/setup-pixi` + `pixi.lock`, så
+  deploy bygger med præcis samme Hugo/Python som lokalt.
 - Kør `scripts/verify.py` ved hver ændring (den ligger også i workflowet).
 - Hold billeder under 400 KB, ellers vokser repoet og deploy-tiden.
 

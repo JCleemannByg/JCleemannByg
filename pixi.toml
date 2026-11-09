@@ -23,7 +23,8 @@ pillow = ">=12.3,<13"
 [tasks]
 dev = { cmd = "./scripts/dev.sh", env = { HUGO = "hugo" }, description = "Lokal server med live reload (http://localhost:1313/)" }
 build = { cmd = "./scripts/build.sh", env = { HUGO = "hugo" }, description = "Byg siden til public/" }
-verify = { cmd = "python3 scripts/verify.py --public public --base /", description = "Tjek oversættelser, links, billeder og stier" }
+verify = { cmd = "python3 scripts/verify.py --public public", description = "Tjek sprog, links, billeder og stier (sæt VERIFY_BASE for GitHub Pages-stien)" }
 check = { depends-on = ["build", "verify"], description = "Byg og verificér (det samme som CI gør)" }
 instagram = { cmd = "python3 scripts/fetch_instagram.py --username jcleemann_byg --limit 6", description = "Opdatér Instagram-liste og forhåndsbilleder" }
 placeholders = { cmd = "python3 scripts/gen_placeholders.py", description = "Genér placeholder-teksturer (kun nødvendigt uden rigtige fotos)" }
+images = { cmd = "python3 scripts/optimize_images.py", description = "Nedskalér og komprimér store billeder i assets/images/" }

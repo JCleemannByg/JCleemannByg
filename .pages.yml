@@ -293,6 +293,7 @@ content:
             type: text
           - name: hero_billede
             label: "Hero-billede (bredt, ca. 16:9)"
+            description: "Landskabsbillede, helst mindst 2000 px bredt. Teksten lægges over venstre side, så motivet bør have luft/ro der."
             type: image
           - name: hero_eyebrow
             label: "Hero: lille tekst over overskriften"

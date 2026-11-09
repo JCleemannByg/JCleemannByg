@@ -500,6 +500,17 @@ a { color: inherit; }
   text-transform: uppercase;
 }
 
+.badge {
+  display: inline-block;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  background: var(--oak);
+  color: #fff;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  vertical-align: 0.1em;
+}
+
 .card__title {
   display: block;
   margin-top: 0.35rem;

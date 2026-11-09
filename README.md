@@ -256,6 +256,21 @@ preview-URL'en, og flet derefter `develop` → `main`, når det skal live. Bemæ
 Environmentet **github-pages** skal kun tillade `main` (deploy sker altid på `main`).
 `develop` deployes aldrig direkte.
 
+## Kladder pr. projekt (uden branch)
+
+Hvert projekt har en **Kladde**-knap i Pages CMS (`draft: true`). Det bruger Husos
+indbyggede draft-mekanisme:
+
+- **Produktion:** kladder bygges slet ikke — de er væk fra projektlisten, forsiden,
+  sitemap og har ingen URL på den offentlige side.
+- **Preview og lokal:** `develop`-preview og `pixi run dev` bygges med `--buildDrafts`, så
+  kladden kan ses med et orange **KLADDE**-mærke på kortet og projektsiden.
+- Slå kladden fra, når projektet er klar — næste deploy publicerer det.
+
+Det er den nemme vej til "gem uden at publicere" uden at skifte branch eller flette noget.
+Bemærk: repoet er offentligt, så kladde-teksten ligger stadig i git — den er blot ikke på
+den publicerede side. Større omlægninger/eksperimenter hører fortsat på `develop`.
+
 ## Pages CMS-knapper (actions)
 
 `.pages.yml` har en `actions`-sektion, der viser knapper i Pages CMS. Knappen

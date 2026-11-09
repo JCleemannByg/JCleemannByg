@@ -92,6 +92,23 @@ automatisk, når sproget dukker op:
   automatisk ved deploy og redigeres derfor ikke i CMS'et.
 - **Workflows, scripts og konfiguration** — udvikleransvar.
 
+## Kladder pr. indhold (Kladde-knappen)
+
+Projekter har feltet **“Kladde”** (`draft: true`). Det er Hugo's indbyggede draft-flag:
+
+| Hvor | Kladde synlig? |
+|---|---|
+| Produktion (`main` → `/`) | **Nej** — siden bygges ikke, linkes ikke, kommer ikke i sitemap |
+| Preview (`develop` → `/preview/`) | **Ja**, med orange KLADDE-mærke |
+| Lokalt (`pixi run dev`) | **Ja**, fordi dev-serveren kører med `--buildDrafts` |
+
+Arbejdsgang: opret/redigér projektet → slå **Kladde** til → gem. Det dukker op på
+preview/local med mærke, men ikke på den offentlige side. Slå fra, når det er klar.
+
+Forbehold: indholdet committes stadig (repoet er offentligt), så kladder er ikke
+hemmelige — kun upublicerede. Til større redesign/eksperimenter er `develop`-branchen
+stadig det rigtige værktøj; de to ting kan bruges sammen.
+
 ## Branches (main og develop)
 
 Pages CMS har en branch-vælger, fordi den læser repoets branches. Opsætningen er:

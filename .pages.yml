@@ -178,6 +178,9 @@ content:
       - name: write
         label: "write"
         type: string
+      - name: draft
+        label: "draft"
+        type: string
       - name: instagram_open_post
         label: "instagram_open_post"
         type: string
@@ -324,6 +327,10 @@ content:
               - name: tekst
                 label: "Tekst"
                 type: text
+          - name: draft
+            label: "Kladde"
+            description: "Slå til for at gemme som kladde: vises kun på preview og lokalt, aldrig på den offentlige side."
+            type: boolean
           - name: body
             label: "Brødtekst"
             type: rich-text

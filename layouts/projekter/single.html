@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{- $p := . -}}
 <div class="shell page-head">
-  <p class="eyebrow">{{ .Params.kategori }}{{ with .Params.aar }} · {{ . }}{{ end }}</p>
+  <p class="eyebrow">{{ .Params.kategori }}{{ with .Params.aar }} · {{ . }}{{ end }}{{ if .Draft }} <span class="badge">{{ i18n "draft" }}</span>{{ end }}</p>
   <h1 class="page-title">{{ .Title }}</h1>
   {{ with .Params.resume }}<p class="page-lead">{{ . }}</p>{{ end }}
 </div>

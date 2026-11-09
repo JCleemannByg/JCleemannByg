@@ -17,4 +17,5 @@ exec "$HUGO_BIN" server \
   --port "$PORT" \
   --baseURL "http://localhost:${PORT}/" \
   --disableFastRender \
+  --buildDrafts \
   --printI18nWarnings

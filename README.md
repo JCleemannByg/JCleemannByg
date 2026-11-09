@@ -162,6 +162,9 @@ profilen til virksomheden.
 - UI-tekster (knapper, labels) står i `i18n/da.toml` og `i18n/en.toml`.
 - Sprogskifteren på hver side bevarer den side, du står på, hvis oversættelsen findes.
 - `hreflang` og `x-default` sættes automatisk (x-default peger altid på dansk).
+- Oversættelser parres af **filnavnet**: `content/da/projekter/x.md` ↔ `content/en/projekter/x.md`.
+  Mangler tvillingen, fejler `verify.py` og deploy stopper. Se
+  [docs/pages-cms.md#sprog--dansk-og-engelsk](docs/pages-cms.md) for CMS-arbejdsgangen.
 
 ---
 

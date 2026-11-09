@@ -57,6 +57,59 @@ Det er bevidst *tokens*, ikke layout: man kan gøre siden varmere, koldere, stra
 eller blødere — men ikke flytte sektioner eller ændre strukturen. Det holder designet
 sammenhængende.
 
+## Sprog — dansk og engelsk
+
+Siden er tosproget med **to parallelle indholdstræer**, og det er også sådan Pages CMS
+ser den: menuen har gruppen **“Dansk indhold”** og **“Engelsk indhold”**, hver med
+Forside, Projekter, Ydelser, Om og Kontakt.
+
+### Hvordan koblingen virker
+
+- Hugo parrer oversættelser ud fra **stien under sprogsmappen**:
+  `content/da/projekter/bogreol.md` ↔ `content/en/projekter/bogreol.md`.
+  Der er ingen database eller oversættelses-markør — **filnavnet er nøglen**.
+- Derfor skal dansk og engelsk bruge **samme filnavn/slug** (`bogreol`), også når der
+  oprettes nyt. Så bliver URL'erne `/projekter/bogreol/` og `/en/projekter/bogreol/`,
+  og sprogskifteren, `hreflang` og `x-default` bliver genereret automatisk.
+- **Pages CMS oversætter intet selv.** Der er ingen “oversæt denne side”-knap;
+  man redigerer de to filer hver for sig. Billeder deles (samme mediebibliotek).
+
+### Hvad sker der, hvis en oversættelse mangler
+
+| Effekt | Konsekvens |
+|---|---|
+| Dansk side uden engelsk fil | Den engelske side findes slet ikke (404 på `/en/…`), og `hreflang` udelader engelsk |
+| Engelsk liste | Projektet mangler på `/en/projekter/` |
+| Sprogskifter | Falder tilbage til den anden sprogs forside, så man ikke lander på en 404 |
+| `verify.py` | **Fejler** med “no translation at …” |
+| Deploy | Workflowet stopper, fordi verify kører før upload — den gamle side bliver live |
+
+Så: en manglende oversættelse går ikke ubemærket hen. Den blokérer bevidst deploy, indtil
+begge filer findes.
+
+### Knap- og arialabels
+
+De ligger i `i18n/da.toml` og `i18n/en.toml` og redigeres som to separate filer i CMS'et
+(“Knap- og menutekster”). `verify.py` tjekker nu også, at **begge filer har samme nøgler**,
+så en glemt engelsk label bliver fanget før deploy.
+
+### Praktisk arbejdsgang ved et nyt projekt
+
+1. Åbn **Dansk indhold → Projekter → + Nyt**, udfyld felterne, upload billeder, gem.
+2. Åbn **Engelsk indhold → Projekter → + Nyt**, brug **samme filnavn/slug**, oversæt
+   titel, resume og brødtekst, vælg de samme billeder, gem.
+3. Begge filer arver samme `weight`, så rækkefølgen er ens på begge sprog.
+4. Efter det første gem kan deploy være rød, indtil den anden fil er gemt — det er
+   med vilje; gem den engelske lige efter.
+
+Ved omdøbning eller sletning: gør det i **begge** sprog, ellers fejler verify.
+
+### Undtagelsen: indhold der kun findes på ét sprog
+
+Lige nu er der ingen undtagelse — en bevidst dansk-only side ville også blive blokeret af
+verify. Skal det bruges (fx en dansk nyhed), kan vi tilføje en `oversaettelse: valgfri`
+markør, som verify respekterer. Det er ikke bygget, fordi brochuresiden ikke har behovet.
+
 ## Hvad kan **ikke** redigeres (med vilje)
 
 - **Layout og skabeloner** (`layouts/`) — struktur, sektionsrækkefølge, HTML.

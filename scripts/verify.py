@@ -100,6 +100,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--public", default="public")
     ap.add_argument("--base", default="/", help="base path, e.g. /JCleemannByg/")
+    ap.add_argument("--i18n", default="i18n", help="folder with the per-language TOML label files")
     args = ap.parse_args()
 
     public = Path(args.public)
@@ -164,6 +165,25 @@ def main() -> int:
                 if url_to_file(public, stripped) is None:
                     problems.append(f"{rel}: broken link/asset: {ref}")
 
+    # translation of UI labels: both language files must expose the same keys
+    i18n = Path(args.i18n)
+    if i18n.is_dir():
+        keys = {}
+        for toml_file in sorted(i18n.glob("*.toml")):
+            found = set()
+            for line in toml_file.read_text(encoding="utf-8").splitlines():
+                match = re.match(r"^([a-z_][a-z0-9_]*)\s*=", line)
+                if match:
+                    found.add(match.group(1))
+            keys[toml_file.stem] = found
+        if len(keys) >= 2:
+            languages = sorted(keys)
+            union = set().union(*keys.values())
+            for lang in languages:
+                missing = union - keys[lang]
+                if missing:
+                    problems.append(f"i18n/{lang}.toml: missing keys {sorted(missing)}")
+
     # report
     print(f"public:            {public}")
     print(f"base path:         {base}")
@@ -171,6 +191,7 @@ def main() -> int:
     print(f"images checked:    {checked_images}")
     print(f"internal refs:     {checked_refs}")
     print(f"hreflang pairs:    {sum(len(p.hreflang) for p in parsed.values())}")
+    print(f"i18n languages:    {len(list(Path(args.i18n).glob('*.toml')))}")
     if problems:
         print(f"\n{len(problems)} problem(s):")
         for p in problems:

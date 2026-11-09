@@ -76,7 +76,7 @@ efter: "images/projekter/radiatorskjuler/01.jpg"
 galleri:
   - "images/projekter/radiatorskjuler/02.jpg"
   - "images/projekter/radiatorskjuler/03.jpg"
-resume: "Én-to linjer til projektkortet."
+resume: "Én-to linjer til projektsiden og meta."
 ---
 Brødteksten er almindelig markdown og vises under cover-billedet.
 ```

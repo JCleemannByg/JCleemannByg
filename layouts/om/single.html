@@ -9,7 +9,7 @@
   <div class="prose">{{ .Content }}</div>
   {{ with .Params.billede }}
   <figure class="photo-matted page-media">
-    {{ partial "responsive-img.html" (dict "src" . "alt" "" "sizes" "(min-width: 900px) 42vw, 100vw" "widths" (slice 480 720 1080)) }}
+    {{ partial "responsive-img.html" (dict "src" . "alt" (i18n "about_image_alt") "sizes" "(min-width: 900px) 42vw, 100vw" "widths" (slice 480 720 1080)) }}
   </figure>
   {{ end }}
 </div>

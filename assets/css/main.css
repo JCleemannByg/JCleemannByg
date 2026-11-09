@@ -423,13 +423,6 @@ a { color: inherit; }
   line-height: 1.25;
 }
 
-.card__text {
-  display: block;
-  margin-top: 0.45rem;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
 /* ---------- Services ---------- */
 
 .services__list {

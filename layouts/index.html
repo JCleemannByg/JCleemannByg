@@ -41,7 +41,7 @@
   <div class="shell about">
     <div class="about__media">
       <figure class="photo-matted">
-        {{ partial "responsive-img.html" (dict "src" $.Params.om_billede "alt" "" "sizes" "(min-width: 900px) 42vw, 100vw" "widths" (slice 480 720 1080)) }}
+        {{ partial "responsive-img.html" (dict "src" $.Params.om_billede "alt" (i18n "about_image_alt") "sizes" "(min-width: 900px) 42vw, 100vw" "widths" (slice 480 720 1080)) }}
       </figure>
     </div>
     <div class="about__text">

@@ -305,7 +305,7 @@ content:
             label: "Hero: tekst"
             type: text
           - name: om_billede
-            label: "Om-blok: billede (portræt, ca. 4:5)"
+            label: "Om-blok: billede (stående, ca. 4:5)"
             type: image
           - name: om_overskrift
             label: "Om-blok: overskrift"
@@ -405,7 +405,7 @@ content:
             description: "Det færdige resultat — samme motiv som før-billedet, hvis muligt."
             type: image
           - name: resume
-            label: "Kort resume (til kortet og meta)"
+            label: "Kort resume (til projektsiden og meta)"
             type: text
           - name: body
             label: "Brødtekst"
@@ -430,7 +430,7 @@ content:
             label: "Lille tekst over overskriften"
             type: string
           - name: billede
-            label: "Billede til siden"
+            label: "Billede til siden (stående)"
             type: image
           - name: body
             label: "Brødtekst"

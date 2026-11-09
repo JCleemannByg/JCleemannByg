@@ -3,7 +3,7 @@ title: "Om"
 titel: "Om J Cleemann Byg – værkstedet i Nærum"
 beskrivelse: "J Cleemann Byg v/ Johann Cleemann – tømrer- og snedkervirksomhed i Nærum."
 undertitel: "Værkstedet"
-billede: "images/om/portraet.jpg"
+billede: "images/om/arbejde.jpg"
 ---
 
 J Cleemann Byg er et lille værksted i Nærum, stiftet 3. marts 2023 som

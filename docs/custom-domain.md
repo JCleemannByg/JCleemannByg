@@ -1,22 +1,25 @@
 # Custom domain: jcleemannbyg.dk
 
-Siden skal flyttes fra `https://jcleemannbyg.github.io/JCleemannByg/` til
-`https://jcleemannbyg.dk/` (og `www.jcleemannbyg.dk`).
+Siden er flyttet fra `https://jcleemannbyg.github.io/JCleemannByg/` til
+`https://jcleemannbyg.dk/` (og `www.jcleemannbyg.dk`). Gennemført **2026-11-09**;
+dokumentet er beholdt som runbook og til fremtidige DNS-ændringer.
 
-## Nuværende status (verificeret 2026-11-09)
+## Status efter skiftet (2026-11-09)
 
 | | |
 |---|---|
 | Domæne | `jcleemannbyg.dk`, registreret til 2027-09-02 |
 | DNS | Hostinger-navneservere: `ns1.dns-parking.com`, `ns2.dns-parking.com` |
-| A-record i dag | `72.60.81.210` (**skal ændres**) |
-| `www` | peger i dag på samme A-record |
+| A-record nu | fire GitHub-adresser: `185.199.108.153`–`185.199.111.153` |
+| `www` | CNAME → `jcleemannbyg.github.io` (301 til apex) |
+| GitHub Pages | custom domain `jcleemannbyg.dk`, HTTPS håndhævet, certifikat godkendt |
+| `SITE_URL` | sat til `https://jcleemannbyg.dk` i Actions-variabler |
 | E-mail | MX `mx1.titan.email` + `mx2.titan.email` og SPF (`v=spf1 include:spf.titan.email ~all`) — **må ikke slettes** |
 
 DNS redigeres i **Hostinger hPanel → Domains → jcleemannbyg.dk → DNS Zone**
 (navneserverne er Hostingers, så det er der, zonen ligger).
 
-## 1. Skift DNS-records (Hostinger)
+## Sådan blev DNS skiftet (Hostinger)
 
 Behold alle MX-, SPF-, DKIM- og autodiscover-records. Ændr kun web-records:
 
@@ -43,7 +46,7 @@ dig +short jcleemannbyg.dk MX      # skal stadig vise mx1/mx2.titan.email
 
 DNS kan tage fra få minutter til et par timer (sjældent op til 24–48 t).
 
-## 2. GitHub Pages
+## Sådan blev GitHub Pages sat op
 
 1. Repo → **Settings → Pages → Custom domain**: skriv `jcleemannbyg.dk` → **Save**.
 2. Vent på *DNS check successful* (grøn).
@@ -55,7 +58,7 @@ DNS kan tage fra få minutter til et par timer (sjældent op til 24–48 t).
 Sættes det før, kan GitHub begynde at redirecte `github.io`-adressen til det nye domæne,
 mens DNS stadig peger på den gamle host.
 
-## 3. Fortæl buildet om domænet
+## Sådan blev buildet peget på domænet
 
 Deploy-workflowet bruger automatisk `https://jcleemannbyg.github.io/JCleemannByg/`, med
 mindre repository-variablen `SITE_URL` er sat. Når DNS er klar:

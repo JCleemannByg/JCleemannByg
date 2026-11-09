@@ -2,12 +2,12 @@
 
 Statisk hjemmeside for **J Cleemann Byg v/ Johann Cleemann** (tømrer og snedker, Nærum).
 Bygget med [Hugo](https://gohugo.io), **kun på dansk**, og publiceret på
-**<https://jcleemannbyg.github.io/JCleemannByg/>**.
+**<https://jcleemannbyg.dk/>**.
 
 Der er **ingen JavaScript, ingen web fonts og ingen database** — kun HTML, CSS, markdown
 og billeder. Alt indhold er tekstfiler, som kan redigeres uden at røre koden.
 
-> **Status:** live på <https://jcleemannbyg.github.io/JCleemannByg/> (repo
+> **Status:** live på <https://jcleemannbyg.dk/> (repo
 > `JCleemannByg/JCleemannByg`, branch `main`, deploy via GitHub Actions). Kontaktoplysninger
 > og CVR er verificeret mod Håndværkerregistret, og porteføljen er bygget på Johanns egne
 > Instagram-opslag. Resterende punkter står under "Placeholders".

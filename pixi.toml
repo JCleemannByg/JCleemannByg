@@ -1,0 +1,29 @@
+# pixi — reproducerbart udviklingsmiljø til J Cleemann Byg
+#
+#   pixi install     # opretter .pixi/ ud fra pixi.lock (første gang)
+#   pixi run dev     # lokal server med live reload → http://localhost:1313/
+#   pixi run check   # byg + verificér
+#
+# Alle værktøjer (Hugo, Python, Pillow) kommer fra conda-forge og låses i
+# pixi.lock, så macOS og Linux — og CI — kører præcis samme versioner.
+# Hugo er låst til 0.169.0, som siden er bygget og testet med.
+
+[workspace]
+name = "jcleemannbyg"
+version = "0.1.0"
+description = "J Cleemann Byg — statisk Hugo-site, scripts og værktøjer"
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "osx-64", "linux-64"]
+
+[dependencies]
+hugo = "==0.169.0"
+python = "3.12.*"
+pillow = ">=12.3,<13"
+
+[tasks]
+dev = { cmd = "./scripts/dev.sh", env = { HUGO = "hugo" }, description = "Lokal server med live reload (http://localhost:1313/)" }
+build = { cmd = "./scripts/build.sh", env = { HUGO = "hugo" }, description = "Byg siden til public/" }
+verify = { cmd = "python3 scripts/verify.py --public public --base /", description = "Tjek oversættelser, links, billeder og stier" }
+check = { depends-on = ["build", "verify"], description = "Byg og verificér (det samme som CI gør)" }
+instagram = { cmd = "python3 scripts/fetch_instagram.py --username jcleemann_byg --limit 6", description = "Opdatér Instagram-liste og forhåndsbilleder" }
+placeholders = { cmd = "python3 scripts/gen_placeholders.py", description = "Genér placeholder-teksturer (kun nødvendigt uden rigtige fotos)" }

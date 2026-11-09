@@ -14,37 +14,28 @@ og billeder. Alt indhold er tekstfiler, som kan redigeres uden at røre koden.
 
 ## Kom i gang lokalt
 
-Kræver **Hugo extended 0.169** eller nyere.
+Miljøet styres med [pixi](https://pixi.sh): Hugo, Python og Pillow kommer fra
+conda-forge og låses i `pixi.lock`, så macOS, Linux og CI kører samme versioner.
 
 ```sh
-brew install hugo          # macOS — kun nødvendigt hvis repoet ikke har bin/hugo
-hugo version               # skal sige v0.169.x eller nyere
-
-./scripts/dev.sh           # lokal server på http://localhost:1313/
+pixi install          # opretter .pixi/ ud fra pixi.lock
+pixi run dev          # lokal server → http://localhost:1313/  (engelsk: /en/)
+pixi run check        # byg + verificér (det samme som CI gør)
 ```
 
-Scriptene bruger automatisk `bin/hugo` (en fastlåst 0.169.0), hvis den findes i
-repoet — ellers `hugo` fra PATH. `bin/` er ikke committet.
+Andre tasks (`se listen i pixi.toml`):
 
-Engelsk version: <http://localhost:1313/en/>
+| Task | Gør |
+|---|---|
+| `pixi run build` | Bygger til `public/` (kan styres med `BASE_URL=…`) |
+| `pixi run verify` | Tjekker oversættelser, links, billeder og stier |
+| `pixi run instagram` | Opdaterer Instagram-liste + forhåndsbilleder |
+| `pixi run placeholders` | Genererer placeholder-teksturer |
 
-Vil du bygge filerne i stedet for at køre en server:
+**Uden pixi:** installér Hugo 0.169+ (`brew install hugo`) og kør `./scripts/dev.sh`.
+Scriptene bruger også en lokal `bin/hugo`, hvis den findes.
 
-```sh
-./scripts/build.sh                                   # → public/ til lokal preview
-BASE_URL=https://brugernavn.github.io/JCleemannByg/ ./scripts/build.sh   # GitHub Pages
-
-python3 scripts/verify.py --public public --base /   # tjek før publicering
-```
-
-`verify.py` fejler, hvis en side mangler sin engelske tvilling, hvis et billede mangler
-`width`/`height`, hvis et link er dødt, eller hvis en URL mangler GitHub Pages-stien.
-
-Har du ikke Hugo installeret lokalt, kan scriptene pege på en anden binær:
-
-```sh
-HUGO=/sti/til/hugo ./scripts/dev.sh
-```
+Hugo er låst til **0.169.0** i `pixi.toml` og i deploy-workflowet — opgrader bevidst.
 
 ---
 
@@ -214,8 +205,10 @@ findes og Pages er aktiveret.
 
 ## Vedligehold
 
-- **Hugo-versionen er låst** til `0.169.0` i README og workflow. Opgrader bevidst — Hugo
-  omdøber jævnligt config-nøgler.
+- **Hugo-versionen er låst** til `0.169.0` i `pixi.toml`, `pixi.lock` og deploy-workflowet.
+  Opgrader bevidst — Hugo omdøber jævnligt config-nøgler.
+- **CI og lokalt kan gøres helt ens** ved at skifte workflowet til `prefix-dev/setup-pixi` +
+  `pixi run check`; det er ikke gjort endnu, da deploy-workflowet ikke er afprøvet på GitHub.
 - Kør `scripts/verify.py` ved hver ændring (den ligger også i workflowet).
 - Hold billeder under 400 KB, ellers vokser repoet og deploy-tiden.
 

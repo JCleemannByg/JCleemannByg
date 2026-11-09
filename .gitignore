@@ -14,3 +14,6 @@ docs/preview/
 
 # Local pinned Hugo binary (downloaded, not committed)
 bin/
+
+# pixi environment (recreated with `pixi install`)
+.pixi/

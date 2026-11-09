@@ -51,6 +51,37 @@ men så lander besøgende på en SnapWidget-side ved klik.
 Den kuraterede sektion bevares som **fallback**: Hvis widgetten ikke kan indlæses, viser
 siden stadig de udvalgte billeder fra `data/instagram.yaml`. Det er også det, der sker nu.
 
+## Uden Instagram-login? — efterprøvet 2026-11-09
+
+Kort svar: **Nej, ikke for en automatisk feed.** Instagram kræver, at ejeren af kontoen
+logger ind og giver tilladelse, før nogen må læse opslagene. Vi har prøvet de anonyme veje:
+
+| Forsøg | Resultat |
+|---|---|
+| `instagram.com/api/v1/users/web_profile_info?username=…` | **404** (login-væg) |
+| `api.instagram.com/oembed/?url=…` uden token | **302** til login |
+| Profilens HTML uden login | 511 KB login-side, **0 opslag** i markup |
+| Læse-proxy (`r.jina.ai`) på profilen | Omdirigeret til `/accounts/login/` |
+| Indlejre profilen i iframe | Blokeret: `X-Frame-Options: DENY` |
+| SnapWidget: skrive et brugernavn | Ifølge deres docs **umuligt**: "You cannot show an Instagram account by typing in its username… only after the owner… signs in and gives permission." |
+| SnapWidget hashtag-widget | Kræver business/creator-konto **linket til en Facebook-side** + Pro-plan → stadig login |
+| LightWidget gratis | 24 t opdatering og **HTTPS slået fra** → kan ikke bruges på GitHub Pages |
+
+SnapWidget har dog en "Send For Auth"-model på betalte planer: man sender ejeren et link,
+og **ejeren logger selv ind** — man deler aldrig adgangskode. LightWidget kræver tilsvarende,
+at kontoen forbindes én gang.
+
+**Konklusion:** den eneste legitime vej til en automatisk feed er **én enkelt, frivillig
+login fra Johanns side** (2 minutter), hvorefter widgetten opdaterer sig selv. Uden den er
+de ærlige muligheder:
+
+1. **Kurateret galleri** (nuværende) — 0 kr, ingen login, ingen cookies, bedst design.
+2. **Officielle indlejringer pr. opslag** — kræver ingen login, kun at Johann sender 2–3
+   opslagslinks; men det er manuelt pr. opslag og indlæser Metas script.
+
+Alt andet (scrapere, "vis bare brugernavn"-services) bryder vilkårene og holder op med at
+virke uden varsel.
+
 ## Testet lokalt (2026-11-09)
 
 En offentlig LightWidget-demo (masonry) blev sat i `instagram_widget` og bygget lokalt:

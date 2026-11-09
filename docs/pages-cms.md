@@ -33,12 +33,11 @@ bare filerne direkte.
 
 | Område | Hvor |
 |---|---|
-| Forside: hero, fakta, om-blok, brødtekst | `content/da/_index.md` |
-| Projekter: opret/slet, titel, kategori, år, rækkefølge, cover + galleri, før/efter-billeder, tekst | `content/da/projekter/*.md` |
-| Projekter (oversigtstekst) | `content/da/projekter/_index.md` |
+| Forside: hero og om-blok | `content/da/_index.md` |
+| Projekter: opret/slet, titel, kategori, år, rækkefølge, cover, galleri, før/efter, fakta (materiale/omfang/placering/varighed) og tekst | `content/da/projekter/*.md` |
 | Ydelser & projekter: intro, ydelsesliste og projektoversigt | `content/da/projekter/_index.md` |
-| Om-siden | `content/da/om/index.md` |
-| Kontakt-siden | `content/da/kontakt/index.md` |
+| Om-siden: intro, fakta, 3-trins forløb, billede og tekst | `content/da/om/index.md` |
+| Kontakt-siden: intro, billede, område, FAQ og tekst | `content/da/kontakt/index.md` |
 | Alle billeder (upload, udskift) | `assets/images/**` via mediebiblioteket |
 | SEO-titel og meta-beskrivelse pr. side | frontmatter (`titel`, `beskrivelse`) |
 | Telefon, e-mail, CVR, adresse, Instagram, delebillede | `data/site.yaml` |

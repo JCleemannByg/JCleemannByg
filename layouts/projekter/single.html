@@ -4,12 +4,29 @@
   <p class="eyebrow">{{ .Params.kategori }}{{ with .Params.aar }} · {{ . }}{{ end }}</p>
   <h1 class="page-title">{{ .Title }}</h1>
   {{ with .Params.resume }}<p class="page-lead">{{ . }}</p>{{ end }}
+  {{- $facts := slice -}}
+  {{- with .Params.materiale }}{{ $facts = $facts | append (dict "label" "Materiale" "value" .) }}{{ end -}}
+  {{- with .Params.omfang }}{{ $facts = $facts | append (dict "label" "Omfang" "value" .) }}{{ end -}}
+  {{- with .Params.placering }}{{ $facts = $facts | append (dict "label" "Placering" "value" .) }}{{ end -}}
+  {{- with .Params.varighed }}{{ $facts = $facts | append (dict "label" "Varighed" "value" .) }}{{ end -}}
+  {{- with $facts }}
+  <dl class="project-facts">
+    {{- range . }}
+    <div>
+      <dt>{{ .label }}</dt>
+      <dd>{{ .value }}</dd>
+    </div>
+    {{- end }}
+  </dl>
+  {{- end }}
 </div>
 
 {{- with .Params.cover }}
-<figure class="project-cover">
-  {{ partial "responsive-img.html" (dict "src" . "alt" $p.Title "sizes" "100vw" "loading" "eager" "widths" (slice 960 1440 1920)) }}
-</figure>
+<div class="shell">
+  <figure class="project-cover">
+    {{ partial "responsive-img.html" (dict "src" . "alt" $p.Title "sizes" "(min-width: 1200px) 1160px, 100vw" "loading" "eager" "fetchpriority" "high" "widths" (slice 720 1080 1440)) }}
+  </figure>
+</div>
 {{- end }}
 
 <div class="shell project-body">
@@ -26,6 +43,7 @@
     {{- end }}
   </div>
   {{- end }}
+
 
   {{- with site.GetPage "/projekter" }}
   <p class="back"><a class="section-link" href="{{ .RelPermalink }}"><span aria-hidden="true">←</span> {{ i18n "back_to_projects" }}</a></p>

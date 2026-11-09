@@ -77,6 +77,10 @@ galleri:
   - "images/projekter/radiatorskjuler/02.jpg"
   - "images/projekter/radiatorskjuler/03.jpg"
 resume: "Én-to linjer til projektsiden og meta."
+materiale: "Træ, malet hvid"                     # valgfrit case-fakta
+omfang: "Radiatorskjulere på mål med hængslede låger"
+placering: "Stue i Nærum"
+# varighed: "2 uger"                             # valgfrit, vises hvis udfyldt
 ---
 Brødteksten er almindelig markdown og vises under cover-billedet.
 ```

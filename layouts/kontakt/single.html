@@ -47,5 +47,19 @@
   </div>
 
   {{ with .Content }}<div class="prose contact-page__body">{{ . }}</div>{{ end }}
+
+  {{ with .Params.faq }}
+  <section class="faq" aria-labelledby="faq-heading">
+    <h2 class="section-title faq__heading" id="faq-heading">Spørgsmål og svar</h2>
+    <div class="faq__list">
+      {{- range . }}
+      <details class="faq__item">
+        <summary class="faq__question">{{ .spoergsmaal }}</summary>
+        <div class="faq__answer"><p>{{ .svar }}</p></div>
+      </details>
+      {{- end }}
+    </div>
+  </section>
+  {{ end }}
 </div>
 {{ end }}

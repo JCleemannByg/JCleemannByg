@@ -15,6 +15,9 @@ galleri:
   - "images/projekter/radiatorskjuler/05.jpg"
   - "images/projekter/radiatorskjuler/06.jpg"
 resume: "Bygget til mål, malet hvid og med åbne frontpaneler, så varmen stadig slipper ud."
+materiale: "Træ, malet hvid"
+omfang: "Radiatorskjulere på mål med hængslede låger"
+placering: "Stue i Nærum"
 ---
 
 Radiatorskjuleren er bygget efter målene i rummet med to hængslede låger og en låge, der

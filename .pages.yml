@@ -137,7 +137,7 @@ content:
         label: "E-mail"
         type: string
       - name: cvr
-        label: "CVR-linje i footer"
+        label: "CVR (footer og fakta-linje)"
         type: string
       - name: founded
         label: "Stiftelsesdato (ÅÅÅÅ-MM-DD)"
@@ -404,6 +404,22 @@ content:
             label: "Efter-billede (valgfrit)"
             description: "Det færdige resultat — samme motiv som før-billedet, hvis muligt."
             type: image
+          - name: materiale
+            label: "Materiale"
+            description: "Fx \"Træ, malet hvid\". Vises i fakta-rækken under projektets intro."
+            type: string
+          - name: omfang
+            label: "Omfang"
+            description: "Kort om hvad opgaven omfattede, fx \"Radiatorskjulere på mål med hængslede låger\"."
+            type: string
+          - name: placering
+            label: "Placering"
+            description: "Fx \"Stue i Nærum\". By, rum eller begge."
+            type: string
+          - name: varighed
+            label: "Varighed (valgfrit)"
+            description: "Fx \"Ca. 1 uge\". Lad feltet stå tomt, hvis varigheden ikke er kendt – så vises den ikke."
+            type: string
           - name: resume
             label: "Kort resume (til projektsiden og meta)"
             type: text
@@ -488,6 +504,18 @@ content:
           - name: omraade
             label: "Område"
             type: string
+          - name: faq
+            label: "Spørgsmål og svar"
+            description: "Vises som en sammenklappelig liste under vejledningen. Skriv kun det, der med sikkerhed gælder."
+            type: object
+            list: true
+            fields:
+              - name: spoergsmaal
+                label: "Spørgsmål"
+                type: string
+              - name: svar
+                label: "Svar"
+                type: text
           - name: body
             label: "Brødtekst"
             type: rich-text

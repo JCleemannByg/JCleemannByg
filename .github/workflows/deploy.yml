@@ -60,15 +60,27 @@ jobs:
         env:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
+          SITE_URL: ${{ vars.SITE_URL }}
         run: |
-          BASE_URL="https://$(echo "$REPO_OWNER" | tr '[:upper:]' '[:lower:]').github.io/${REPO_NAME}/"
+          if [ -n "$SITE_URL" ]; then
+            BASE_URL="${SITE_URL%/}/"
+          else
+            BASE_URL="https://$(echo "$REPO_OWNER" | tr '[:upper:]' '[:lower:]').github.io/${REPO_NAME}/"
+          fi
           echo "Building for ${BASE_URL}"
           BASE_URL="$BASE_URL" pixi run build
 
       - name: Verify (language, links, image dimensions, base path)
         env:
-          VERIFY_BASE: /${{ github.event.repository.name }}/
-        run: pixi run verify
+          REPO_NAME: ${{ github.event.repository.name }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ -n "$SITE_URL" ]; then
+            VERIFY_BASE="/"
+          else
+            VERIFY_BASE="/${REPO_NAME}/"
+          fi
+          VERIFY_BASE="$VERIFY_BASE" pixi run verify
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

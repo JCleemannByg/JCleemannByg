@@ -193,6 +193,9 @@ Når teksterne er godkendt, kan `TODO(johann)`-kommentarerne i `content/` slette
 
 ## Publicering på GitHub Pages
 
+Domænet `jcleemannbyg.dk` er forberedt til at pege på siden — se
+[docs/custom-domain.md](docs/custom-domain.md) for DNS-records og rækkefølge.
+
 Siden er sat op: repo `JCleemannByg/JCleemannByg`, branch `main`, Pages-kilde
 *GitHub Actions*, og `.github/workflows/deploy.yml` bygger og publicerer ved push, dagligt
 og manuelt. Pages CMS er installeret på repoet og committer til `main`.

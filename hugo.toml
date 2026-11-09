@@ -34,13 +34,9 @@ disableKinds = ['taxonomy', 'term', 'rss']
     weight = 1
     title = 'J Cleemann Byg — tømrer og snedker i Nærum'
     [[languages.da.menu.main]]
-      name = 'Projekter'
+      name = 'Ydelser & projekter'
       pageRef = '/projekter'
       weight = 10
-    [[languages.da.menu.main]]
-      name = 'Ydelser'
-      pageRef = '/ydelser'
-      weight = 20
     [[languages.da.menu.main]]
       name = 'Om'
       pageRef = '/om'

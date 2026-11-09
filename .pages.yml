@@ -292,8 +292,8 @@ content:
             label: "Meta-beskrivelse (SEO)"
             type: text
           - name: hero_billede
-            label: "Hero-billede (bredt, ca. 16:9)"
-            description: "Landskabsbillede, helst mindst 2000 px bredt. Teksten lægges over venstre side, så motivet bør have luft/ro der."
+            label: "Hero-billede (stående, ca. 4:5)"
+            description: "Stående billede, gerne mindst 1000 px bredt. Vises i højre side af forsiden, så motivet bør fungere i et smalt udsnit."
             type: image
           - name: hero_eyebrow
             label: "Hero: lille tekst over overskriften"
@@ -313,22 +313,8 @@ content:
           - name: om_tekst
             label: "Om-blok: tekst"
             type: text
-          - name: fakta
-            label: "Fakta-kolonnen"
-            type: object
-            list: true
-            fields:
-              - name: navn
-                label: "Overskrift"
-                type: string
-              - name: tekst
-                label: "Tekst"
-                type: text
-          - name: body
-            label: "Brødtekst"
-            type: rich-text
       - name: projekter_oversigt_da
-        label: "Projekter (oversigtstekst)"
+        label: "Ydelser & projekter (oversigt)"
         type: file
         path: content/da/projekter/_index.md
         format: yaml-frontmatter
@@ -343,11 +329,28 @@ content:
           - name: beskrivelse
             label: "Meta-beskrivelse (SEO)"
             type: text
+          - name: undertitel
+            label: "Lille tekst over overskriften"
+            type: string
+          - name: resume
+            label: "Kort intro"
+            type: text
+          - name: ydelser
+            label: "Ydelser"
+            type: object
+            list: true
+            fields:
+              - name: navn
+                label: "Navn"
+                type: string
+              - name: tekst
+                label: "Beskrivelse"
+                type: text
           - name: body
-            label: "Brødtekst"
+            label: "Brødtekst (valgfri)"
             type: rich-text
       - name: projekter_da
-        label: "Projekter"
+        label: "Tidligere projekter"
         type: collection
         path: content/da/projekter
         format: yaml-frontmatter
@@ -404,42 +407,6 @@ content:
           - name: resume
             label: "Kort resume (til kortet og meta)"
             type: text
-          - name: body
-            label: "Brødtekst"
-            type: rich-text
-      - name: ydelser_da
-        label: "Ydelser"
-        type: file
-        path: content/da/ydelser/index.md
-        format: yaml-frontmatter
-        fields:
-          - name: title
-            label: "Intern titel"
-            type: string
-            required: true
-          - name: titel
-            label: "Browser-titel (SEO)"
-            type: string
-          - name: beskrivelse
-            label: "Meta-beskrivelse (SEO)"
-            type: text
-          - name: undertitel
-            label: "Lille tekst over overskriften"
-            type: string
-          - name: resume
-            label: "Kort resume"
-            type: text
-          - name: ydelser
-            label: "Ydelser"
-            type: object
-            list: true
-            fields:
-              - name: navn
-                label: "Navn"
-                type: string
-              - name: tekst
-                label: "Beskrivelse"
-                type: text
           - name: body
             label: "Brødtekst"
             type: rich-text

@@ -36,7 +36,7 @@ bare filerne direkte.
 | Forside: hero, fakta, om-blok, brødtekst | `content/da/_index.md` |
 | Projekter: opret/slet, titel, kategori, år, rækkefølge, cover + galleri, før/efter-billeder, tekst | `content/da/projekter/*.md` |
 | Projekter (oversigtstekst) | `content/da/projekter/_index.md` |
-| Ydelser: intro + liste af ydelser | `content/da/ydelser/index.md` |
+| Ydelser & projekter: intro, ydelsesliste og projektoversigt | `content/da/projekter/_index.md` |
 | Om-siden | `content/da/om/index.md` |
 | Kontakt-siden | `content/da/kontakt/index.md` |
 | Alle billeder (upload, udskift) | `assets/images/**` via mediebiblioteket |

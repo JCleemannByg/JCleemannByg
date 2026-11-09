@@ -1,16 +1,36 @@
 {{ define "main" }}
 <div class="shell page-head">
-  <p class="eyebrow">{{ i18n "all_projects" }}</p>
+  <p class="eyebrow">{{ .Params.undertitel | default (i18n "services") }}</p>
   <h1 class="page-title">{{ .Title }}</h1>
-  {{ with .Params.beskrivelse }}<p class="page-lead">{{ . }}</p>{{ end }}
+  {{ with .Params.resume }}<p class="page-lead">{{ . }}</p>{{ end }}
 </div>
 
-<div class="shell page-body">
+<div class="shell page-body page-body--merged">
+  {{ with .Params.ydelser }}
+  <ul class="services__list services__list--page">
+    {{- range $i, $s := . }}
+    <li class="service">
+      <span class="service__num">{{ printf "%02d" (add $i 1) }}</span>
+      <span class="service__body">
+        <span class="service__name">{{ $s.navn }}</span>
+        <span class="service__desc">{{ $s.tekst }}</span>
+      </span>
+    </li>
+    {{- end }}
+  </ul>
+  {{ end }}
+
   {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+  <h2 class="section-title projects-heading">{{ i18n "earlier_projects" }}</h2>
   <div class="cards">
     {{- range .Pages.ByWeight }}
     {{ partial "project-card.html" (dict "page" .) }}
     {{- end }}
   </div>
+
+  {{ with site.GetPage "/kontakt" }}
+  <p class="page-cta"><a class="button" href="{{ .RelPermalink }}">{{ i18n "contact_heading" }}</a></p>
+  {{ end }}
 </div>
 {{ end }}

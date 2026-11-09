@@ -53,10 +53,9 @@ hvad der kan redigeres (inkl. farver og typografi) og hvad der bevidst ikke kan:
 
 | Fil | Side |
 |---|---|
-| `content/da/_index.md` | Forsiden (hero, fakta, om-blok, Instagram) |
-| `content/da/projekter/_index.md` | Projektoversigt |
+| `content/da/_index.md` | Forsiden (hero, om-blok, Instagram) |
+| `content/da/projekter/_index.md` | Ydelser & tidligere projekter (ydelsesliste + projektoversigt) |
 | `content/da/projekter/*.md` | Én fil pr. projekt |
-| `content/da/ydelser/index.md` | Ydelser |
 | `content/da/om/index.md` | Om værkstedet |
 | `content/da/kontakt/index.md` | Kontakt |
 
@@ -118,7 +117,7 @@ forsiden.
 | `layouts/baseof.html` | Fælles HTML-skelet (header, main, footer) |
 | `layouts/index.html` | Forsiden |
 | `layouts/projekter/` | Projektoversigt + projektside |
-| `layouts/ydelser/`, `om/`, `kontakt/` | De øvrige sider |
+| `layouts/om/`, `kontakt/` | De øvrige sider |
 | `layouts/partials/` | Header, footer, sprogskifter, responsivt billede, projektkort |
 | `hugo.toml` | Sprog, menu, adresse, telefon, e-mail, CVR |
 

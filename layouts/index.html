@@ -19,61 +19,19 @@
   </div>
 </section>
 
-<section class="section section--intro">
-  <div class="shell intro">
-    {{ with .Content }}<div class="intro__body prose prose--lead">{{ . }}</div>{{ end }}
-    {{ with .Params.fakta }}
-    <dl class="facts">
-      {{- range . }}
-      <div class="fact">
-        <dt>{{ .navn }}</dt>
-        <dd>{{ .tekst }}</dd>
-      </div>
-      {{- end }}
-    </dl>
-    {{ end }}
-  </div>
-</section>
-
 {{- $projects := where site.RegularPages "Section" "projekter" -}}
 {{- if $projects }}
 <section class="section section--projects">
   <div class="shell">
     <header class="section-head">
       <h2 class="section-title">{{ i18n "featured" }}</h2>
-      {{ with site.GetPage "/projekter" }}<a class="section-link" href="{{ .RelPermalink }}">{{ i18n "all_projects" }}<span aria-hidden="true"> →</span></a>{{ end }}
+      {{ with site.GetPage "/projekter" }}<a class="section-link" href="{{ .RelPermalink }}">{{ i18n "services_projects_link" }}<span aria-hidden="true"> →</span></a>{{ end }}
     </header>
     <div class="cards">
       {{- range first 3 $projects.ByWeight }}
       {{ partial "project-card.html" (dict "page" .) }}
       {{- end }}
     </div>
-  </div>
-</section>
-{{- end }}
-
-{{- with site.GetPage "/ydelser" }}
-<section class="section section--services">
-  <div class="shell services">
-    <div class="services__intro">
-      <p class="eyebrow">{{ i18n "services" }}</p>
-      <h2 class="section-title">{{ .Title }}</h2>
-      {{ with .Params.resume }}<p class="services__text">{{ . }}</p>{{ end }}
-      <a class="section-link" href="{{ .RelPermalink }}">{{ i18n "read_more" }}<span aria-hidden="true"> →</span></a>
-    </div>
-    {{ with .Params.ydelser }}
-    <ul class="services__list">
-      {{- range $i, $s := first 4 . }}
-      <li class="service">
-        <span class="service__num">{{ printf "%02d" (add $i 1) }}</span>
-        <span class="service__body">
-          <span class="service__name">{{ $s.navn }}</span>
-          <span class="service__desc">{{ $s.tekst }}</span>
-        </span>
-      </li>
-      {{- end }}
-    </ul>
-    {{ end }}
   </div>
 </section>
 {{- end }}

@@ -23,24 +23,47 @@ og der indlæses **ingen tredjeparts-scripts**. Det er et bevidst valg, ikke en 
 
 Billederne bliver automatisk skaleret og leveret som WebP i flere størrelser.
 
-## De fire muligheder, hvis "live" er et krav
+## Kan siden vise "alt fra Instagram" automatisk?
 
-| | Automatisk opdatering | Pris | Vedligehold | Vurdering |
-|---|---|---|---|---|
-| **A. Kurateret galleri (nu)** | Nej, du vælger billeder | 0 | Kopiér et billede når noget er værd at vise | **Anbefalet.** Hurtigst, ingen cookies, matcher designet, holder for evigt. |
-| **B. Officiel embed pr. opslag** (`embed.js`) | Ja, pr. opslag | 0 | Indsæt embed-kode ved hvert nyt opslag; kan kræve klik-for-at-indlæse af hensyn til samtykke | God til 1–3 udvalgte opslag. Kræver klik-for-at-indlæse (GDPR) og kan give tomme felter, hvis et opslag slettes. |
-| **C. Instagram Graph API** | Ja, automatisk feed | 0 (API) | Business/Creator-konto + Meta app-review + token, der skal fornyes senest hver 60. dag + planlagt genopbygning | **Frarådes** til denne type site. Bliver en vedligeholdelsesfælde. |
-| **D. Tredjeparts-widget** (LightWidget, SnapWidget, Elfsight) | Ja | Gratis tier med branding, ellers ca. 15–120 $/år | Endnu en konto og leverandør at holde øje med; tredjeparts-cookies | Kun hvis et automatisk grid er et hårdt krav. |
+Ja — men ikke med én officiel indbygningsløsning, og ikke helt gratis uden afvejninger.
+Verificeret 2026-11-09:
+
+| Løsning | Opdateres | Pris | Vigtigt |
+|---|---|---|---|
+| **Instagram-embed af profilen** (iframe `instagram.com/<bruger>/embed/`) | — | — | **Umuligt:** Instagram svarer med `X-Frame-Options: DENY`, så profilen kan ikke indlejres. Officiel embed findes kun pr. opslag, ikke som grid. |
+| **SnapWidget, gratis** | **hvert 15. minut** | 0 | 5 layouts, ubegrænsede widgets/visninger, foto-tilpasning. **Ulempe:** klik på et foto åbner en SnapWidget-side i stedet for Instagram-opslaget. Links til Instagram + 5-min opdatering kræver Lite (8 $/md). |
+| **LightWidget, gratis** | hvert 24. time | 0 | **HTTPS er slået fra i gratisversionen** (deres egen sammenligningstabel), så den kan ikke bruges på GitHub Pages. |
+| **LightWidget, upgraded** | **hvert 30. minut** | **15 $ én gang pr. widget** | HTTPS, CDN, ingen watermark, mail ved udløbet token. Token udløber ca. hver 3. måned og fornyes i deres dashboard. |
+| **Egen pipeline (GitHub Actions + Instagram API)** | fx hvert 6.–24. time | 0 | Kræver Instagram **professionel konto** (Business/Creator), Meta-app, langlivet token (~60 dage) og et planlagt build. Ingen tredjeparts-kode på siden, fuld designkontrol. Mest vedligehold. |
+| **Uofficielle scrapers** | — | — | **Nej.** Bryder Instagrams vilkår og holder op med at virke uden varsel. |
+
+Bemærk: heller ikke en widget viser "alt" — den viser de nyeste N opslag (ofte 12–24 med
+"load more"). Det er også det rigtige: porteføljen på siden skal være kurateret, ikke et
+spejl af hele arkivet.
 
 ## Anbefaling
 
-Behold **A**, og tilføj eventuelt **B** til et enkelt eller to opslag, hvis der skal vises
-"live"-indhold. C og D løser et problem, siden ikke har: Johann poster allerede på
-Instagram, og de bedste billeder bliver kopieret ind i porteføljen — der er ingen grund til
-at bygge en skrøbelig integration for at vise de samme billeder igen.
+**LightWidget upgraded til 15 $ én gang** er den bedste kombination for denne side: klik
+går til Instagram-opslaget, opdatering hvert 30. minut, ingen branding, HTTPS virker, og
+der er ingen månedlig udgift. SnapWidget gratis er alternativet, hvis 0 kr. er et krav —
+men så lander besøgende på en SnapWidget-side ved klik.
 
-## Hvis B skal aktiveres
+Den kuraterede sektion bevares som **fallback**: Hvis widgetten ikke kan indlæses, viser
+siden stadig de udvalgte billeder fra `data/instagram.yaml`. Det er også det, der sker nu.
 
-Det kræver konkrete opslags-URL'er (format `https://www.instagram.com/p/…/`) fra Johanns
-konto. Så bygges en lille komponent, der først indlæser Metas `embed.js`, når besøgende selv
-klikker "Vis opslag" — så er der ingen tredjeparts-cookies før samtykke.
+## Sådan sætter du en widget ind
+
+1. Opret widgetten hos udbyderen, og forbind Johanns Instagram-konto (han skal logge ind
+   og godkende adgangen — det kan ikke gøres uden ham).
+2. Kopiér widget-koden.
+3. Sæt den ind i `hugo.toml`:
+
+```toml
+[params]
+  instagram_widget = '<script src="…"></script><div class="…">…</div>'
+```
+
+4. Genopbyg. Er `instagram_widget` tom, vises det kuraterede galleri i stedet.
+
+Widget-koden indsættes uændret, så udbyderens opdateringer af koden kan kopieres ind på
+samme måde senere.

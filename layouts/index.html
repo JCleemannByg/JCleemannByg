@@ -103,6 +103,12 @@
       <p class="ig__desc">{{ i18n "instagram_text" }}</p>
       <a class="button button--light" href="{{ .profile_url }}" target="_blank" rel="me noopener">{{ i18n "follow" }} @{{ site.Params.instagram }}</a>
     </div>
+    {{- $widget := site.Params.instagram_widget }}
+    {{- if $widget }}
+    <div class="ig__widget">
+      {{ $widget | safeHTML }}
+    </div>
+    {{- else }}
     {{- with .items }}
     <ul class="ig__grid">
       {{- range . }}
@@ -114,6 +120,7 @@
       </li>
       {{- end }}
     </ul>
+    {{- end }}
     {{- end }}
   </div>
 </section>

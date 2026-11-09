@@ -584,6 +584,15 @@ a { color: inherit; }
 
 .ig__grid { list-style: none; }
 
+.ig__widget {
+  min-width: 0;
+  color: #c9c1b1;
+}
+
+.ig__widget iframe,
+.ig__widget img,
+.ig__widget > * { max-width: 100%; }
+
 .ig__item { margin: 0; }
 
 .ig__link {

@@ -24,6 +24,10 @@ disableKinds = ['taxonomy', 'term', 'rss']
   instagram = 'jcleemann_byg'
   maps_url = 'https://www.google.com/maps/search/?api=1&query=N%C3%A6rum+Hovedgade+15%2C+2850+N%C3%A6rum'
   og_image = 'images/hero.jpg'
+  # Optional live Instagram feed: paste the widget embed code from the provider
+  # (SnapWidget/LightWidget). Empty string = the curated gallery from
+  # data/instagram.yaml is used instead. See docs/instagram.md.
+  instagram_widget = ""
 
 [imaging]
   [imaging.jpeg]

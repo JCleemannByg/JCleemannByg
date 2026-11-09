@@ -5,12 +5,6 @@
 </head>
 <body class="{{ if .IsHome }}template-home{{ else }}template-{{ .Section | default "page" }}{{ end }}">
   <a class="skip-link" href="#main">{{ i18n "skip" }}</a>
-  {{- if eq hugo.Environment "preview" }}
-  <div class="preview-bar" role="status">
-    <span>Forhåndsvisning af <strong>develop</strong> — ændringer er ikke publiceret.</span>
-    <a href="{{ strings.TrimSuffix "preview/" site.Home.Permalink }}">Se den publicerede side</a>
-  </div>
-  {{- end }}
   {{ partial "header.html" . }}
   <main id="main">
     {{ block "main" . }}{{ end }}

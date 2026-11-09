@@ -31,16 +31,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout production source (main)
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Checkout develop for the preview build
-        id: preview_src
-        continue-on-error: true
-        uses: actions/checkout@v4
-        with:
-          ref: develop
-          path: preview-src
 
       - name: Setup pixi environment (Hugo, Python, Pillow from pixi.lock)
         uses: prefix-dev/setup-pixi@v0.11.3
@@ -73,32 +65,10 @@ jobs:
           echo "Building for ${BASE_URL}"
           BASE_URL="$BASE_URL" pixi run build
 
-      - name: Verify production (language, links, image dimensions, base path)
+      - name: Verify (language, links, image dimensions, base path)
         env:
           VERIFY_BASE: /${{ github.event.repository.name }}/
         run: pixi run verify
-
-      - name: Build preview from develop
-        if: steps.preview_src.outcome == 'success'
-        continue-on-error: true
-        env:
-          REPO_OWNER: ${{ github.repository_owner }}
-          REPO_NAME: ${{ github.event.repository.name }}
-        run: |
-          HOST="https://$(echo "$REPO_OWNER" | tr '[:upper:]' '[:lower:]').github.io/${REPO_NAME}"
-          echo "Preview at ${HOST}/preview/"
-          pixi run hugo --environment preview \
-            --source preview-src \
-            --minify --cleanDestinationDir \
-            --baseURL "${HOST}/preview/" \
-            --destination "${PWD}/public/preview"
-
-      - name: Verify preview (best effort)
-        if: steps.preview_src.outcome == 'success'
-        continue-on-error: true
-        env:
-          VERIFY_BASE: /${{ github.event.repository.name }}/preview/
-        run: pixi run python3 scripts/verify.py --public public/preview
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

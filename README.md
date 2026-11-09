@@ -208,9 +208,7 @@ branches and tags**.
 
 | Workflow | Gør |
 |---|---|
-| `deploy.yml` | Ved push til `main`, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer billeder, bygger produktion fra `main` + preview fra `develop`, verificerer og publicerer |
-| `preview-sync.yml` | Ved push til `develop`: beder om et `main`-deploy, så preview-URL'en opdateres |
-| `check.yml` | Ved push til `develop` og PR mod `main`: ekstra byg+verifikation af branchen |
+| `deploy.yml` | Ved push til `main`, dagligt og manuelt: opdaterer Instagram-snapshot, nedskalerer billeder, bygger, verificerer og publicerer |
 | `cms-action.yml` | Triggeres af knappen "Genbyg og publicér" i Pages CMS og kører `deploy.yml` på `main` |
 
 Alt sker **i build-runneren** — der laves ingen bot-commits. Derfor kræver workflowet kun
@@ -228,48 +226,6 @@ bliver opdateret automatisk; det er kun den publicerede side, der altid er frisk
 3. Settings → Pages → Custom domain + Enforce HTTPS.
 
 ---
-
-## Branches og forhåndsvisning
-
-| Branch | Rolle | Publiceres |
-|---|---|---|
-| **`main`** | Produktion | Ja — på `/` |
-| **`develop`** | Udkast/eksperimenter | Ja — som **preview** på `/preview/`, men `noindex` |
-
-Der er altså en rigtig preview-URL:
-
-- **Produktion:** <https://jcleemannbyg.github.io/JCleemannByg/>
-- **Preview (develop):** <https://jcleemannbyg.github.io/JCleemannByg/preview/>
-
-Sådan virker det: push til `main` deployer direkte. Push til `develop` starter
-`preview-sync.yml`, som **beder `deploy.yml` om at køre på `main`** — det er nødvendigt,
-fordi GitHub Pages behandler deployment fra en ikke-standard-branch som en separat
-preview-deployment, der ikke opdaterer den publicerede side. Deployet bygger derfor
-produktion fra `main` og `develop` ind i samme artifact under `/preview/` med
-`--environment preview` (giver `noindex` og en synlig preview-bar). Fejler `develop`,
-deployer produktionen stadig.
-
-I Pages CMS skifter du branch øverst i UI'et. Rediger på `develop`, se resultatet på
-preview-URL'en, og flet derefter `develop` → `main`, når det skal live. Bemærk at
-**"Genbyg og publicér"-knappen altid deployer `main`** (produktion).
-
-Environmentet **github-pages** skal kun tillade `main` (deploy sker altid på `main`).
-`develop` deployes aldrig direkte.
-
-## Kladder pr. projekt (uden branch)
-
-Hvert projekt har en **Kladde**-knap i Pages CMS (`draft: true`). Det bruger Husos
-indbyggede draft-mekanisme:
-
-- **Produktion:** kladder bygges slet ikke — de er væk fra projektlisten, forsiden,
-  sitemap og har ingen URL på den offentlige side.
-- **Preview og lokal:** `develop`-preview og `pixi run dev` bygges med `--buildDrafts`, så
-  kladden kan ses med et orange **KLADDE**-mærke på kortet og projektsiden.
-- Slå kladden fra, når projektet er klar — næste deploy publicerer det.
-
-Det er den nemme vej til "gem uden at publicere" uden at skifte branch eller flette noget.
-Bemærk: repoet er offentligt, så kladde-teksten ligger stadig i git — den er blot ikke på
-den publicerede side. Større omlægninger/eksperimenter hører fortsat på `develop`.
 
 ## Pages CMS-knapper (actions)
 

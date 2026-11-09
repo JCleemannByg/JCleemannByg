@@ -92,43 +92,6 @@ automatisk, når sproget dukker op:
   automatisk ved deploy og redigeres derfor ikke i CMS'et.
 - **Workflows, scripts og konfiguration** — udvikleransvar.
 
-## Kladder pr. indhold (Kladde-knappen)
-
-Projekter har feltet **“Kladde”** (`draft: true`). Det er Hugo's indbyggede draft-flag:
-
-| Hvor | Kladde synlig? |
-|---|---|
-| Produktion (`main` → `/`) | **Nej** — siden bygges ikke, linkes ikke, kommer ikke i sitemap |
-| Preview (`develop` → `/preview/`) | **Ja**, med orange KLADDE-mærke |
-| Lokalt (`pixi run dev`) | **Ja**, fordi dev-serveren kører med `--buildDrafts` |
-
-Arbejdsgang: opret/redigér projektet → slå **Kladde** til → gem. Det dukker op på
-preview/local med mærke, men ikke på den offentlige side. Slå fra, når det er klar.
-
-Forbehold: indholdet committes stadig (repoet er offentligt), så kladder er ikke
-hemmelige — kun upublicerede. Til større redesign/eksperimenter er `develop`-branchen
-stadig det rigtige værktøj; de to ting kan bruges sammen.
-
-## Branches (main og develop)
-
-Pages CMS har en branch-vælger, fordi den læser repoets branches. Opsætningen er:
-
-| Branch | Rolle | Hvad sker der ved push |
-|---|---|---|
-| `main` | Produktion | `deploy.yml` bygger og publicerer på `/` |
-| `develop` | Udkast/eksperimenter | `preview-sync.yml` beder om et `main`-deploy, som bygger preview på `/preview/` (noindex) |
-
-Sådan bruges det: vælg `develop` i Pages CMS, rediger frit, og se resultatet på
-**<https://jcleemannbyg.github.io/JCleemannByg/preview/>** (eller lokalt med
-`git checkout develop && pixi run dev`). Når du er tilfreds, flettes `develop` ind i `main`
-(gerne via pull request), og ændringerne går live.
-
-Preview-siden bygges fra `develop` ind i samme deployment som produktionen, får
-`noindex` og en synlig preview-bar. GitHub Pages behandler deployment fra andre branches
-som separate previews, der ikke opdaterer den publicerede side — derfor dispatcher
-`preview-sync.yml` et almindeligt `main`-deploy i stedet. Environmentet skal kun tillade
-`main`.
-
 ## Knapper i Pages CMS (actions)
 
 `actions` i `.pages.yml` tilføjer knapper, der dispatcher GitHub-workflows med et
@@ -158,13 +121,13 @@ ved gem (værdierne bevares).
 
 ## Hvad Pages CMS ikke har natively
 
-- **Ingen live preview / preview-panel** — derfor branch + `/preview/`-workflow.
+- **Ingen live preview / preview-panel** — ændringer publiceres direkte ved næste deploy.
 - **Ingen editorial workflow** (kladde → review → publicér) og ingen planlagt publicering.
 - **Ingen versionshistorik i UI'et** — brug git/PR på GitHub.
 
 Vil man have de ting "natively", er det en anden CMS-type (fx Decap CMS' editorial workflow,
-TinaCMS' live preview, Sanity/Storyblok med visual editing) eller hosting med branch-previews
-(Netlify/Cloudflare Pages). Det bytter simple, gratis GitHub Pages for mere infrastruktur.
+TinaCMS' live preview eller Sanity/Storyblok med visual editing). Det bytter den simple,
+gratis GitHub Pages-opsætning for mere infrastruktur.
 
 ## Forbehold
 

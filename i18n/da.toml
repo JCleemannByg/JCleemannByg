@@ -1,6 +1,5 @@
 # Danish UI strings. Keys missing here fall back to the English file.
 skip = 'Spring til indhold'
-draft = 'Kladde'
 nav_label = 'Hovedmenu'
 language = 'Sprog'
 brand_sub = 'Tømrer & snedker · Nærum'

@@ -604,7 +604,7 @@ a { color: inherit; }
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 5;
   padding: 0;
   overflow: hidden;
   border: 1px solid rgba(246, 241, 231, 0.18);

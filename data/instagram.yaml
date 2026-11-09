@@ -1,43 +1,63 @@
-# Instagram-indhold til forsiden.
+# Instagram på forsiden.
 #
-# To måder at vise Instagram — vælg med `posts` og `items`:
+# posts  → links til konkrete opslag. Hvert opslag vises som et felt; først når
+#          besøgende klikker, indlæses Instagrams officielle embed. Ingen login,
+#          ingen token, ingen tredjeparts-cookies før klikket.
+# items  → kuraterede lokale billeder. Bruges som fallback hvis `posts` er tom.
 #
-#   posts  → en liste af LINKS til konkrete opslag. Hvert opslag vises som et
-#            klikbart felt; først når besøgende klikker, indlæses Instagrams
-#            officielle embed. Kræver ingen login, ingen token og sætter ingen
-#            cookies før klikket.
+# Nyt opslag: kopiér linket i Instagram-appen (⋯ → Kopiér link), læg et
+# forhåndsbillede i assets/images/instagram/posts/ og tilføj en post nedenfor.
 #
-#   items  → kuraterede lokale billeder (fallback når `posts` er tom).
-#
-# Hvert post:
-#   url      link til opslaget, fx https://www.instagram.com/p/ABC123/
-#   image    valgfrit lokalt forhåndsbillede i assets/ (anbefales — så ser
-#            sektionen færdig ud, før nogen klikker)
-#   caption  billedtekst på dansk og engelsk
-#
-# Eksempel:
-#   posts:
-#     - url: "https://www.instagram.com/p/ABC123/"
-#       image: "images/instagram/01.jpg"
-#       caption:
-#         da: "Køkken i massiv eg"
-#         en: "Kitchen in solid oak"
-posts: []
+# Forhåndsbillederne er Johanns egne opslag fra @jcleemann_byg (bekræft gerne
+# med ham, at de må bruges på siden).
+posts:
+  - url: "https://www.instagram.com/p/DfFurHPtOCG/"
+    image: "images/instagram/posts/DfFurHPtOCG.jpg"
+    caption:
+      da: "Meget kan man love sig selv. Men jeg kan kun holde det, jeg lover over for andre."
+      en: "You can promise yourself a lot — but I can only keep the promises I make to others."
+  - url: "https://www.instagram.com/p/De1PL7ANm3x/"
+    image: "images/instagram/posts/De1PL7ANm3x.jpg"
+    caption:
+      da: "Taget er saneret, og vi kan begynde at isolere nu, hvor fugtigheden er lav nok igen."
+      en: "The roof has been cleaned up and we can start insulating now that the moisture is low enough again."
+  - url: "https://www.instagram.com/p/DeytxIkDWyf/"
+    image: "images/instagram/posts/DeytxIkDWyf.jpg"
+    caption:
+      da: "Radiatorskjuler på mål med to hængslede låger og en på magneter."
+      en: "Made-to-measure radiator cover with two hinged doors and one on magnets."
+  - url: "https://www.instagram.com/p/DdmMtu7NqLj/"
+    image: "images/instagram/posts/DdmMtu7NqLj.jpg"
+    caption:
+      da: "Sådan sætter man limtræ op på 35 sekunder."
+      en: "How to put up a glulam beam in 35 seconds."
+  - url: "https://www.instagram.com/p/DdZRJolt_Ak/"
+    image: "images/instagram/posts/DdZRJolt_Ak.jpg"
+    caption:
+      da: "En bogreol, jeg har bygget."
+      en: "A bookcase I built."
+  - url: "https://www.instagram.com/p/Da0C9iaNXn5/"
+    image: "images/instagram/posts/Da0C9iaNXn5.jpg"
+    caption:
+      da: "29 grader, og jeg kampsveder. Kan man få sikkerhedsslippers?"
+      en: "29 degrees and I am sweating. Can you get safety slippers?"
 
 profile_url: "https://www.instagram.com/jcleemann_byg/"
+
+# Fallback hvis `posts` tømmes.
 items:
-  - image: "images/instagram/01.jpg"
-    url: "https://www.instagram.com/jcleemann_byg/"
+  - image: "images/instagram/posts/DeytxIkDWyf.jpg"
+    url: "https://www.instagram.com/p/DeytxIkDWyf/"
     caption:
-      da: "Køkken i massiv eg"
-      en: "Kitchen in solid oak"
-  - image: "images/instagram/02.jpg"
-    url: "https://www.instagram.com/jcleemann_byg/"
+      da: "Radiatorskjuler på mål"
+      en: "Made-to-measure radiator cover"
+  - image: "images/instagram/posts/De1PL7ANm3x.jpg"
+    url: "https://www.instagram.com/p/De1PL7ANm3x/"
     caption:
-      da: "Indbyggede skabe"
-      en: "Built-in cupboards"
-  - image: "images/instagram/03.jpg"
-    url: "https://www.instagram.com/jcleemann_byg/"
+      da: "Sanering af tag"
+      en: "Roof work"
+  - image: "images/instagram/posts/DdZRJolt_Ak.jpg"
+    url: "https://www.instagram.com/p/DdZRJolt_Ak/"
     caption:
-      da: "Renovering i Rudersdal"
-      en: "Renovation in Rudersdal"
+      da: "Bogreol"
+      en: "Bookcase"

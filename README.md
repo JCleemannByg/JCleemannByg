@@ -130,7 +130,9 @@ Der er to måder at vise Instagram på, begge i `data/instagram.yaml`:
 
 - **`posts`** (anbefalet): en liste af **links til konkrete opslag**. Hvert opslag vises
   som et felt; først ved klik indlæses Instagrams officielle embed — ingen login, ingen
-  token, ingen cookies før klikket. Kræver et link pr. opslag, som lægges ind manuelt.
+  token, ingen cookies før klikket. Filen er nu fyldt med Johanns **6 nyeste opslag**
+  (billeder og tekster hentet fra hans egen Instagram); ældre opslag tilføjes ved at
+  kopiere linket i appen.
 - **`items`**: kuraterede lokale billeder. Bruges automatisk som fallback når `posts` er
   tom (det er den nuværende tilstand).
 

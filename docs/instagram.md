@@ -81,6 +81,25 @@ indlæses korrekt i sidens design (se `docs/preview/ig-tiles.png` og
 opslag kræver, at der lægges et link ind — 30 sekunders arbejde pr. opslag, ingen login,
 ingen tokens, intet der kan udløbe. Det er byttet for at slippe for API-vedligehold.
 
+## Hvordan de første opslag blev fundet (uden login)
+
+Profilens **offentlige embed-endpoint** (`https://www.instagram.com/jcleemann_byg/embed/`,
+åbnet med en mobil browser-UA) returnerer profilens kontekst som JSON — inklusive de
+**6 nyeste opslag** med shortcodes, billed-URL'er og tekst. Det blev brugt én gang manuelt
+til at hente:
+
+- 6 post-links → `data/instagram.yaml`
+- 6 forhåndsbilleder (skaleret til 900 px) → `assets/images/instagram/posts/`
+- de originale danske tekster (kortet ned) + engelsk oversættelse til alt/aria
+
+Regnskabet for kontoen: **@jcleemann_byg (J Cleemann Byg / Johann Cleemann)**,
+20 opslag, 89 følgere. Embed-endpointet viser kun de nyeste 6; ældre opslag lægges ind ved
+at kopiere linket i Instagram-appen.
+
+Vigtigt: **siden skraber ikke**. Den viser kun de links, der står i filen, plus lokale
+forhåndsbilleder. Endpointet kan ændre sig uden varsel — derfor er det kun brugt som
+engangs-hjælp, ikke som en afhængighed.
+
 ## Uden Instagram-login? — efterprøvet 2026-11-09
 
 Kort svar: **Nej, ikke for en automatisk feed.** Instagram kræver, at ejeren af kontoen

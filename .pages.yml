@@ -370,18 +370,24 @@ content:
           - name: kategori
             label: "Kategori (fx Indbygning, Møbler, Udvendigt)"
             type: string
+            required: true
           - name: aar
             label: "År"
             type: number
+            required: true
             options:
               min: 2000
               max: 2100
           - name: weight
             label: "Rækkefølge (lav = først)"
+            description: "Lavere tal vises først. Brug fx 10, 20, 30."
             type: number
+            required: true
           - name: cover
             label: "Forsidebillede"
+            description: "Bredt billede til projektkortet. Skal med, så kortet ikke står tomt."
             type: image
+            required: true
           - name: galleri
             label: "Galleri"
             type: image

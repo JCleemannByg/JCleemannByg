@@ -6,6 +6,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Commits made by the built-in GITHUB_TOKEN do not trigger `push` workflows,
+  # so the Instagram refresh workflow tells deploy to rebuild when it finishes.
+  workflow_run:
+    workflows: ["Refresh Instagram posts"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:

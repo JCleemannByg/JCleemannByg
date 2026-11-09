@@ -95,6 +95,11 @@
 {{- end }}
 
 {{- with hugo.Data.instagram }}
+{{- $posts := .posts -}}
+{{- with hugo.Data.instagram_posts -}}
+  {{- with .posts }}{{ $posts = . }}{{ end -}}
+{{- end -}}
+{{- $profileURL := .profile_url -}}
 <section class="ig">
   {{- $hasWidget := site.Params.instagram_widget -}}
   <div class="shell ig__inner{{ if $hasWidget }} ig__inner--widget{{ end }}">
@@ -102,26 +107,22 @@
       <p class="eyebrow eyebrow--light">{{ i18n "instagram_label" }}</p>
       <h2 class="ig__title">{{ i18n "instagram_heading" }}</h2>
       <p class="ig__desc">{{ i18n "instagram_text" }}</p>
-      <a class="button button--light" href="{{ .profile_url }}" target="_blank" rel="me noopener">{{ i18n "follow" }} @{{ site.Params.instagram }}</a>
+      <a class="button button--light" href="{{ $profileURL }}" target="_blank" rel="me noopener">{{ i18n "follow" }} @{{ site.Params.instagram }}</a>
     </div>
-    {{- $widget := site.Params.instagram_widget }}
-    {{- if $widget }}
-    <div class="ig__widget">
-      {{ $widget | safeHTML }}
-    </div>
-    {{- else if .posts }}
+    {{- if $hasWidget }}
+    <div class="ig__widget">{{ $hasWidget | safeHTML }}</div>
+    {{- else if $posts }}
     <div class="ig__posts">
       <ul class="ig__posts-grid">
-        {{- range .posts }}
+        {{- range $posts }}
         {{- $caption := index .caption site.Language.Lang | default (index .caption "da") | default "Instagram" }}
         <li class="ig__post">
-          <button class="ig__post-btn" type="button" data-ig-post="{{ .url }}" aria-expanded="false" aria-controls="ig-embed-panel" aria-label="{{ i18n "instagram_view_post" }}: {{ $caption }}">
+          <button class="ig__post-btn" type="button" data-ig-post="{{ .url }}" aria-expanded="false" aria-controls="ig-embed-panel" aria-label="{{ i18n "instagram_open_post" }}: {{ $caption }}">
             {{- with .image }}
             {{ partial "responsive-img.html" (dict "src" . "alt" $caption "sizes" "(min-width: 900px) 15vw, 30vw" "widths" (slice 360 540 720)) }}
             {{- else }}
             <span class="ig__post-placeholder" aria-hidden="true">Instagram</span>
             {{- end }}
-            <span class="ig__post-hint">{{ i18n "instagram_view_post" }}</span>
           </button>
         </li>
         {{- end }}
@@ -143,13 +144,13 @@
     {{- end }}
   </div>
 
-  {{- if .posts }}
+  {{- if $posts }}
   <div class="shell">
     <div class="ig__embed" id="ig-embed-panel" data-ig-panel hidden>
       <div class="ig__embed-bar">
         <p class="ig__embed-label">{{ i18n "instagram_embed_label" }}</p>
         <div class="ig__embed-actions">
-          <a class="ig__embed-open" data-ig-open href="{{ .profile_url }}" target="_blank" rel="noopener">{{ i18n "instagram_open" }}</a>
+          <a class="ig__embed-open" data-ig-open href="{{ $profileURL }}" target="_blank" rel="noopener">{{ i18n "instagram_open" }}</a>
           <button class="ig__embed-close" type="button" data-ig-close aria-label="{{ i18n "close" }}">&times;</button>
         </div>
       </div>

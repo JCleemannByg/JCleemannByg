@@ -8,8 +8,8 @@
 # Nyt opslag: kopiér linket i Instagram-appen (⋯ → Kopiér link), læg et
 # forhåndsbillede i assets/images/instagram/posts/ og tilføj en post nedenfor.
 #
-# Forhåndsbillederne er Johanns egne opslag fra @jcleemann_byg (bekræft gerne
-# med ham, at de må bruges på siden).
+# Forhåndsbillederne er Johanns egne opslag fra @jcleemann_byg. Han har bekræftet,
+# at de må bruges på siden.
 posts:
   - url: "https://www.instagram.com/p/DfFurHPtOCG/"
     image: "images/instagram/posts/DfFurHPtOCG.jpg"

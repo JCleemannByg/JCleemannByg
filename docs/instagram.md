@@ -92,6 +92,8 @@ til at hente:
 - 6 forhåndsbilleder (skaleret til 900 px) → `assets/images/instagram/posts/`
 - de originale danske tekster (kortet ned) + engelsk oversættelse til alt/aria
 
+Johann har bekræftet, at opslagene og billederne må bruges på siden.
+
 Regnskabet for kontoen: **@jcleemann_byg (J Cleemann Byg / Johann Cleemann)**,
 20 opslag, 89 følgere. Embed-endpointet viser kun de nyeste 6; ældre opslag lægges ind ved
 at kopiere linket i Instagram-appen.
@@ -99,6 +101,33 @@ at kopiere linket i Instagram-appen.
 Vigtigt: **siden skraber ikke**. Den viser kun de links, der står i filen, plus lokale
 forhåndsbilleder. Endpointet kan ændre sig uden varsel — derfor er det kun brugt som
 engangs-hjælp, ikke som en afhængighed.
+
+## Automatisk opdatering (GitHub Actions)
+
+Ja — det er relativt enkelt, og det er bygget. To filer:
+
+| Fil | Gør |
+|---|---|
+| `scripts/fetch_instagram.py` | Henter det offentlige embed-endpoint, udtrækker de nyeste opslag, downloader manglende forhåndsbilleder (900 px) og skriver `data/instagram_posts.json`. Oversættelser og rækkefølge bevares. |
+| `.github/workflows/instagram.yml` | Kører scriptet **dagligt kl. 03:17 UTC** (og manuelt), committer kun hvis noget ændrede sig, og lader deploy-workflowet genbygge siden. |
+
+Sådan hænger det sammen:
+
+- Siden læser **kun** `data/instagram_posts.json` + de lokale billeder. Instagram kaldes
+  aldrig fra browseren.
+- Workflowet fejler ikke siden: kan endpointet ikke nås, eller ændrer Instagram sin
+  embed-side, bliver den forrige snapshot bare liggende (scriptet afslutter med fejl, men
+  jobbet fortsætter, og intet committes).
+- Billeder hentes kun, hvis de mangler — så et dagligt kør ikke skaber støjende diffs.
+- Engangsopsætning i repoet: **Settings → Actions → General → Workflow permissions →
+  "Read and write permissions"**, ellers må jobbet ikke committe.
+- Fordi commits lavet med det indbyggede `GITHUB_TOKEN` ikke udløser andre workflows, har
+  `deploy.yml` også et `workflow_run`-trigger, så siden genbygges efter hver opdatering.
+
+**Forbehold:** endpointet er offentligt og kræver ingen login, men det er ikke en officiel
+API. Det kan rate-limite, ændre struktur eller blive lukket. Derfor er kadencen daglig
+(lav belastning), og hele anlægget kan slås fra ved at slette workflow-filen — så holder
+den manuelle links-fil bare ved. Til en lille håndværksside er det en rimelig afvejning.
 
 ## Uden Instagram-login? — efterprøvet 2026-11-09
 

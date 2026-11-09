@@ -136,8 +136,14 @@ Der er to måder at vise Instagram på, begge i `data/instagram.yaml`:
 - **`items`**: kuraterede lokale billeder. Bruges automatisk som fallback når `posts` er
   tom (det er den nuværende tilstand).
 
-Nye opslag tilføjes ved at kopiere linket fra Instagram-appen ("⋯ → Kopiér link") og
-indsætte det i listen sammen med et valgfrit forhåndsbillede og en dansk/engelsk tekst.
+**Opdatering sker automatisk:** `.github/workflows/instagram.yml` kører dagligt,
+henter de nyeste opslag via `scripts/fetch_instagram.py`, gemmer nye forhåndsbilleder og
+committer `data/instagram_posts.json` (kun hvis noget er ændret). Siden genbygges derefter
+af deploy-workflowet. Fejler hentningen, bliver den forrige snapshot bare liggende.
+
+Nye eller ældre opslag kan stadig tilføjes manuelt i `data/instagram.yaml` — kopiér linket
+fra Instagram-appen ("⋯ → Kopiér link") og indsæt det sammen med et valgfrit
+forhåndsbillede og en dansk/engelsk tekst.
 Baggrund, testresultater og de øvrige muligheder (LightWidget, SnapWidget, API):
 [docs/instagram.md](docs/instagram.md).
 

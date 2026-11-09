@@ -635,19 +635,6 @@ a { color: inherit; }
 .ig__post-btn:hover::after,
 .ig__post-btn:focus-visible::after { opacity: 1; }
 
-.ig__post-hint {
-  position: absolute;
-  right: 0.6rem;
-  bottom: 0.55rem;
-  left: 0.6rem;
-  z-index: 1;
-  color: var(--paper);
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  text-align: left;
-  text-transform: uppercase;
-}
-
 .ig__post-placeholder {
   position: absolute;
   inset: 0;

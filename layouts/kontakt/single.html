@@ -1,53 +1,51 @@
 {{ define "main" }}
 {{- $site := hugo.Data.site -}}
-<div class="shell page-head">
-  {{ with .Params.undertitel }}<p class="eyebrow">{{ . }}</p>{{ end }}
-  <h1 class="page-title">{{ .Title }}</h1>
-  {{ with .Params.lead }}<p class="page-lead">{{ . }}</p>{{ end }}
-</div>
+<section class="contact-hero">
+  {{ with .Params.billede }}
+  <div class="contact-hero__media">
+    {{ partial "responsive-img.html" (dict "src" . "alt" (i18n "contact_image_alt") "sizes" "100vw" "widths" (slice 960 1440 1920)) }}
+  </div>
+  {{ end }}
+  <div class="contact-hero__shade"></div>
+  <div class="shell contact-hero__content">
+    {{ with .Params.undertitel }}<p class="eyebrow">{{ . }}</p>{{ end }}
+    <h1 class="contact-hero__title">{{ .Title }}</h1>
+    {{ with .Params.lead }}<p class="contact-hero__lead">{{ . }}</p>{{ end }}
+  </div>
+</section>
 
 <div class="shell page-body contact-page">
-  <div class="contact-page__grid">
-    <div class="contact-page__main">
-      <div class="contact-choices">
-        <a class="contact-choice" href="tel:{{ $site.phone_href }}">
-          <span class="contact-choice__label">{{ i18n "call" }}</span>
-          <span class="contact-choice__value">{{ $site.phone }}</span>
-        </a>
-        <a class="contact-choice contact-choice--email" href="mailto:{{ $site.email }}">
-          <span class="contact-choice__label">{{ i18n "write" }}</span>
-          <span class="contact-choice__value">{{ $site.email }}</span>
-        </a>
+  <div class="contact-details">
+    <div class="contact-details__direct">
+      <div class="contact-detail">
+        <span class="contact-detail__label">{{ i18n "call" }}</span>
+        <a class="contact-detail__phone" href="tel:{{ $site.phone_href }}">{{ $site.phone }}</a>
       </div>
-
-      <dl class="contact-details">
-        <div>
-          <dt>{{ i18n "address" }}</dt>
-          <dd>
-            {{ $site.street }}<br>
-            {{ $site.postal }}<br>
-            <a href="{{ $site.maps_url }}" target="_blank" rel="noopener">{{ i18n "open_map" }}<span aria-hidden="true"> →</span></a>
-          </dd>
-        </div>
-        {{ with .Params.omraade }}
-        <div>
-          <dt>{{ i18n "area" }}</dt>
-          <dd>{{ . }}</dd>
-        </div>
-        {{ end }}
-      </dl>
-
-      {{ with .Content }}<div class="prose contact-page__body">{{ . }}</div>{{ end }}
+      <div class="contact-detail">
+        <span class="contact-detail__label">{{ i18n "write" }}</span>
+        <a class="contact-detail__email" href="mailto:{{ $site.email }}">{{ $site.email }}</a>
+      </div>
     </div>
 
-    {{ with .Params.billede }}
-    <aside class="contact-page__aside">
-      <figure class="photo-matted">
-        {{ partial "responsive-img.html" (dict "src" . "alt" (i18n "contact_image_alt") "sizes" "(min-width: 900px) 34vw, 100vw" "widths" (slice 480 720 1080)) }}
-      </figure>
-      {{ with $.Params.billedtekst }}<p class="contact-area">{{ . }}</p>{{ end }}
-    </aside>
-    {{ end }}
+    <div class="contact-details__meta">
+      <div>
+        <span class="contact-detail__label">{{ i18n "address" }}</span>
+        <p>{{ $site.street }}<br>{{ $site.postal }}</p>
+        <a class="contact-detail__link" href="{{ $site.maps_url }}" target="_blank" rel="noopener">{{ i18n "open_map" }}<span aria-hidden="true"> →</span></a>
+      </div>
+      {{ with .Params.omraade }}
+      <div>
+        <span class="contact-detail__label">{{ i18n "area" }}</span>
+        <p>{{ . }}</p>
+      </div>
+      {{ end }}
+      <div class="contact-details__actions">
+        <a class="button" href="tel:{{ $site.phone_href }}">{{ i18n "call" }}</a>
+        <a class="button button--outline" href="mailto:{{ $site.email }}">{{ i18n "write" }}</a>
+      </div>
+    </div>
   </div>
+
+  {{ with .Content }}<div class="prose contact-page__body">{{ . }}</div>{{ end }}
 </div>
 {{ end }}

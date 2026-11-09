@@ -488,9 +488,6 @@ content:
           - name: omraade
             label: "Område"
             type: string
-          - name: billedtekst
-            label: "Billedtekst"
-            type: string
           - name: body
             label: "Brødtekst"
             type: rich-text
